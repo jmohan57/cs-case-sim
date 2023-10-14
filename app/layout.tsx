@@ -26,7 +26,9 @@ const stratumFont = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "CS Case Simulator"
+  title: "CS2 Case UI",
+  description: "Counter-Strike 2 case opening UI recreated in React.",
+  metadataBase: new URL("https://cs2-case-ui.vercel.app")
 };
 
 export default function RootLayout({

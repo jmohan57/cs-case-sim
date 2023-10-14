@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#main::before {
+  content: "";
+  background: url(/images/bg.jpg);
+  filter: brightness(80%);
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
