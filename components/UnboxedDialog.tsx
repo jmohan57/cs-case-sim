@@ -11,7 +11,7 @@ type Props = {
 export default ({ unboxedDialogRef, historyDialogRef, item }: Props) => {
   return (
     <dialog
-      className="mx-auto w-full max-w-lg border-[1px] border-white/30 bg-[#2d2d2d] text-xl text-white"
+      className="mx-auto w-full max-w-lg border-[1px] border-white/30 bg-[#2d2d2d] text-xl text-white backdrop:bg-transparent"
       ref={unboxedDialogRef}
     >
       <div className="flex flex-col">
