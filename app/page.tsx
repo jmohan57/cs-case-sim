@@ -1,4 +1,3 @@
-import Image from "next/image";
 import CaseSelect from "@/components/CaseSelect";
 import AboutButtonWithModal from "@/components/AboutButtonWithModal";
 import Item from "@/components/Item";
@@ -39,7 +38,7 @@ export default async function Home({
           Unlock <span className="font-semibold">{selectedCase.name}</span>
         </h4>
 
-        <Image
+        <img
           src={selectedCase.image}
           alt={`${selectedCase.name} image`}
           width={256}
