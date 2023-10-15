@@ -36,6 +36,14 @@ export default () => {
               >
                 here
               </Link>
+              . The data is fetched from{" "}
+              <Link
+                className="font-semibold hover:underline"
+                href="https://github.com/ByMykel/CSGO-API"
+                target="_blank"
+              >
+                here
+              </Link>
               .
             </p>
             <button
