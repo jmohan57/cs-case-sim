@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { GradeType } from "@/types";
 import gradeColors from "@/utils/gradeColors";
 
@@ -23,7 +22,7 @@ export default ({
           borderColor: gradeColors[grade] ?? gradeColors["Mil-Spec Grade"]
         }}
       >
-        <Image
+        <img
           className="p-2"
           src={image ?? "/images/m4a4_howl.png"}
           alt="Weapon image"

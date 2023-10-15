@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import gradeColors from "@/utils/gradeColors";
 import { GradeType, ItemType } from "@/types";
 
@@ -39,7 +38,7 @@ export default ({ unboxedDialogRef, historyDialogRef, item }: Props) => {
         <div className="flex flex-col p-2">
           {item && (
             <div>
-              <Image
+              <img
                 key={item.id}
                 src={item.image}
                 alt={item.image}
