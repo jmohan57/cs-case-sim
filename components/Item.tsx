@@ -6,13 +6,15 @@ type Props = {
   skinName?: string;
   image?: string;
   grade?: GradeType;
+  noPadding?: boolean;
 };
 
 export default ({
   itemName,
   skinName,
   image,
-  grade = "Mil-Spec Grade"
+  grade = "Mil-Spec Grade",
+  noPadding
 }: Props) => {
   return (
     <div className="flex flex-col gap-1">
@@ -23,7 +25,7 @@ export default ({
         }}
       >
         <img
-          className="p-2"
+          className={noPadding ? "" : "p-2"}
           src={image ?? "/images/m4a4_howl.png"}
           alt="Weapon image"
           width={512}

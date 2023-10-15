@@ -82,8 +82,9 @@ export default async function Home({
                   ? "★ Gloves ★"
                   : "★ Rare Special Item ★"
               }
-              image="/images/rsi.png"
+              image="/images/rsi-2.png"
               grade="Rare Special Item"
+              noPadding
             />
           )}
         </div>
