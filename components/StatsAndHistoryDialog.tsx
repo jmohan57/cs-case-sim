@@ -21,7 +21,16 @@ export default ({ historyDialogRef, unboxedItems }: Props) => {
         {/* STATS */}
         <div className="flex flex-col gap-1 p-2">
           <span className="font-semibold underline">Stats</span>
-          <span>Total: {unboxedItems.length}</span>
+          <span>
+            Opened: <span className="font-semibold">{unboxedItems.length}</span>
+          </span>
+          <span>
+            Key spend:{" "}
+            <span className="font-semibold">
+              {(unboxedItems.length * 2.35).toFixed(2)}€ ($
+              {(unboxedItems.length * 2.5).toFixed(2)})
+            </span>
+          </span>
           {Object.entries(gradeColors)
             .slice(0, 5)
             .map(([grade, color]) => (
@@ -30,7 +39,10 @@ export default ({ historyDialogRef, unboxedItems }: Props) => {
                 className="border-l-8 px-2"
                 style={{ borderColor: color }}
               >
-                {grade}: {unboxedItems.filter(x => x.rarity === grade).length}
+                {grade}:{" "}
+                <span className="font-semibold">
+                  {unboxedItems.filter(x => x.rarity === grade).length}
+                </span>
               </span>
             ))}
 
@@ -40,11 +52,13 @@ export default ({ historyDialogRef, unboxedItems }: Props) => {
             style={{ borderColor: gradeColors["Covert"] }}
           >
             Covert:{" "}
-            {
-              unboxedItems.filter(
-                x => x.rarity === "Covert" && !x.name.includes("★")
-              ).length
-            }
+            <span className="font-semibold">
+              {
+                unboxedItems.filter(
+                  x => x.rarity === "Covert" && !x.name.includes("★")
+                ).length
+              }
+            </span>
           </span>
 
           {/* Add RSI manually */}
@@ -53,11 +67,13 @@ export default ({ historyDialogRef, unboxedItems }: Props) => {
             style={{ borderColor: gradeColors["Rare Special Item"] }}
           >
             Rare Special Item:{" "}
-            {
-              unboxedItems.filter(
-                x => x.rarity === "Covert" && x.name.includes("★")
-              ).length
-            }
+            <span className="font-semibold">
+              {
+                unboxedItems.filter(
+                  x => x.rarity === "Covert" && x.name.includes("★")
+                ).length
+              }
+            </span>
           </span>
 
           <hr className="my-1" />
