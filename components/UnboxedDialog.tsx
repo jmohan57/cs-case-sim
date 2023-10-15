@@ -7,12 +7,14 @@ type Props = {
   unboxedDialogRef: React.MutableRefObject<HTMLDialogElement | null>;
   historyDialogRef: React.MutableRefObject<HTMLDialogElement | null>;
   item: ItemType | null;
+  unlockButtonDisabled: boolean;
   openCaseFunc: (dontOpenDialog?: boolean) => void;
 };
 export default ({
   unboxedDialogRef,
   historyDialogRef,
   item,
+  unlockButtonDisabled,
   openCaseFunc
 }: Props) => {
   return (
@@ -70,7 +72,8 @@ export default ({
             </button>
 
             <button
-              className="select-none rounded bg-[#048b59] p-3 text-lg font-semibold transition-colors duration-[40ms] hover:bg-[#15b869]"
+              className="select-none rounded bg-[#048b59] p-3 text-lg font-semibold transition-colors duration-[40ms] hover:bg-[#15b869] disabled:bg-neutral-500"
+              disabled={unlockButtonDisabled}
               onClick={() => openCaseFunc(true)}
             >
               RETRY

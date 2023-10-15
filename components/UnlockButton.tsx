@@ -28,6 +28,7 @@ const gradeOddsSouvenir = {
 export default ({ caseData }: { caseData: CaseDataType }) => {
   const [unboxedItems, setUnboxedItems] = useState<ItemType[]>([]);
   const [unboxedItem, setUnboxedItem] = useState<ItemType | null>(null);
+  const [unlockButtonDisabled, setUnlockButtonDisabled] = useState(false);
   const unboxedDialogRef = useRef<HTMLDialogElement>(null);
   const historyDialogRef = useRef<HTMLDialogElement>(null);
 
@@ -35,6 +36,15 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
     const openedItem = getItem();
     setUnboxedItem(openedItem);
     setUnboxedItems([openedItem, ...unboxedItems]);
+
+    // Disable the unlock button for 1 second if the item is a Covert or RSI
+    if (openedItem.name.includes("★") || openedItem.rarity === "Covert") {
+      setUnlockButtonDisabled(true);
+      setTimeout(() => {
+        setUnlockButtonDisabled(false);
+      }, 1000);
+    }
+
     if (dontOpenDialog) return;
     unboxedDialogRef.current?.showModal();
   };
@@ -83,7 +93,8 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
         History
       </button>
       <button
-        className="select-none rounded bg-[#048b59] p-3 text-lg font-semibold transition-colors duration-[40ms] hover:bg-[#15b869]"
+        className="select-none rounded bg-[#048b59] p-3 text-lg font-semibold transition-colors duration-[40ms] hover:bg-[#15b869] disabled:bg-neutral-500"
+        disabled={unlockButtonDisabled}
         onClick={() => openCase()}
       >
         UNLOCK CONTAINER
@@ -94,6 +105,7 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
         historyDialogRef={historyDialogRef}
         unboxedDialogRef={unboxedDialogRef}
         item={unboxedItem}
+        unlockButtonDisabled={unlockButtonDisabled}
         openCaseFunc={openCase}
       />
 
