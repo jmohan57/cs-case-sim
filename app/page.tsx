@@ -48,7 +48,7 @@ export default async function Home({
       </div>
 
       <div className="flex flex-col backdrop-blur-md">
-        <div className="my-2 px-12">
+        <div className="my-2 px-4 lg:px-12">
           <div className="flex items-center justify-between">
             <span className="text-lg tracking-wider">
               Contains one of the following:
@@ -64,7 +64,7 @@ export default async function Home({
           <hr className="my-2 opacity-30" />
         </div>
 
-        <div className="flex flex-wrap gap-8 px-16">
+        <div className="flex flex-wrap justify-center gap-8 px-2 lg:justify-start lg:px-16">
           {selectedCase.contains.map(item => (
             <Item
               key={item.name}
