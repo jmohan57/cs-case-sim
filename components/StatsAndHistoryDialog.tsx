@@ -68,11 +68,7 @@ export default ({ historyDialogRef, unboxedItems }: Props) => {
           >
             Rare Special Item:{" "}
             <span className="font-semibold">
-              {
-                unboxedItems.filter(
-                  x => x.rarity === "Covert" && x.name.includes("★")
-                ).length
-              }
+              {unboxedItems.filter(x => x.name.includes("★")).length}
             </span>
           </span>
 
@@ -102,12 +98,12 @@ export default ({ historyDialogRef, unboxedItems }: Props) => {
           {/* COVERTS AND GOLDS */}
           <div>
             <div className="font-semibold underline">Coverts and Golds</div>
-            {unboxedItems.filter(x => x.rarity === "Covert").length === 0 && (
-              <span>No items unboxed yet</span>
-            )}
+            {unboxedItems.filter(
+              x => x.rarity === "Covert" || x.name.includes("★")
+            ).length === 0 && <span>No items unboxed yet</span>}
             <div className="flex flex-col gap-1">
               {unboxedItems
-                .filter(x => x.rarity === "Covert")
+                .filter(x => x.rarity === "Covert" || x.name.includes("★"))
                 .map((item, i) => (
                   <div
                     key={`${item.id}-${i}`}
