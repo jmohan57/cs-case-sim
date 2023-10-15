@@ -33,7 +33,7 @@ export default async function Home({
     <main id="main" className="relative flex min-h-screen flex-col">
       <CaseSelect availableCases={caseMetadata} />
 
-      <div className="mt-3 flex flex-1 flex-col items-center gap-1">
+      <div className="mt-3 flex flex-1 flex-col items-center gap-1 text-center">
         <h1 className="text-4xl font-medium text-white">Unlock Container</h1>
         <h4 className="text-xl">
           Unlock <span className="font-semibold">{selectedCase.name}</span>
@@ -90,13 +90,16 @@ export default async function Home({
 
         <hr className="container mx-auto my-5 px-20 opacity-30" />
 
-        <div className="container mx-auto mb-6 flex items-center justify-between">
+        <div className="container mx-auto mb-6 flex items-center justify-between px-3">
           <span className="text-2xl font-bold tracking-wider">
-            {!selectedCase.name.toLowerCase().includes("package")
-              ? `Use ${selectedCase.name} Key`
-              : null}
+            <span className="hidden md:inline">
+              {!selectedCase.name.toLowerCase().includes("package")
+                ? `Use ${selectedCase.name} Key`
+                : null}
+            </span>
           </span>
-          <div className="flex items-center gap-2">
+
+          <div className="flex flex-wrap items-center gap-2">
             <UnlockButton caseData={selectedCase} />
 
             <div className="mx-2 h-16 w-px bg-white/50" />
