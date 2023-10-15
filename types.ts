@@ -1,26 +1,24 @@
 export type ItemType = {
+  id: string;
   name: string;
-  desc: string;
-  wears: {
-    "Factory New": string;
-    "Minimal Wear": string;
-    "Field-Tested": string;
-    "Well-Worn": string;
-    "Battle-Scarred": string;
-  };
+  rarity: string;
+  image: string;
 };
 
 export type GradeType =
-  | "Consumer Grade Skins"
-  | "Industrial Grade Skins"
-  | "Mil-Spec Skins"
-  | "Restricted Skins"
-  | "Classified Skins"
-  | "Covert Skins"
-  | "Rare Special Items";
+  | "Consumer Grade"
+  | "Industrial Grade"
+  | "Mil-Spec Grade"
+  | "Restricted"
+  | "Classified"
+  | "Covert"
+  | "Rare Special Item";
 
 export type CaseDataType = {
+  id: string;
+  type: string;
   name: string;
-  image_url: string;
-  content: Record<GradeType, ItemType[]>;
+  image: string;
+  contains: ItemType[];
+  contains_rare: ItemType[];
 };
