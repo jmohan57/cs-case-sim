@@ -7,8 +7,14 @@ type Props = {
   unboxedDialogRef: React.MutableRefObject<HTMLDialogElement | null>;
   historyDialogRef: React.MutableRefObject<HTMLDialogElement | null>;
   item: ItemType | null;
+  openCaseFunc: (dontOpenDialog?: boolean) => void;
 };
-export default ({ unboxedDialogRef, historyDialogRef, item }: Props) => {
+export default ({
+  unboxedDialogRef,
+  historyDialogRef,
+  item,
+  openCaseFunc
+}: Props) => {
   return (
     <dialog
       className="mx-auto w-full max-w-lg border-[1px] border-white/30 bg-[#2d2d2d] text-xl text-white backdrop:bg-transparent"
@@ -48,18 +54,26 @@ export default ({ unboxedDialogRef, historyDialogRef, item }: Props) => {
             </div>
           )}
 
-          <div className="flex flex-row-reverse gap-1">
+          <div className="flex justify-end gap-1">
             <button
-              className="self-end rounded p-2 text-xl font-medium transition-colors duration-300 hover:bg-black/50"
+              className="select-none rounded p-2 text-xl font-medium transition-colors duration-300 hover:bg-black/50"
               onClick={() => unboxedDialogRef.current?.close()}
             >
-              THANKS
+              CLOSE
             </button>
+
             <button
-              className="self-end rounded p-2 text-xl font-medium transition-colors duration-300 hover:bg-black/50"
+              className="select-none rounded p-2 text-xl font-medium transition-colors duration-300 hover:bg-black/50"
               onClick={() => historyDialogRef.current?.showModal()}
             >
               HISTORY
+            </button>
+
+            <button
+              className="select-none rounded bg-[#048b59] p-3 text-lg font-semibold transition-colors duration-[40ms] hover:bg-[#15b869]"
+              onClick={() => openCaseFunc(true)}
+            >
+              RETRY
             </button>
           </div>
         </div>

@@ -31,11 +31,12 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
   const unboxedDialogRef = useRef<HTMLDialogElement>(null);
   const historyDialogRef = useRef<HTMLDialogElement>(null);
 
-  const onClick = () => {
+  const openCase = (dontOpenDialog?: boolean) => {
     const openedItem = getItem();
-    unboxedDialogRef.current?.showModal();
     setUnboxedItem(openedItem);
     setUnboxedItems([openedItem, ...unboxedItems]);
+    if (dontOpenDialog) return;
+    unboxedDialogRef.current?.showModal();
   };
 
   // This is pretty hacky
@@ -83,7 +84,7 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
       </button>
       <button
         className="rounded bg-[#048b59] p-3 text-lg font-semibold transition-colors duration-[40ms] hover:bg-[#15b869]"
-        onClick={onClick}
+        onClick={() => openCase()}
       >
         UNLOCK CONTAINER
       </button>
@@ -93,6 +94,7 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
         historyDialogRef={historyDialogRef}
         unboxedDialogRef={unboxedDialogRef}
         item={unboxedItem}
+        openCaseFunc={openCase}
       />
 
       {/* STATS AND HISTORY DIALOG */}
