@@ -93,7 +93,7 @@ export default async function Home({
         <div className="container mx-auto mb-6 flex items-center justify-between">
           <span className="text-2xl font-bold tracking-wider">
             {!selectedCase.name.toLowerCase().includes("package")
-              ? `🔑 Use ${selectedCase.name} Key`
+              ? `Use ${selectedCase.name} Key`
               : null}
           </span>
           <div className="flex items-center gap-2">
