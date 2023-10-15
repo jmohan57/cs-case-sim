@@ -9,7 +9,7 @@ export default () => {
   return (
     <div className="flex justify-center">
       <button
-        className="rounded p-2 px-3 text-lg font-medium transition-colors duration-300 hover:bg-black/50"
+        className="select-none rounded p-2 px-3 text-lg font-medium transition-colors duration-300 hover:bg-black/50"
         title="About this project"
         onClick={() => dialogRef.current?.showModal()}
       >
@@ -46,7 +46,7 @@ export default () => {
               .
             </p>
             <button
-              className="self-end rounded p-2 text-xl font-medium transition-colors duration-300 hover:bg-black/50"
+              className="select-none self-end rounded p-2 text-xl font-medium transition-colors duration-300 hover:bg-black/50"
               onClick={() => dialogRef.current?.close()}
             >
               OK

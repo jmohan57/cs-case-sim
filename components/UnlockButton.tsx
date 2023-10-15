@@ -77,13 +77,13 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
   return (
     <>
       <button
-        className="rounded p-3 text-lg font-semibold transition-colors duration-300 hover:bg-neutral-500/50"
+        className="select-none rounded p-3 text-lg font-semibold transition-colors duration-300 hover:bg-neutral-500/50"
         onClick={() => historyDialogRef.current?.showModal()}
       >
         History
       </button>
       <button
-        className="rounded bg-[#048b59] p-3 text-lg font-semibold transition-colors duration-[40ms] hover:bg-[#15b869]"
+        className="select-none rounded bg-[#048b59] p-3 text-lg font-semibold transition-colors duration-[40ms] hover:bg-[#15b869]"
         onClick={() => openCase()}
       >
         UNLOCK CONTAINER

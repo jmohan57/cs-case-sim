@@ -125,7 +125,7 @@ export default ({ historyDialogRef, unboxedItems }: Props) => {
           </div>
 
           <button
-            className="self-end rounded p-2 text-xl font-medium transition-colors duration-300 hover:bg-black/50"
+            className="select-none self-end rounded p-2 text-xl font-medium transition-colors duration-300 hover:bg-black/50"
             onClick={() => historyDialogRef.current?.close()}
           >
             CLOSE

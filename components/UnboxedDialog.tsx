@@ -17,7 +17,7 @@ export default ({
 }: Props) => {
   return (
     <dialog
-      className="mx-auto w-full max-w-lg border-[1px] border-white/30 bg-[#2d2d2d] text-xl text-white backdrop:bg-transparent"
+      className="mx-auto w-full max-w-lg border-[1px] border-white/30 bg-[#2d2d2d] text-xl text-white backdrop:bg-black/30 backdrop:backdrop-blur-sm"
       ref={unboxedDialogRef}
     >
       <div className="flex flex-col">
