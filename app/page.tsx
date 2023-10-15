@@ -2,7 +2,8 @@ import Image from "next/image";
 import CaseSelect from "@/components/CaseSelect";
 import AboutButtonWithModal from "@/components/AboutButtonWithModal";
 import Item from "@/components/Item";
-import { CaseDataType, GradeType, ItemType } from "@/types";
+import UnlockButton from "@/components/UnlockButton";
+import { CaseDataType, GradeType } from "@/types";
 
 export default async function Home({
   searchParams
@@ -96,9 +97,7 @@ export default async function Home({
               : null}
           </span>
           <div className="flex items-center gap-2">
-            <button className="rounded bg-[#048b59] p-3 text-lg font-semibold transition-colors duration-[40ms] hover:bg-[#15b869]">
-              UNLOCK CONTAINER
-            </button>
+            <UnlockButton caseData={selectedCase} />
 
             <div className="mx-2 h-16 w-px bg-white/50" />
 
