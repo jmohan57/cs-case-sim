@@ -155,8 +155,10 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
             Stats and history
           </span>
 
+          {/* STATS */}
           <div className="flex flex-col gap-1 p-2">
             <span className="font-semibold underline">Stats</span>
+            <span>Total: {unboxedItems.length}</span>
             {Object.entries(gradeColors)
               .slice(0, 5)
               .map(([grade, color]) => (
@@ -197,6 +199,7 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
 
             <hr className="my-1" />
 
+            {/* LAST 20 ITEMS */}
             <div>
               <div className="font-semibold underline">Last 20 items</div>
               {unboxedItems.length === 0 && <span>No items unboxed yet</span>}
@@ -216,6 +219,32 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
                 ))}
               </div>
             </div>
+
+            {/* COVERTS AND GOLDS */}
+            <div>
+              <div className="font-semibold underline">Coverts and Golds</div>
+              {unboxedItems.filter(x => x.rarity === "Covert").length === 0 && (
+                <span>No items unboxed yet</span>
+              )}
+              <div className="flex flex-col gap-1">
+                {unboxedItems
+                  .filter(x => x.rarity === "Covert")
+                  .map((item, i) => (
+                    <div
+                      key={`${item.id}-${i}`}
+                      className="border-l-8 px-2"
+                      style={{
+                        borderColor: item.name.includes("★")
+                          ? gradeColors["Rare Special Item"]
+                          : gradeColors[item.rarity as GradeType]
+                      }}
+                    >
+                      {item.name}
+                    </div>
+                  ))}
+              </div>
+            </div>
+
             <button
               className="self-end rounded p-2 text-xl font-medium transition-colors duration-300 hover:bg-black/50"
               onClick={() => historyDialogRef.current?.close()}
