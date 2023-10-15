@@ -36,7 +36,7 @@ export default ({ historyDialogRef, unboxedItems }: Props) => {
             .map(([grade, color]) => (
               <span
                 key={grade}
-                className="border-l-8 px-2"
+                className="border-l-4 px-2"
                 style={{ borderColor: color }}
               >
                 {grade}:{" "}
@@ -48,7 +48,7 @@ export default ({ historyDialogRef, unboxedItems }: Props) => {
 
           {/* Add Covert manually */}
           <span
-            className="border-l-8 px-2"
+            className="border-l-4 px-2"
             style={{ borderColor: gradeColors["Covert"] }}
           >
             Covert:{" "}
@@ -63,7 +63,7 @@ export default ({ historyDialogRef, unboxedItems }: Props) => {
 
           {/* Add RSI manually */}
           <span
-            className="border-l-8 px-2"
+            className="border-l-4 px-2"
             style={{ borderColor: gradeColors["Rare Special Item"] }}
           >
             Rare Special Item:{" "}
@@ -82,7 +82,7 @@ export default ({ historyDialogRef, unboxedItems }: Props) => {
               {unboxedItems.slice(0, 20).map((item, i) => (
                 <div
                   key={`${item.id}-${i}`}
-                  className="border-l-8 px-2"
+                  className="border-l-4 px-2"
                   style={{
                     borderColor: item.name.includes("★")
                       ? gradeColors["Rare Special Item"]
@@ -107,7 +107,7 @@ export default ({ historyDialogRef, unboxedItems }: Props) => {
                 .map((item, i) => (
                   <div
                     key={`${item.id}-${i}`}
-                    className="border-l-8 px-2"
+                    className="border-l-4 px-2"
                     style={{
                       borderColor: item.name.includes("★")
                         ? gradeColors["Rare Special Item"]
