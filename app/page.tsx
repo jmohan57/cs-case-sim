@@ -19,7 +19,12 @@ export default async function Home({
       ? `${selectedCaseParam}.json`
       : `${allCases[0].replace(".json", "")}.json`;
 
-  const caseData: CaseDataType = await import(`/lib/data/${selectedCase}`);
+  const caseDataString = await fs.readFile(
+    `./lib/data/${selectedCase}`,
+    "utf8"
+  );
+
+  const caseData: CaseDataType = JSON.parse(caseDataString);
 
   return (
     <main id="main" className="relative flex min-h-screen flex-col">
