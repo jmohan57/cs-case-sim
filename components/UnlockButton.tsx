@@ -35,7 +35,18 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
   const unboxedDialogRef = useRef<HTMLDialogElement>(null);
   const historyDialogRef = useRef<HTMLDialogElement>(null);
 
-  const [playHover] = useSound("/audio/buttonhover.mp3");
+  const volume = 0.5;
+  const [playMilspec, { stop: stop1 }] = useSound("/audio/milspecopen.mp3", {
+    volume
+  });
+  const [playResricted, { stop: stop2 }] = useSound(
+    "/audio/restrictedopen.mp3",
+    { volume }
+  );
+  const [playClassified, { stop: stop3 }] = useSound(
+    "/audio/classifiedopen.mp3",
+    { volume }
+  );
 
   const openCase = (dontOpenDialog?: boolean) => {
     const openedItem = getItem();
@@ -45,6 +56,19 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
       "unboxedItems",
       JSON.stringify([openedItem, ...unboxedItems])
     );
+
+    // Stop all sounds and play sound based on item grade. Covert and gold missing
+    stop1();
+    stop2();
+    stop3();
+    if (
+      ["Consumer Grade", "Industrial Grade", "Mil-Spec Grade"].includes(
+        openedItem.rarity
+      )
+    )
+      playMilspec();
+    if (openedItem.rarity === "Restricted") playResricted();
+    if (openedItem.rarity === "Classified") playClassified();
 
     // Disable the unlock button for 1 second if the item is a Covert or RSI
     if (openedItem.name.includes("★") || openedItem.rarity === "Covert") {
