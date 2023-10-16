@@ -91,11 +91,13 @@ export default async function Home({
         <hr className="container mx-auto my-5 px-20 opacity-30" />
 
         <div className="container mx-auto mb-6 flex items-center justify-between px-3">
-          <span className="text-2xl font-bold tracking-wider">
+          <span className="text-2xl tracking-wider">
             <span className="hidden md:inline">
-              {!selectedCase.name.toLowerCase().includes("package")
-                ? `Use ${selectedCase.name} Key`
-                : null}
+              {!selectedCase.name.toLowerCase().includes("package") ? (
+                <span>
+                  Use <span className="font-bold">{selectedCase.name} Key</span>
+                </span>
+              ) : null}
             </span>
           </span>
 
