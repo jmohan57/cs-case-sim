@@ -54,7 +54,7 @@ export default async function Home({
             </span>
 
             <div className="flex gap-1">
-              <button className="select-none rounded p-2 text-lg font-medium transition-colors duration-300 hover:bg-black/50">
+              <button className="cursor-not-allowed select-none rounded p-2 text-lg font-medium transition-colors duration-300 hover:bg-black/50">
                 INSPECT ITEMS
               </button>
               <AboutButtonWithModal />
@@ -104,7 +104,7 @@ export default async function Home({
 
             <div className="mx-2 h-16 w-px bg-white/50" />
 
-            <button className="select-none rounded p-3 text-lg font-semibold transition-colors duration-300 hover:bg-neutral-500/50">
+            <button className="cursor-not-allowed select-none rounded p-3 text-lg font-semibold transition-colors duration-300 hover:bg-neutral-500/50">
               Close
             </button>
           </div>

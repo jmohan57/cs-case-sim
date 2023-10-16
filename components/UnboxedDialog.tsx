@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "./Button";
 import gradeColors from "@/utils/gradeColors";
 import { GradeType, ItemType } from "@/types";
 
@@ -57,27 +58,27 @@ export default ({
           )}
 
           <div className="flex justify-end gap-1">
-            <button
-              className="select-none rounded p-2 text-xl font-medium transition-colors duration-300 hover:bg-black/50"
+            <Button
+              variant="secondary"
               onClick={() => unboxedDialogRef.current?.close()}
             >
               CLOSE
-            </button>
+            </Button>
 
-            <button
-              className="select-none rounded p-2 text-xl font-medium transition-colors duration-300 hover:bg-black/50"
+            <Button
+              variant="secondary"
               onClick={() => historyDialogRef.current?.showModal()}
             >
               HISTORY
-            </button>
+            </Button>
 
-            <button
-              className="select-none rounded bg-[#048b59] p-3 text-lg font-semibold transition-colors duration-[40ms] hover:bg-[#15b869] disabled:bg-neutral-500"
+            <Button
+              variant="primary"
               disabled={unlockButtonDisabled}
               onClick={() => openCaseFunc(true)}
             >
               RETRY
-            </button>
+            </Button>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "./Button";
 import gradeColors from "@/utils/gradeColors";
 import { GradeType, ItemType } from "@/types";
 
@@ -123,22 +124,22 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
           </div>
 
           <div className="mt-3 flex justify-between">
-            <button
-              className="select-none rounded bg-red-500 p-2 text-xl font-medium transition-colors duration-300 hover:bg-red-500/50"
+            <Button
+              variant="danger"
               onClick={() => {
                 setUnboxedItems([]);
                 localStorage.setItem("unboxedItems", "[]");
               }}
             >
               CLEAR HISTORY
-            </button>
+            </Button>
 
-            <button
-              className="select-none rounded p-2 text-xl font-medium transition-colors duration-300 hover:bg-black/50"
+            <Button
+              variant="secondary"
               onClick={() => historyDialogRef.current?.close()}
             >
               CLOSE
-            </button>
+            </Button>
           </div>
         </div>
       </div>

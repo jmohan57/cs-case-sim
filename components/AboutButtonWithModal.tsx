@@ -2,19 +2,20 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import Button from "./Button";
 
 export default () => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   return (
     <div className="flex justify-center">
-      <button
-        className="select-none rounded p-2 px-3 text-lg font-medium transition-colors duration-300 hover:bg-black/50"
-        title="About this project"
+      <Button
+        variant="secondary-darker"
         onClick={() => dialogRef.current?.showModal()}
       >
         ?
-      </button>
+      </Button>
+
       <dialog
         className="mx-auto w-full max-w-lg border-[1px] border-white/30 bg-[#2d2d2d] text-xl text-white backdrop:bg-black/30 backdrop:backdrop-blur-sm"
         ref={dialogRef}
@@ -45,12 +46,14 @@ export default () => {
               </Link>
               .
             </p>
-            <button
-              className="select-none self-end rounded p-2 text-xl font-medium transition-colors duration-300 hover:bg-black/50"
+
+            <Button
+              variant="secondary-darker"
+              className="self-end"
               onClick={() => dialogRef.current?.close()}
             >
               OK
-            </button>
+            </Button>
           </div>
         </div>
       </dialog>

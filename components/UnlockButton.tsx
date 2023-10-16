@@ -1,9 +1,12 @@
 "use client";
 
-import { CaseDataType, GradeType, ItemType } from "@/types";
+// @ts-expect-error
+import useSound from "use-sound";
 import { useEffect, useRef, useState } from "react";
 import UnboxedDialog from "./UnboxedDialog";
 import StatsAndHistoryDialog from "./StatsAndHistoryDialog";
+import Button from "./Button";
+import { CaseDataType, GradeType, ItemType } from "@/types";
 
 type GradeOddsType = {
   [grade in GradeType]: number;
@@ -31,6 +34,8 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
   const [unlockButtonDisabled, setUnlockButtonDisabled] = useState(false);
   const unboxedDialogRef = useRef<HTMLDialogElement>(null);
   const historyDialogRef = useRef<HTMLDialogElement>(null);
+
+  const [playHover] = useSound("/audio/buttonhover.mp3");
 
   const openCase = (dontOpenDialog?: boolean) => {
     const openedItem = getItem();
@@ -99,19 +104,20 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
 
   return (
     <>
-      <button
-        className="select-none rounded p-3 text-lg font-semibold transition-colors duration-300 hover:bg-neutral-500/50"
+      <Button
+        variant="secondary"
         onClick={() => historyDialogRef.current?.showModal()}
       >
         History
-      </button>
-      <button
-        className="select-none rounded bg-[#048b59] p-3 text-lg font-semibold transition-colors duration-[40ms] hover:bg-[#15b869] disabled:bg-neutral-500"
+      </Button>
+
+      <Button
+        variant="primary"
         disabled={unlockButtonDisabled}
         onClick={() => openCase()}
       >
         UNLOCK CONTAINER
-      </button>
+      </Button>
 
       {/* UNBOXED DIALOG */}
       <UnboxedDialog

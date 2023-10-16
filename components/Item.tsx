@@ -1,3 +1,7 @@
+"use client";
+
+// @ts-expect-error
+import useSound from "use-sound";
 import { GradeType } from "@/types";
 import gradeColors from "@/utils/gradeColors";
 
@@ -16,10 +20,12 @@ export default ({
   grade = "Mil-Spec Grade",
   noPadding
 }: Props) => {
+  const [playHover] = useSound("/audio/itemhover.mp3");
+
   return (
-    <div className="flex flex-col gap-1">
+    <div className="group flex flex-col gap-1" onMouseEnter={playHover}>
       <div
-        className={`flex h-32 w-44 items-center justify-center border-b-[6px] bg-gradient-to-b from-neutral-600 to-neutral-400 shadow-md transition-all hover:shadow-xl`}
+        className={`flex h-32 w-44 items-center justify-center border-b-[6px] bg-gradient-to-b from-neutral-600 to-neutral-400 shadow-md transition-all group-hover:shadow-xl`}
         style={{
           borderColor: gradeColors[grade] ?? gradeColors["Mil-Spec Grade"]
         }}
