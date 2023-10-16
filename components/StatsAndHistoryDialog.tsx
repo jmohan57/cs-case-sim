@@ -6,8 +6,10 @@ import { GradeType, ItemType } from "@/types";
 type Props = {
   historyDialogRef: React.MutableRefObject<HTMLDialogElement | null>;
   unboxedItems: ItemType[];
+  setUnboxedItems: React.Dispatch<React.SetStateAction<ItemType[]>>;
 };
-export default ({ historyDialogRef, unboxedItems }: Props) => {
+
+export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
   return (
     <dialog
       className="mx-auto w-full max-w-lg border-[1px] border-white/30 bg-[#2d2d2d] text-xl text-white backdrop:bg-black/30 backdrop:backdrop-blur-sm"
@@ -120,12 +122,24 @@ export default ({ historyDialogRef, unboxedItems }: Props) => {
             </div>
           </div>
 
-          <button
-            className="select-none self-end rounded p-2 text-xl font-medium transition-colors duration-300 hover:bg-black/50"
-            onClick={() => historyDialogRef.current?.close()}
-          >
-            CLOSE
-          </button>
+          <div className="mt-3 flex justify-between">
+            <button
+              className="select-none rounded bg-red-500 p-2 text-xl font-medium transition-colors duration-300 hover:bg-red-500/50"
+              onClick={() => {
+                setUnboxedItems([]);
+                localStorage.setItem("unboxedItems", "[]");
+              }}
+            >
+              CLEAR HISTORY
+            </button>
+
+            <button
+              className="select-none rounded p-2 text-xl font-medium transition-colors duration-300 hover:bg-black/50"
+              onClick={() => historyDialogRef.current?.close()}
+            >
+              CLOSE
+            </button>
+          </div>
         </div>
       </div>
     </dialog>

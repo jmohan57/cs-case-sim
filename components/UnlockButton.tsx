@@ -1,7 +1,7 @@
 "use client";
 
 import { CaseDataType, GradeType, ItemType } from "@/types";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import UnboxedDialog from "./UnboxedDialog";
 import StatsAndHistoryDialog from "./StatsAndHistoryDialog";
 
@@ -36,6 +36,10 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
     const openedItem = getItem();
     setUnboxedItem(openedItem);
     setUnboxedItems([openedItem, ...unboxedItems]);
+    localStorage.setItem(
+      "unboxedItems",
+      JSON.stringify([openedItem, ...unboxedItems])
+    );
 
     // Disable the unlock button for 1 second if the item is a Covert or RSI
     if (openedItem.name.includes("★") || openedItem.rarity === "Covert") {
@@ -48,6 +52,15 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
     if (dontOpenDialog) return;
     unboxedDialogRef.current?.showModal();
   };
+
+  // Load unboxed items from localStorage
+  useEffect(() => {
+    try {
+      setUnboxedItems(JSON.parse(localStorage.getItem("unboxedItems") || "[]"));
+    } catch (error) {
+      setUnboxedItems([]);
+    }
+  }, []);
 
   // This is pretty hacky
   const gradeOdds =
@@ -113,6 +126,7 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
       <StatsAndHistoryDialog
         historyDialogRef={historyDialogRef}
         unboxedItems={unboxedItems}
+        setUnboxedItems={setUnboxedItems}
       />
     </>
   );
