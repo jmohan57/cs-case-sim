@@ -10,6 +10,11 @@ type Props = {
   setUnboxedItems: React.Dispatch<React.SetStateAction<ItemType[]>>;
 };
 
+const formatPercentage = (percentage: number) => {
+  if (isNaN(percentage)) return "(0.00%)";
+  return `(${(percentage * 100).toFixed(2)}%)`;
+};
+
 export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
   return (
     <dialog
@@ -44,7 +49,13 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
               >
                 {grade}:{" "}
                 <span className="font-semibold">
-                  {unboxedItems.filter(x => x.rarity === grade).length}
+                  {unboxedItems.filter(x => x.rarity === grade).length}{" "}
+                  <span>
+                    {formatPercentage(
+                      unboxedItems.filter(x => x.rarity === grade).length /
+                        unboxedItems.length,
+                    )}
+                  </span>
                 </span>
               </span>
             ))}
@@ -58,9 +69,17 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
             <span className="font-semibold">
               {
                 unboxedItems.filter(
-                  x => x.rarity === "Covert" && !x.name.includes("★")
+                  x => x.rarity === "Covert" && !x.name.includes("★"),
                 ).length
-              }
+              }{" "}
+              {/* Percentage */}
+              <span>
+                {formatPercentage(
+                  unboxedItems.filter(
+                    x => x.rarity === "Covert" && !x.name.includes("★"),
+                  ).length / unboxedItems.length,
+                )}
+              </span>
             </span>
           </span>
 
@@ -71,7 +90,14 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
           >
             Rare Special Item:{" "}
             <span className="font-semibold">
-              {unboxedItems.filter(x => x.name.includes("★")).length}
+              {unboxedItems.filter(x => x.name.includes("★")).length}{" "}
+              {/* Percentage */}
+              <span>
+                {formatPercentage(
+                  unboxedItems.filter(x => x.name.includes("★")).length /
+                    unboxedItems.length,
+                )}
+              </span>
             </span>
           </span>
 
@@ -89,7 +115,7 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
                   style={{
                     borderColor: item.name.includes("★")
                       ? gradeColors["Rare Special Item"]
-                      : gradeColors[item.rarity as GradeType]
+                      : gradeColors[item.rarity as GradeType],
                   }}
                 >
                   {item.name}
@@ -102,7 +128,7 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
           <div>
             <div className="font-semibold underline">Coverts and Golds</div>
             {unboxedItems.filter(
-              x => x.rarity === "Covert" || x.name.includes("★")
+              x => x.rarity === "Covert" || x.name.includes("★"),
             ).length === 0 && <span>No items unboxed yet</span>}
             <div className="flex flex-col gap-1">
               {unboxedItems
@@ -114,7 +140,7 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
                     style={{
                       borderColor: item.name.includes("★")
                         ? gradeColors["Rare Special Item"]
-                        : gradeColors[item.rarity as GradeType]
+                        : gradeColors[item.rarity as GradeType],
                     }}
                   >
                     {item.name}
