@@ -19,7 +19,10 @@ export default async ({ onlyCoverts }: { onlyCoverts: boolean }) => {
 
       {unboxedItems ? (
         unboxedItems.map(item => (
-          <div key={item.id} title={`Unboxed on ${item.unboxed_at} UTC`}>
+          <div
+            key={item.id}
+            title={`Unboxed on ${item.unboxed_at} UTC from ${item.case_name}`}
+          >
             <Item
               itemName={item.item_name.split(" | ")[0]}
               skinName={item.item_name.split(" | ")[1]}
