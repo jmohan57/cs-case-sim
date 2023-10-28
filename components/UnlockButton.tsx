@@ -7,6 +7,7 @@ import UnboxedDialog from "./UnboxedDialog";
 import StatsAndHistoryDialog from "./StatsAndHistoryDialog";
 import Button from "./Button";
 import { CaseDataType, GradeType, ItemType } from "@/types";
+import { addItemToDB } from "@/lib/actions";
 
 type GradeOddsType = {
   [grade in GradeType]: number;
@@ -122,6 +123,8 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
                 "★ StatTrak™ " + unboxedItem.name.replace("★", "");
             }
 
+            // Add the item to the database and return it
+            addItemToDB(caseData, unboxedItem);
             return unboxedItem;
           }
         } else {
@@ -140,6 +143,8 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
               unboxedItem.name = "StatTrak™ " + unboxedItem.name;
             }
 
+            // Add the item to the database and return it
+            addItemToDB(caseData, unboxedItem);
             return unboxedItem;
           }
         }
