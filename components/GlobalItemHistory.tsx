@@ -19,17 +19,18 @@ export default async ({ onlyCoverts }: { onlyCoverts: boolean }) => {
 
       {unboxedItems ? (
         unboxedItems.map(item => (
-          <Item
-            key={item.id}
-            itemName={item.item_name.split(" | ")[0]}
-            skinName={item.item_name.split(" | ")[1]}
-            grade={
-              item.item_name.includes("★")
-                ? "Rare Special Item"
-                : (item.rarity as GradeType)
-            }
-            image={item.item_image}
-          />
+          <div key={item.id} title={`Unboxed on ${item.unboxed_at} UTC`}>
+            <Item
+              itemName={item.item_name.split(" | ")[0]}
+              skinName={item.item_name.split(" | ")[1]}
+              grade={
+                item.item_name.includes("★")
+                  ? "Rare Special Item"
+                  : (item.rarity as GradeType)
+              }
+              image={item.item_image}
+            />
+          </div>
         ))
       ) : (
         <span>Error loading items :(</span>
