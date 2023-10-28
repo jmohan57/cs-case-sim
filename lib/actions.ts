@@ -38,3 +38,17 @@ export const getItemsFromDB = async (onlyCoverts?: boolean) => {
     return false;
   }
 };
+
+export const getTotalItemsFromDB = async (onlyCoverts?: boolean) => {
+  try {
+    const query = await conn.execute(
+      `SELECT COUNT(*) as total FROM case_sim_items ${
+        onlyCoverts ? "WHERE rarity = 'Covert'" : ""
+      }`,
+    );
+    return (query.rows[0] as { total: number }).total;
+  } catch (error) {
+    console.log("Error getting total items:", error);
+    return false;
+  }
+};

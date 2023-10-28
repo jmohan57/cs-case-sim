@@ -1,7 +1,8 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import OnlyCovertsCheckbox from "@/components/OnlyCovertsCheckbox";
-import { Suspense } from "react";
 import GlobalItemHistory from "@/components/GlobalItemHistory";
+import { getTotalItemsFromDB } from "@/lib/actions";
 
 export const metadata = {
   title: "Global Unbox History | Counter-Strike Case Simulator",
@@ -18,6 +19,10 @@ export default ({
         <span className="text-center text-3xl font-medium">
           Last 100 {onlyCoverts ? "coverts" : "items"} unboxed by the community
         </span>
+
+        <Suspense fallback={<span className="text-center">Loading...</span>}>
+          <TotalSpend onlyCoverts={onlyCoverts === "true"} />
+        </Suspense>
 
         <Link
           href="/"
@@ -37,5 +42,19 @@ export default ({
         </Suspense>
       </div>
     </main>
+  );
+};
+
+const TotalSpend = async ({ onlyCoverts }: { onlyCoverts: boolean }) => {
+  const totalUnboxed = await getTotalItemsFromDB(onlyCoverts);
+  if (totalUnboxed === false) return null;
+
+  return (
+    <span className="text-center">
+      <span className="font-medium">{totalUnboxed.toLocaleString("en")}</span>{" "}
+      {onlyCoverts ? "coverts" : "items"} unboxed.{" "}
+      <span className="font-medium">{(totalUnboxed * 2.35).toFixed(2)}€</span>{" "}
+      spent on imaginary keys.
+    </span>
   );
 };
