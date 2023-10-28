@@ -1,7 +1,9 @@
+import Link from "next/link";
 import CaseSelect from "@/components/CaseSelect";
 import AboutButtonWithModal from "@/components/AboutButtonWithModal";
 import Item from "@/components/Item";
 import UnlockButton from "@/components/UnlockButton";
+import Button from "@/components/Button";
 import { CaseDataType, GradeType } from "@/types";
 
 export default async function Home({
@@ -55,9 +57,11 @@ export default async function Home({
             </span>
 
             <div className="flex gap-1">
-              <button className="cursor-not-allowed select-none rounded p-2 text-lg font-medium transition-colors duration-300 hover:bg-black/50">
-                INSPECT ITEMS
-              </button>
+              <Button variant="secondary-darker" className="p-0">
+                <Link href="/unboxed" className="p-3">
+                  INSPECT ITEMS
+                </Link>
+              </Button>
               <AboutButtonWithModal />
             </div>
           </div>

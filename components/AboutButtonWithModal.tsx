@@ -25,7 +25,7 @@ export default () => {
             About this project
           </span>
 
-          <div className="flex flex-col p-2">
+          <div className="flex flex-col gap-3 p-2">
             <p>
               This is the Counter-Strike 2 case opening UI recreated in React
               and styled with Tailwind. The person who created it can be found{" "}
@@ -42,6 +42,15 @@ export default () => {
                 href="https://github.com/ByMykel/CSGO-API"
                 target="_blank"
               >
+                here
+              </Link>
+              .
+            </p>
+
+            <p>
+              Too see a list of the last items unboxed by the entire community,
+              go{" "}
+              <Link className="font-semibold hover:underline" href="/unboxed">
                 here
               </Link>
               .

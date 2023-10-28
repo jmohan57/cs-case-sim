@@ -22,3 +22,15 @@ export type CaseDataType = {
   contains: ItemType[];
   contains_rare: ItemType[];
 };
+
+export type ItemTypeDB = {
+  id: number;
+  case_id: string;
+  case_name: string;
+  case_image: string;
+  item_id: string;
+  item_name: string;
+  item_image: string;
+  rarity: string;
+  unboxed_at: string;
+};

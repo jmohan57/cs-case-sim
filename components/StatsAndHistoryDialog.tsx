@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Button from "./Button";
 import gradeColors from "@/utils/gradeColors";
 import { GradeType, ItemType } from "@/types";
@@ -24,6 +25,14 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
       <div className="flex flex-col">
         <span className="bg-[#262626] p-3 text-3xl font-semibold text-neutral-400">
           Stats and history
+        </span>
+
+        <span className="p-2">
+          Too see a list of the last items unboxed by the entire community, go{" "}
+          <Link className="font-semibold hover:underline" href="/unboxed">
+            here
+          </Link>
+          .
         </span>
 
         {/* STATS */}

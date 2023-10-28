@@ -18,7 +18,7 @@ export default ({
   skinName,
   image,
   grade = "Mil-Spec Grade",
-  noPadding
+  noPadding,
 }: Props) => {
   const [playHover] = useSound("/audio/itemhover.mp3");
 
@@ -27,7 +27,7 @@ export default ({
       <div
         className={`flex h-32 w-44 items-center justify-center border-b-[6px] bg-gradient-to-b from-neutral-600 to-neutral-400 shadow-md transition-all group-hover:shadow-xl`}
         style={{
-          borderColor: gradeColors[grade] ?? gradeColors["Mil-Spec Grade"]
+          borderColor: gradeColors[grade] ?? gradeColors["Mil-Spec Grade"],
         }}
       >
         <img
