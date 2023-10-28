@@ -36,6 +36,7 @@ export default ({
           alt="Weapon image"
           width={512}
           height={384}
+          draggable={false}
         />
       </div>
 

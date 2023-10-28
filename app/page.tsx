@@ -29,7 +29,7 @@ export default async function Home({
     casesData.find(x => x.id === selectedCaseParam) ?? casesData[0];
 
   return (
-    <main id="main" className="relative flex min-h-screen flex-col">
+    <main id="main" className="relative flex min-h-screen select-none flex-col">
       <CaseSelect availableCases={caseMetadata} />
 
       <div className="mt-3 flex flex-1 flex-col items-center gap-1 text-center">
@@ -43,6 +43,7 @@ export default async function Home({
           alt={`${selectedCase.name} image`}
           width={256}
           height={256}
+          draggable={false}
         />
       </div>
 
