@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import useSound from "use-sound";
 
 export default ({
-  availableCases
+  availableCases,
 }: {
   availableCases: { id: string; name: string }[];
 }) => {
@@ -15,7 +15,7 @@ export default ({
 
   return (
     <select
-      className="m-2 mb-0 max-w-fit rounded bg-[#048b59] p-2 tracking-wider text-white"
+      className="mb-0 max-w-fit rounded bg-[#048b59] p-2 tracking-wider text-white"
       defaultValue={caseParam ?? availableCases[0].id}
       onChange={e => {
         playCaseSound();

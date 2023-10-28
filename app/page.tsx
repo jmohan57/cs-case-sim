@@ -32,7 +32,15 @@ export default async function Home({
 
   return (
     <main id="main" className="relative flex min-h-screen select-none flex-col">
-      <CaseSelect availableCases={caseMetadata} />
+      <div className="mx-2 mt-2 flex flex-col-reverse justify-between gap-2 md:flex-row">
+        <CaseSelect availableCases={caseMetadata} />
+
+        <Button variant="secondary-darker" className="!p-0 backdrop-blur-sm">
+          <Link href="/unboxed" className="p-2">
+            Global Unbox History
+          </Link>
+        </Button>
+      </div>
 
       <div className="mt-3 flex flex-1 flex-col items-center gap-1 text-center">
         <h1 className="text-4xl font-medium text-white">Unlock Container</h1>
