@@ -21,18 +21,20 @@ export default async ({ onlyCoverts }: { onlyCoverts: boolean }) => {
         unboxedItems.map(item => (
           <div
             key={item.id}
-            title={`Unboxed on ${item.unboxed_at} UTC from ${item.case_name}`}
+            title={`Unboxed on ${item.unboxed_at} UTC from ${item.case_name}\n\nClick to open case.`}
           >
-            <Item
-              itemName={item.item_name.split(" | ")[0]}
-              skinName={item.item_name.split(" | ")[1]}
-              grade={
-                item.item_name.includes("★")
-                  ? "Rare Special Item"
-                  : (item.rarity as GradeType)
-              }
-              image={item.item_image}
-            />
+            <Link href={`/?case=${item.case_id}`}>
+              <Item
+                itemName={item.item_name.split(" | ")[0]}
+                skinName={item.item_name.split(" | ")[1]}
+                grade={
+                  item.item_name.includes("★")
+                    ? "Rare Special Item"
+                    : (item.rarity as GradeType)
+                }
+                image={item.item_image}
+              />
+            </Link>
           </div>
         ))
       ) : (
