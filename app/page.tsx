@@ -5,7 +5,7 @@ import UnlockButton from "@/components/UnlockButton";
 import { CaseDataType, GradeType } from "@/types";
 
 export default async function Home({
-  searchParams
+  searchParams,
 }: {
   searchParams: { case?: string };
 }) {
@@ -13,7 +13,7 @@ export default async function Home({
 
   const apis = [
     "https://bymykel.github.io/CSGO-API/api/en/crates/cases.json",
-    "https://bymykel.github.io/CSGO-API/api/en/crates/souvenir.json"
+    "https://bymykel.github.io/CSGO-API/api/en/crates/souvenir.json",
   ];
 
   // Fetch both endpoints

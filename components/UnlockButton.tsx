@@ -17,7 +17,7 @@ const gradeOddsCase = {
   Restricted: 0.1598,
   Classified: 0.032,
   Covert: 0.0064,
-  "Rare Special Item": 0.0026
+  "Rare Special Item": 0.0026,
 } as GradeOddsType;
 
 const gradeOddsSouvenir = {
@@ -25,7 +25,7 @@ const gradeOddsSouvenir = {
   "Industrial Grade": 0.1598,
   "Mil-Spec Grade": 0.032,
   Restricted: 0.0064,
-  Covert: 0.0014
+  Covert: 0.0014,
 } as GradeOddsType;
 
 export default ({ caseData }: { caseData: CaseDataType }) => {
@@ -37,15 +37,15 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
 
   const volume = 0.5;
   const [playMilspec, { stop: stop1 }] = useSound("/audio/milspecopen.mp3", {
-    volume
+    volume,
   });
   const [playResricted, { stop: stop2 }] = useSound(
     "/audio/restrictedopen.mp3",
-    { volume }
+    { volume },
   );
   const [playClassified, { stop: stop3 }] = useSound(
     "/audio/classifiedopen.mp3",
-    { volume }
+    { volume },
   );
 
   const openCase = (dontOpenDialog?: boolean) => {
@@ -54,7 +54,7 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
     setUnboxedItems([openedItem, ...unboxedItems]);
     localStorage.setItem(
       "unboxedItems",
-      JSON.stringify([openedItem, ...unboxedItems])
+      JSON.stringify([openedItem, ...unboxedItems]),
     );
 
     // Stop all sounds and play sound based on item grade. Covert and gold missing
@@ -63,7 +63,7 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
     stop3();
     if (
       ["Consumer Grade", "Industrial Grade", "Mil-Spec Grade"].includes(
-        openedItem.rarity
+        openedItem.rarity,
       )
     )
       playMilspec();
@@ -100,6 +100,11 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
     const random = Math.random();
     let cumulativeProbability = 0;
 
+    const unboxedItemIsStatTrak =
+      !caseData.name.includes("Glove") &&
+      caseData.type !== "Souvenir" &&
+      Math.random() <= 0.1;
+
     for (const grade in gradeOdds) {
       cumulativeProbability += gradeOdds[grade as GradeType];
       if (random <= cumulativeProbability) {
@@ -107,21 +112,40 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
           // For "Rare Special Item," select from the "contains_rare" array
           const rareItems = caseData.contains_rare;
           if (rareItems.length > 0) {
-            const randomIndex = Math.floor(Math.random() * rareItems.length);
-            return rareItems[randomIndex];
+            const unboxedItem = {
+              ...rareItems[Math.floor(Math.random() * rareItems.length)],
+            };
+
+            // 10% chance of StatTrak. Prefix "★ StatTrak™" to the item name and remove the other ★ from the name
+            if (unboxedItemIsStatTrak) {
+              unboxedItem.name =
+                "★ StatTrak™ " + unboxedItem.name.replace("★", "");
+            }
+
+            return unboxedItem;
           }
         } else {
           // For other grades, select from the "contains" array
           const gradeItems = caseData.contains.filter(
-            item => item.rarity === grade
+            item => item.rarity === grade,
           );
+
           if (gradeItems.length > 0) {
-            const randomIndex = Math.floor(Math.random() * gradeItems.length);
-            return gradeItems[randomIndex];
+            const unboxedItem = {
+              ...gradeItems[Math.floor(Math.random() * gradeItems.length)],
+            };
+
+            // 10% chance of StatTrak. Prefix "StatTrak™" to the item name
+            if (unboxedItemIsStatTrak) {
+              unboxedItem.name = "StatTrak™ " + unboxedItem.name;
+            }
+
+            return unboxedItem;
           }
         }
       }
     }
+
     // If no valid grade is found, return a default item from "contains"
     return caseData.contains[0];
   }
