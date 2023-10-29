@@ -96,15 +96,22 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
   const gradeOdds =
     caseData.type === "Case" ? gradeOddsCase : gradeOddsSouvenir;
 
+  // Determine if the item should be StatTrak
+  // 1. Item is not Extraordinary (Gloves)
+  // 2. Case is not a Souvenir package
+  // 3. 10% chance
+  const determineStatTrak = (item: ItemType): boolean => {
+    return (
+      item.rarity !== "Extraordinary" &&
+      caseData.type !== "Souvenir" &&
+      Math.random() <= 0.1
+    );
+  };
+
   // Simulate opening an item
   function getItem() {
     const random = Math.random();
     let cumulativeProbability = 0;
-
-    const unboxedItemIsStatTrak =
-      !caseData.name.includes("Glove") &&
-      caseData.type !== "Souvenir" &&
-      Math.random() <= 0.1;
 
     for (const grade in gradeOdds) {
       cumulativeProbability += gradeOdds[grade as GradeType];
@@ -118,7 +125,7 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
             };
 
             // 10% chance of StatTrak. Prefix "★ StatTrak™" to the item name and remove the other ★ from the name
-            if (unboxedItemIsStatTrak) {
+            if (determineStatTrak(unboxedItem)) {
               unboxedItem.name =
                 "★ StatTrak™ " + unboxedItem.name.replace("★", "");
             }
@@ -139,7 +146,7 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
             };
 
             // 10% chance of StatTrak. Prefix "StatTrak™" to the item name
-            if (unboxedItemIsStatTrak) {
+            if (determineStatTrak(unboxedItem)) {
               unboxedItem.name = "StatTrak™ " + unboxedItem.name;
             }
 
