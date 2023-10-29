@@ -18,7 +18,7 @@ export default ({
 
   return (
     <select
-      className="cursor-pointer rounded bg-transparent p-2 text-lg font-semibold tracking-wide backdrop-blur-md transition-colors duration-300 hover:bg-black/50 focus-visible:bg-black/50"
+      className="cursor-pointer rounded bg-transparent p-2 text-lg font-semibold tracking-wide backdrop-blur-md transition-colors duration-[40ms] hover:bg-black/50 focus-visible:bg-black/50"
       defaultValue={caseParam ?? availableCases[0].id}
       onMouseEnter={playHover}
       onChange={e => {
