@@ -53,7 +53,13 @@ const TotalSpend = async ({ onlyCoverts }: { onlyCoverts: boolean }) => {
     <span className="text-center">
       <span className="font-medium">{totalUnboxed.toLocaleString("en")}</span>{" "}
       {onlyCoverts ? "coverts" : "items"} unboxed.{" "}
-      <span className="font-medium">{(totalUnboxed * 2.35).toFixed(2)}€</span>{" "}
+      <span className="font-medium">
+        {(totalUnboxed * 2.35).toLocaleString("en", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}
+        €
+      </span>{" "}
       spent on imaginary keys.
     </span>
   );
