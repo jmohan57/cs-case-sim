@@ -15,7 +15,7 @@ export default ({
 }) => {
   return (
     <main id="main" className="select-none">
-      <div className="flex min-h-screen flex-col p-5 backdrop-blur-md">
+      <div className="flex min-h-screen flex-col py-2 backdrop-blur-md">
         <span className="text-center text-3xl font-medium">
           Last 100 {onlyCoverts ? "coverts" : "items"} unboxed by the community
         </span>
