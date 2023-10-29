@@ -28,7 +28,7 @@ export const getItemsFromDB = async (onlyCoverts?: boolean) => {
   try {
     const query = await conn.execute(
       `SELECT * FROM case_sim_items ${
-        onlyCoverts ? "WHERE rarity = 'Covert'" : ""
+        onlyCoverts ? "WHERE rarity = 'Covert' OR rarity = 'Extraordinary'" : ""
       } ORDER BY id DESC LIMIT 100`,
     );
 
@@ -43,7 +43,7 @@ export const getTotalItemsFromDB = async (onlyCoverts?: boolean) => {
   try {
     const query = await conn.execute(
       `SELECT COUNT(*) as total FROM case_sim_items ${
-        onlyCoverts ? "WHERE rarity = 'Covert'" : ""
+        onlyCoverts ? "WHERE rarity = 'Covert' OR rarity = 'Extraordinary'" : ""
       }`,
     );
     return parseInt((query.rows[0] as { total: string }).total);
