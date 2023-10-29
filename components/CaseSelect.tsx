@@ -11,8 +11,10 @@ export default ({
 }) => {
   const router = useRouter();
   const caseParam = useSearchParams().get("case");
-  const [playCaseSound] = useSound("/audio/caseselect.mp3");
   const [playHover] = useSound("/audio/itemhover.mp3");
+  const [playCaseSound, { stop: stopCaseSound }] = useSound(
+    "/audio/caseselect.mp3",
+  );
 
   return (
     <select
@@ -20,6 +22,7 @@ export default ({
       defaultValue={caseParam ?? availableCases[0].id}
       onMouseEnter={playHover}
       onChange={e => {
+        stopCaseSound();
         playCaseSound();
         router.replace(`/?case=${e.target.value}`);
       }}
