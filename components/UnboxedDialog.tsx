@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Button from "./Button";
 import gradeColors from "@/utils/gradeColors";
 import { GradeType, ItemType } from "@/types";
@@ -18,13 +19,20 @@ export default ({
   unlockButtonDisabled,
   openCaseFunc,
 }: Props) => {
+  const itemShareUrl = new URL("https://twitter.com/intent/tweet");
+  itemShareUrl.searchParams.set(
+    "text",
+    `I unboxed a ${item?.name} in the Counter-Strike Case Simulator!\n\nTry here:`,
+  );
+  itemShareUrl.searchParams.set("url", "case-sim.com");
+
   return (
     <dialog
       className="mx-auto w-full max-w-lg border-[1px] border-white/30 bg-[#2d2d2d] text-xl text-white backdrop:bg-black/30 backdrop:backdrop-blur-sm"
       ref={unboxedDialogRef}
     >
       <div className="flex flex-col">
-        <span
+        <div
           className="border-b-[12px] bg-[#262626] p-3 text-3xl font-semibold text-neutral-400"
           style={{
             borderColor: item?.name.includes("★")
@@ -32,17 +40,25 @@ export default ({
               : gradeColors[item?.rarity as GradeType],
           }}
         >
-          You got a{" "}
-          <span
-            style={{
-              color: item?.name.includes("★")
-                ? gradeColors["Rare Special Item"]
-                : gradeColors[item?.rarity as GradeType],
-            }}
-          >
-            {item?.name}
+          <span>
+            You got a{" "}
+            <span
+              style={{
+                color: item?.name.includes("★")
+                  ? gradeColors["Rare Special Item"]
+                  : gradeColors[item?.rarity as GradeType],
+              }}
+            >
+              <Link
+                href={itemShareUrl}
+                target="_blank"
+                title="Share this pull on X / Twitter!"
+              >
+                {item?.name}
+              </Link>
+            </span>
           </span>
-        </span>
+        </div>
 
         <div className="flex flex-col p-2">
           {item && (
