@@ -90,7 +90,7 @@ export default async function Home({
           {selectedCase.contains_rare.length > 0 && (
             <Item
               itemName={
-                selectedCase.name.includes("Glove")
+                selectedCase.contains_rare[0].rarity === "Extraordinary"
                   ? "★ Gloves ★"
                   : "★ Rare Special Item ★"
               }
