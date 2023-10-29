@@ -1,4 +1,3 @@
-import Link from "next/link";
 import CaseSelect from "@/components/CaseSelect";
 import AboutButtonWithModal from "@/components/AboutButtonWithModal";
 import Item from "@/components/Item";
@@ -35,10 +34,12 @@ export default async function Home({
       <div className="mx-2 mt-2 flex flex-col-reverse justify-between gap-2 md:flex-row">
         <CaseSelect availableCases={caseMetadata} />
 
-        <Button variant="secondary-darker" className="!p-0 backdrop-blur-sm">
-          <Link href="/unboxed" className="p-2">
-            Global Unbox History
-          </Link>
+        <Button
+          variant="secondary-darker"
+          href="/unboxed"
+          className="flex items-center justify-center py-0 text-center backdrop-blur-md"
+        >
+          Global Unbox History
         </Button>
       </div>
 
@@ -65,10 +66,8 @@ export default async function Home({
             </span>
 
             <div className="flex gap-1">
-              <Button variant="secondary-darker" className="p-0">
-                <Link href="/unboxed" className="p-3">
-                  INSPECT ITEMS
-                </Link>
+              <Button href="/unboxed" variant="secondary-darker">
+                INSPECT ITEMS
               </Button>
               <AboutButtonWithModal />
             </div>
