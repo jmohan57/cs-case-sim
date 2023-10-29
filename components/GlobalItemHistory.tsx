@@ -23,7 +23,7 @@ export default async ({ onlyCoverts }: { onlyCoverts: boolean }) => {
             key={item.id}
             title={`Unboxed on ${item.unboxed_at} UTC from ${item.case_name}\n\nClick to open case.`}
           >
-            <Link href={`/?case=${item.case_id}`}>
+            <Link href={`/?case=${item.case_id}&item=${item.item_id}`}>
               <Item
                 itemName={item.item_name.split(" | ")[0]}
                 skinName={item.item_name.split(" | ")[1]}

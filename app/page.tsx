@@ -8,9 +8,9 @@ import { CaseDataType, GradeType } from "@/types";
 export default async function Home({
   searchParams,
 }: {
-  searchParams: { case?: string };
+  searchParams: { case?: string; item?: string };
 }) {
-  const { case: selectedCaseParam } = searchParams;
+  const { case: selectedCaseParam, item: highlightedItemParam } = searchParams;
 
   const apis = [
     "https://bymykel.github.io/CSGO-API/api/en/crates/cases.json",
@@ -83,6 +83,7 @@ export default async function Home({
               skinName={item.name.split(" | ")[1]}
               image={item.image}
               grade={item.rarity as GradeType}
+              highlight={item.id === highlightedItemParam}
             />
           ))}
 
