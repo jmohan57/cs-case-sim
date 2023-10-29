@@ -24,16 +24,10 @@ export default ({
 
   const className = {
     className: `select-none rounded p-3 text-lg font-semibold transition-colors duration-[40ms] disabled:bg-neutral-500 ${extraClassNames} ${
-      variant === "primary"
-        ? "bg-[#048b59] duration-[40ms] hover:bg-[#15b869]"
-        : ""
-    } ${
-      variant === "secondary" ? "duration-300 hover:bg-neutral-500/50" : ""
-    } ${
-      variant === "secondary-darker" ? "duration-300 hover:bg-black/50" : ""
-    } ${
-      variant === "danger" ? "bg-red-500 duration-300 hover:bg-red-500/50" : ""
-    }`,
+      variant === "primary" ? "bg-[#048b59] hover:bg-[#15b869]" : ""
+    } ${variant === "secondary" ? "hover:bg-neutral-500/50" : ""} ${
+      variant === "secondary-darker" ? "hover:bg-black/50" : ""
+    } ${variant === "danger" ? "bg-red-500 hover:bg-red-500/50" : ""}`,
   };
 
   return href ? (

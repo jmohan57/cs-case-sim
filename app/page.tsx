@@ -118,9 +118,9 @@ export default async function Home({
 
             <div className="mx-2 h-16 w-px bg-white/50" />
 
-            <button className="cursor-not-allowed select-none rounded p-3 text-lg font-semibold transition-colors duration-300 hover:bg-neutral-500/50">
+            <Button variant="secondary" className="cursor-not-allowed">
               Close
-            </button>
+            </Button>
           </div>
         </div>
       </div>
