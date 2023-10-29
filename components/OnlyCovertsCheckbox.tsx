@@ -9,7 +9,7 @@ export default () => {
   return (
     <div className="flex items-center gap-1">
       <input
-        className="h-4 w-4 accent-neutral-800"
+        className="h-4 w-4 accent-[#048b59]"
         type="checkbox"
         id="onlyCovertsCheckbox"
         defaultChecked={onlyCoverts}
@@ -18,7 +18,7 @@ export default () => {
           router.replace(`?onlyCoverts=${!onlyCoverts}`);
         }}
       />
-      <label className="text-lg" htmlFor="onlyCovertsCheckbox">
+      <label className="pt-[2px] text-lg" htmlFor="onlyCovertsCheckbox">
         Show only coverts
       </label>
     </div>
