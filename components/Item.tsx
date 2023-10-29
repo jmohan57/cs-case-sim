@@ -11,7 +11,7 @@ type Props = {
   skinName?: string;
   image?: string;
   grade?: GradeType;
-  noPadding?: boolean;
+  isSpecial?: boolean;
   highlight?: boolean;
 };
 
@@ -20,7 +20,7 @@ export default ({
   skinName,
   image,
   grade = "Mil-Spec Grade",
-  noPadding,
+  isSpecial,
   highlight,
 }: Props) => {
   const [isHighlighted, setIsHighlighted] = useState(highlight);
@@ -44,11 +44,9 @@ export default ({
         }}
       >
         <img
-          className={noPadding ? "" : "p-2"}
+          className={`${isSpecial ? "h-full w-full object-cover" : "p-2"}`}
           src={image ?? "/images/m4a4_howl.png"}
-          alt="Weapon image"
-          width={512}
-          height={384}
+          alt={`${itemName} image`}
           draggable={false}
         />
       </div>

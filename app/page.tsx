@@ -96,7 +96,7 @@ export default async function Home({
               }
               image="/images/rsi-2.png"
               grade="Rare Special Item"
-              noPadding
+              isSpecial
             />
           )}
         </div>
