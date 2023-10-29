@@ -56,6 +56,12 @@ export default () => {
               .
             </p>
 
+            <p>
+              <span className="underline">And remember</span>: just because you
+              unbox a cool item here doesn't mean you'll get one in-game. Gamble
+              responsibly, or not at all.
+            </p>
+
             <Button
               variant="secondary-darker"
               className="self-end"
