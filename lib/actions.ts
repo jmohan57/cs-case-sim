@@ -11,12 +11,12 @@ const conn = connect({
 
 export const addItemToDB = async (caseData: CaseDataType, item: ItemType) => {
   const { id: caseId, name: caseName, image: caseImage } = caseData;
-  const { id: itemId, name: itemName, rarity, image: itemImage } = item;
+  const { id: itemId, name: itemName, rarity, phase, image: itemImage } = item;
 
   try {
     await conn.execute(
-      "INSERT INTO case_sim_items (case_id, case_name, case_image, item_id, item_name, rarity, item_image) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [caseId, caseName, caseImage, itemId, itemName, rarity, itemImage],
+      "INSERT INTO case_sim_items (case_id, case_name, case_image, item_id, item_name, rarity, phase, item_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+      [caseId, caseName, caseImage, itemId, itemName, rarity, phase, itemImage],
     );
   } catch (error) {
     console.error("Error adding item:", error);

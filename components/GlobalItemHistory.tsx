@@ -5,6 +5,7 @@ import { GradeType } from "@/types";
 
 export default async ({ onlyCoverts }: { onlyCoverts: boolean }) => {
   const unboxedItems = await getItemsFromDB(onlyCoverts);
+
   return (
     <div className="flex flex-wrap justify-center gap-8 px-2 lg:px-16">
       {unboxedItems && unboxedItems.length === 0 && (
@@ -18,25 +19,33 @@ export default async ({ onlyCoverts }: { onlyCoverts: boolean }) => {
       )}
 
       {unboxedItems ? (
-        unboxedItems.map(item => (
-          <div
-            key={item.id}
-            title={`Unboxed on ${item.unboxed_at} UTC from ${item.case_name}\n\nClick to open case.`}
-          >
-            <Link href={`/?case=${item.case_id}&item=${item.item_id}`}>
-              <Item
-                itemName={item.item_name.split(" | ")[0]}
-                skinName={item.item_name.split(" | ")[1]}
-                grade={
-                  item.item_name.includes("★")
-                    ? "Rare Special Item"
-                    : (item.rarity as GradeType)
-                }
-                image={item.item_image}
-              />
-            </Link>
-          </div>
-        ))
+        unboxedItems.map(item => {
+          const [itemName, skinName] = unboxedItems
+            ? item.item_name.split(" | ")
+            : [null, null];
+
+          return (
+            <div
+              key={item.id}
+              title={`Unboxed on ${item.unboxed_at} UTC from ${item.case_name}\n\nClick to open case.`}
+            >
+              <Link href={`/?case=${item.case_id}&item=${item.item_id}`}>
+                <Item
+                  itemName={itemName ?? ""}
+                  skinName={`${skinName ?? ""} ${
+                    item.phase ? ` (${item.phase})` : ""
+                  }`}
+                  grade={
+                    item.item_name.includes("★")
+                      ? "Rare Special Item"
+                      : (item.rarity as GradeType)
+                  }
+                  image={item.item_image}
+                />
+              </Link>
+            </div>
+          );
+        })
       ) : (
         <span>Error loading items :(</span>
       )}

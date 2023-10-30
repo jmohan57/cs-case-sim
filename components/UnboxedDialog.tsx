@@ -22,7 +22,9 @@ export default ({
   const itemShareUrl = new URL("https://twitter.com/intent/tweet");
   itemShareUrl.searchParams.set(
     "text",
-    `I unboxed a ${item?.name} in the Counter-Strike Case Simulator!\n\nTry here:`,
+    `I unboxed a ${item?.name}${
+      item?.phase ? ` (${item.phase})` : ""
+    } in the Counter-Strike Case Simulator!\n\nTry here:`,
   );
   itemShareUrl.searchParams.set("url", "case-sim.com");
 
@@ -54,7 +56,7 @@ export default ({
                 target="_blank"
                 title="Share this pull on X / Twitter!"
               >
-                {item?.name}
+                {item?.name} {item?.phase ? ` (${item.phase})` : ""}
               </Link>
             </span>
           </span>

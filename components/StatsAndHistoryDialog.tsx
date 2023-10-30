@@ -127,7 +127,7 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
                       : gradeColors[item.rarity as GradeType],
                   }}
                 >
-                  {item.name}
+                  {item.name} {item?.phase ? ` (${item.phase})` : ""}
                 </div>
               ))}
             </div>
@@ -152,7 +152,7 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
                         : gradeColors[item.rarity as GradeType],
                     }}
                   >
-                    {item.name}
+                    {item.name} {item.phase ? ` (${item.phase})` : ""}
                   </div>
                 ))}
             </div>

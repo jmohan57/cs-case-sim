@@ -7,5 +7,6 @@ CREATE TABLE case_sim_items (
     item_name VARCHAR(255) NOT NULL,
     item_image VARCHAR(600) NOT NULL,
     rarity VARCHAR(255) NOT NULL,
+    phase VARCHAR(50) DEFAULT NULL,
     unboxed_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );

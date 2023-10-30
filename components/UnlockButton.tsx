@@ -14,6 +14,7 @@ type GradeOddsType = {
 };
 
 const gradeOddsCase = {
+  // "Rare Special Item": 1.0026,
   "Mil-Spec Grade": 0.7992,
   Restricted: 0.1598,
   Classified: 0.032,

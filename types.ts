@@ -2,6 +2,7 @@ export type ItemType = {
   id: string;
   name: string;
   rarity: string;
+  phase?: string | null;
   image: string;
 };
 
@@ -32,5 +33,6 @@ export type ItemTypeDB = {
   item_name: string;
   item_image: string;
   rarity: string;
+  phase?: string | null;
   unboxed_at: string;
 };
