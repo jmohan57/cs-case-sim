@@ -1,3 +1,4 @@
+import customCases from "@/lib/data/customCases.json";
 import CaseSelect from "@/components/CaseSelect";
 import AboutButtonWithModal from "@/components/AboutButtonWithModal";
 import Item from "@/components/Item";
@@ -21,8 +22,8 @@ export default async function Home({
   const promises = apis.map(api => fetch(api).then(res => res.json()));
   const [data1, data2] = await Promise.all(promises);
 
-  // Combine the two arrays into one array
-  const casesData: CaseDataType[] = [...data1, ...data2];
+  // Combine the case data arrays
+  const casesData: CaseDataType[] = [...data1, ...customCases, ...data2];
 
   const caseMetadata = casesData.map(x => ({ id: x.id, name: x.name }));
 
