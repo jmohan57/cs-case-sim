@@ -51,20 +51,18 @@ const TotalSpend = async ({ onlyCoverts }: { onlyCoverts: boolean }) => {
   if (totalUnboxed === false) return null;
 
   return (
-    <div className="flex justify-center gap-1">
-      <span>
-        <span className="font-medium">{totalUnboxed.toLocaleString("en")}</span>{" "}
-        {onlyCoverts ? "coverts" : "items"} unboxed.{" "}
-        <span className="font-medium">
-          {(totalUnboxed * 2.35).toLocaleString("en", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          })}
-          €
-        </span>{" "}
-        spent on imaginary keys.
-      </span>
+    <span className="text-center">
+      <span className="font-medium">{totalUnboxed.toLocaleString("en")}</span>{" "}
+      {onlyCoverts ? "coverts" : "items"} unboxed.{" "}
+      <span className="font-medium">
+        {(totalUnboxed * 2.35).toLocaleString("en", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}
+        €
+      </span>{" "}
+      spent on imaginary keys.
       <RefreshButton />
-    </div>
+    </span>
   );
 };

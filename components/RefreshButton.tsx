@@ -10,7 +10,9 @@ export default () => {
 
   return (
     <button onClick={() => startTransition(() => router.refresh())}>
-      <Icons.arrowRotate className={pending ? "animate-spin" : ""} />
+      <Icons.arrowRotate
+        className={`ml-1 inline ${pending ? "animate-spin" : ""}`}
+      />
     </button>
   );
 };
