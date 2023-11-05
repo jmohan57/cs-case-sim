@@ -9,9 +9,18 @@ const conn = connect({
   password: process.env.DATABASE_PASSWORD,
 });
 
-export const addItemToDB = async (caseData: CaseDataType, item: ItemType) => {
+export const addItemToDB = async (
+  caseData: CaseDataType,
+  itemData: ItemType,
+) => {
   const { id: caseId, name: caseName, image: caseImage } = caseData;
-  const { id: itemId, name: itemName, rarity, phase, image: itemImage } = item;
+  const {
+    id: itemId,
+    name: itemName,
+    rarity,
+    phase,
+    image: itemImage,
+  } = itemData;
 
   try {
     await conn.execute(
@@ -20,6 +29,39 @@ export const addItemToDB = async (caseData: CaseDataType, item: ItemType) => {
     );
   } catch (error) {
     console.error("Error adding item:", error);
+    return false;
+  }
+};
+
+export const addItemsToDB = async (
+  data: {
+    caseData: { id: string; name: string; image: string };
+    itemData: ItemType;
+  }[],
+) => {
+  const amount = data.length;
+  const placeholdersString = [...Array(amount)]
+    .map(() => "(?, ?, ?, ?, ?, ?, ?, ?)")
+    .join(", ");
+
+  const values = data.map(item => [
+    item.caseData.id,
+    item.caseData.name,
+    item.caseData.image,
+    item.itemData.id,
+    item.itemData.name,
+    item.itemData.rarity,
+    item.itemData.phase ?? null,
+    item.itemData.image,
+  ]);
+
+  try {
+    await conn.execute(
+      `INSERT INTO case_sim_items (case_id, case_name, case_image, item_id, item_name, rarity, phase, item_image) VALUES ${placeholdersString}`,
+      values.flat(),
+    );
+  } catch (error) {
+    console.error("Error adding items:", error);
     return false;
   }
 };

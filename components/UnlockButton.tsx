@@ -7,7 +7,7 @@ import UnboxedDialog from "./UnboxedDialog";
 import StatsAndHistoryDialog from "./StatsAndHistoryDialog";
 import Button from "./Button";
 import { CaseDataType, GradeType, ItemType } from "@/types";
-import { addItemToDB } from "@/lib/actions";
+import { addItemsToDB } from "@/lib/actions";
 
 type GradeOddsType = {
   [grade in GradeType]: number;
@@ -36,6 +36,9 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
   const [unlockButtonDisabled, setUnlockButtonDisabled] = useState(false);
   const unboxedDialogRef = useRef<HTMLDialogElement>(null);
   const historyDialogRef = useRef<HTMLDialogElement>(null);
+  const [itemBuffer, setItemBuffer] = useState<
+    { caseData: CaseDataType; itemData: ItemType }[]
+  >([]);
 
   const volume = 0.5;
   const [playMilspec, { stop: stop1 }] = useSound("/audio/milspecopen.mp3", {
@@ -49,6 +52,51 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
     "/audio/classifiedopen.mp3",
     { volume },
   );
+
+  // Load unboxed items from localStorage
+  useEffect(() => {
+    try {
+      setUnboxedItems(JSON.parse(localStorage.getItem("unboxedItems") || "[]"));
+    } catch (error) {
+      setUnboxedItems([]);
+    }
+  }, []);
+
+  // Add items to the database from the buffer
+  useEffect(() => {
+    // If the buffer is empty, return
+    if (itemBuffer.length === 0) return;
+
+    // If the buffer is full (20), process it
+    if (itemBuffer.length >= 20) {
+      processBuffer();
+    }
+
+    // Process the buffer anyway every 5 seconds
+    const bufferClearInterval = setInterval(() => {
+      processBuffer();
+    }, 5000);
+
+    // Clear the interval when the component unmounts
+    return () => {
+      clearInterval(bufferClearInterval);
+    };
+  }, [itemBuffer]);
+
+  const processBuffer = () => {
+    if (itemBuffer.length === 0) return;
+    // Format the data, remove bloat
+    const formattedData = itemBuffer.map(data => ({
+      caseData: {
+        id: data.caseData.id,
+        name: data.caseData.name,
+        image: data.caseData.image,
+      },
+      itemData: data.itemData,
+    }));
+    addItemsToDB(formattedData);
+    setItemBuffer([]);
+  };
 
   const openCase = (dontOpenDialog?: boolean) => {
     const openedItem = getItem();
@@ -83,15 +131,6 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
     if (dontOpenDialog) return;
     unboxedDialogRef.current?.showModal();
   };
-
-  // Load unboxed items from localStorage
-  useEffect(() => {
-    try {
-      setUnboxedItems(JSON.parse(localStorage.getItem("unboxedItems") || "[]"));
-    } catch (error) {
-      setUnboxedItems([]);
-    }
-  }, []);
 
   // This is pretty hacky
   const gradeOdds =
@@ -131,8 +170,9 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
                 "★ StatTrak™ " + unboxedItem.name.replace("★", "");
             }
 
-            // Add the item to the database and return it
-            addItemToDB(caseData, unboxedItem);
+            // Add the unboxed item to the item buffer
+            setItemBuffer([...itemBuffer, { caseData, itemData: unboxedItem }]);
+            // Return the item
             return unboxedItem;
           }
         } else {
@@ -151,8 +191,9 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
               unboxedItem.name = "StatTrak™ " + unboxedItem.name;
             }
 
-            // Add the item to the database and return it
-            addItemToDB(caseData, unboxedItem);
+            // Add the unboxed item to the item buffer
+            setItemBuffer([...itemBuffer, { caseData, itemData: unboxedItem }]);
+            // Return the item
             return unboxedItem;
           }
         }
