@@ -76,7 +76,7 @@ export default async function Home({
           <hr className="my-2 opacity-30" />
         </div>
 
-        <div className="flex flex-wrap justify-center gap-8 px-2 lg:justify-start lg:px-16">
+        <div className="flex max-h-96 flex-wrap justify-center gap-8 overflow-auto px-2 lg:justify-start lg:px-16">
           {selectedCase.contains.map(item => (
             <Item
               key={item.name}
