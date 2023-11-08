@@ -33,7 +33,7 @@ export default ({
 
   return (
     <div
-      className="group flex flex-col gap-1 transition-all data-[highlighted=true]:bg-[#ffd700]/40"
+      className="group flex w-44 flex-col gap-1 transition-all data-[highlighted=true]:bg-[#ffd700]/40"
       data-highlighted={isHighlighted}
       onMouseEnter={playHover}
     >
