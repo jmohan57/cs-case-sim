@@ -39,7 +39,10 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
         <div className="flex flex-col gap-1 p-2">
           <span className="font-semibold underline">Stats</span>
           <span>
-            Opened: <span className="font-semibold">{unboxedItems.length}</span>
+            Opened:{" "}
+            <span className="font-semibold">
+              {unboxedItems.length.toLocaleString("en")}
+            </span>
           </span>
           <span>
             Key spend:{" "}
@@ -58,7 +61,9 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
               >
                 {grade}:{" "}
                 <span className="font-semibold">
-                  {unboxedItems.filter(x => x.rarity === grade).length}{" "}
+                  {unboxedItems
+                    .filter(x => x.rarity === grade)
+                    .length.toLocaleString("en")}{" "}
                   <span>
                     {formatPercentage(
                       unboxedItems.filter(x => x.rarity === grade).length /
@@ -76,11 +81,9 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
           >
             Covert:{" "}
             <span className="font-semibold">
-              {
-                unboxedItems.filter(
-                  x => x.rarity === "Covert" && !x.name.includes("★"),
-                ).length
-              }{" "}
+              {unboxedItems
+                .filter(x => x.rarity === "Covert" && !x.name.includes("★"))
+                .length.toLocaleString("en")}{" "}
               {/* Percentage */}
               <span>
                 {formatPercentage(
@@ -99,7 +102,9 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
           >
             Rare Special Item:{" "}
             <span className="font-semibold">
-              {unboxedItems.filter(x => x.name.includes("★")).length}{" "}
+              {unboxedItems
+                .filter(x => x.name.includes("★"))
+                .length.toLocaleString("en")}{" "}
               {/* Percentage */}
               <span>
                 {formatPercentage(
