@@ -28,8 +28,12 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
         </span>
 
         <span className="p-2">
-          Too see a list of the last items unboxed by the entire community, go{" "}
+          To see a list of the last items unboxed by the entire community, go{" "}
           <Link className="font-semibold hover:underline" href="/unboxed">
+            here
+          </Link>
+          . To see your own, go{" "}
+          <Link className="font-semibold hover:underline" href="/inventory">
             here
           </Link>
           .
