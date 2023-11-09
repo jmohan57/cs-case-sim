@@ -52,6 +52,9 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
     "/audio/classifiedopen.mp3",
     { volume },
   );
+  const [playCovert, { stop: stop4 }] = useSound("/audio/covertopen.mp3", {
+    volume,
+  });
 
   // Load unboxed items from localStorage
   useEffect(() => {
@@ -111,6 +114,9 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
     stop1();
     stop2();
     stop3();
+    stop4();
+
+    // Play sound based on item grade
     if (
       ["Consumer Grade", "Industrial Grade", "Mil-Spec Grade"].includes(
         openedItem.rarity,
@@ -119,6 +125,7 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
       playMilspec();
     if (openedItem.rarity === "Restricted") playResricted();
     if (openedItem.rarity === "Classified") playClassified();
+    if (openedItem.rarity === "Covert") playCovert();
 
     // Disable the unlock button for 1 second if the item is a Covert or RSI
     if (openedItem.name.includes("★") || openedItem.rarity === "Covert") {
