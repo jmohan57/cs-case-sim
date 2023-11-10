@@ -88,7 +88,7 @@ export const getTotalItemsFromDB = async (onlyCoverts?: boolean) => {
         onlyCoverts ? "WHERE rarity = 'Covert' OR rarity = 'Extraordinary'" : ""
       }`,
     );
-    return parseInt((query.rows[0] as { total: string }).total);
+    return parseInt((query.rows[0] as { total: string }).total ?? 0);
   } catch (error) {
     console.log("Error getting total items:", error);
     return false;
