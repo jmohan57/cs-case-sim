@@ -84,7 +84,7 @@ export const getItemsFromDB = async (onlyCoverts?: boolean) => {
 export const getTotalItemsFromDB = async (onlyCoverts?: boolean) => {
   try {
     const query = await conn.execute(
-      `SELECT COUNT(*) as total FROM case_sim_items ${
+      `SELECT MAX(id) as total FROM case_sim_items ${
         onlyCoverts ? "WHERE rarity = 'Covert' OR rarity = 'Extraordinary'" : ""
       }`,
     );
