@@ -36,9 +36,9 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
   const [unlockButtonDisabled, setUnlockButtonDisabled] = useState(false);
   const unboxedDialogRef = useRef<HTMLDialogElement>(null);
   const historyDialogRef = useRef<HTMLDialogElement>(null);
-  const [itemBuffer, setItemBuffer] = useState<
-    { caseData: CaseDataType; itemData: ItemType }[]
-  >([]);
+  const itemBuffer = useRef<{ caseData: CaseDataType; itemData: ItemType }[]>(
+    [],
+  );
 
   const volume = 0.5;
   const [playMilspec, { stop: stop1 }] = useSound("/audio/milspecopen.mp3", {
@@ -65,41 +65,34 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
     }
   }, []);
 
-  // Add items to the database from the buffer
-  useEffect(() => {
-    // If the buffer is empty, return
-    if (itemBuffer.length === 0) return;
+  const sendBatchToDB = () => {
+    if (itemBuffer.current.length > 0) {
+      const formattedData = itemBuffer.current.map(data => ({
+        caseData: {
+          id: data.caseData.id,
+          name: data.caseData.name,
+          image: data.caseData.image,
+        },
+        itemData: data.itemData,
+      }));
 
-    // If the buffer is full (20), process it
-    if (itemBuffer.length >= 20) {
-      processBuffer();
+      addItemsToDB(formattedData);
+      itemBuffer.current = [];
     }
+  };
 
-    // Process the buffer anyway every 5 seconds
-    const bufferClearInterval = setInterval(() => {
-      processBuffer();
+  // Set up the initial interval
+  useEffect(() => {
+    // Send the batch to the DB every 5 seconds
+    const timer = setInterval(() => {
+      sendBatchToDB();
     }, 5000);
 
-    // Clear the interval when the component unmounts
+    // Cleanup function
     return () => {
-      clearInterval(bufferClearInterval);
+      clearInterval(timer);
     };
-  }, [itemBuffer]);
-
-  const processBuffer = () => {
-    if (itemBuffer.length === 0) return;
-    // Format the data, remove bloat
-    const formattedData = itemBuffer.map(data => ({
-      caseData: {
-        id: data.caseData.id,
-        name: data.caseData.name,
-        image: data.caseData.image,
-      },
-      itemData: data.itemData,
-    }));
-    addItemsToDB(formattedData);
-    setItemBuffer([]);
-  };
+  }, []);
 
   const openCase = (dontOpenDialog?: boolean) => {
     const openedItem = getItem();
@@ -178,7 +171,10 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
             }
 
             // Add the unboxed item to the item buffer
-            setItemBuffer([...itemBuffer, { caseData, itemData: unboxedItem }]);
+            itemBuffer.current = [
+              ...itemBuffer.current,
+              { caseData, itemData: unboxedItem },
+            ];
             // Return the item
             return unboxedItem;
           }
@@ -199,7 +195,10 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
             }
 
             // Add the unboxed item to the item buffer
-            setItemBuffer([...itemBuffer, { caseData, itemData: unboxedItem }]);
+            itemBuffer.current = [
+              ...itemBuffer.current,
+              { caseData, itemData: unboxedItem },
+            ];
             // Return the item
             return unboxedItem;
           }
