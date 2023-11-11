@@ -8,6 +8,7 @@ import StatsAndHistoryDialog from "./StatsAndHistoryDialog";
 import Button from "./Button";
 import { CaseDataType, GradeType, ItemType } from "@/types";
 import { addItemsToDB } from "@/lib/actions";
+import getItem from "@/utils/getItem";
 
 type GradeOddsType = {
   [grade in GradeType]: number;
@@ -98,7 +99,7 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
   }, []);
 
   const openCase = (dontOpenDialog?: boolean) => {
-    const openedItem = getItem();
+    const openedItem = getItem(caseData, itemBuffer);
     setUnboxedItem(openedItem);
     setUnboxedItems([openedItem, ...unboxedItems]);
     localStorage.setItem(
@@ -137,84 +138,6 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
     if (dontOpenDialog) return;
     unboxedDialogRef.current?.showModal();
   };
-
-  // This is pretty hacky
-  const gradeOdds =
-    caseData.type === "Case" ? gradeOddsCase : gradeOddsSouvenir;
-
-  // Determine if the item should be StatTrak
-  // 1. Item is not Extraordinary (Gloves)
-  // 2. Case is not a Souvenir package
-  // 3. 10% chance
-  const determineStatTrak = (item: ItemType): boolean => {
-    return (
-      item.rarity !== "Extraordinary" &&
-      caseData.type !== "Souvenir" &&
-      Math.random() <= 0.1
-    );
-  };
-
-  // Simulate opening an item
-  function getItem() {
-    const random = Math.random();
-    let cumulativeProbability = 0;
-
-    for (const grade in gradeOdds) {
-      cumulativeProbability += gradeOdds[grade as GradeType];
-      if (random <= cumulativeProbability) {
-        if (grade === "Rare Special Item") {
-          // For "Rare Special Item," select from the "contains_rare" array
-          const rareItems = caseData.contains_rare;
-          if (rareItems.length > 0) {
-            const unboxedItem = {
-              ...rareItems[Math.floor(Math.random() * rareItems.length)],
-            };
-
-            // 10% chance of StatTrak. Prefix "★ StatTrak™" to the item name and remove the other ★ from the name
-            if (determineStatTrak(unboxedItem)) {
-              unboxedItem.name =
-                "★ StatTrak™ " + unboxedItem.name.replace("★", "");
-            }
-
-            // Add the unboxed item to the item buffer
-            itemBuffer.current = [
-              ...itemBuffer.current,
-              { caseData, itemData: unboxedItem },
-            ];
-            // Return the item
-            return unboxedItem;
-          }
-        } else {
-          // For other grades, select from the "contains" array
-          const gradeItems = caseData.contains.filter(
-            item => item.rarity === grade,
-          );
-
-          if (gradeItems.length > 0) {
-            const unboxedItem = {
-              ...gradeItems[Math.floor(Math.random() * gradeItems.length)],
-            };
-
-            // 10% chance of StatTrak. Prefix "StatTrak™" to the item name
-            if (determineStatTrak(unboxedItem)) {
-              unboxedItem.name = "StatTrak™ " + unboxedItem.name;
-            }
-
-            // Add the unboxed item to the item buffer
-            itemBuffer.current = [
-              ...itemBuffer.current,
-              { caseData, itemData: unboxedItem },
-            ];
-            // Return the item
-            return unboxedItem;
-          }
-        }
-      }
-    }
-
-    // If no valid grade is found, return a default item from "contains"
-    return caseData.contains[0];
-  }
 
   return (
     <>
