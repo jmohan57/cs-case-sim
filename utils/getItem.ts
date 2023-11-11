@@ -30,55 +30,40 @@ export default (
   const random = Math.random();
   let cumulativeProbability = 0;
 
+  // Iterate through each grade and determine if the random number falls within the range
   for (const grade in gradeOdds) {
     cumulativeProbability += gradeOdds[grade as GradeType];
+
     if (random <= cumulativeProbability) {
-      if (grade === "Rare Special Item") {
-        // For "Rare Special Item," select from the "contains_rare" array
-        const rareItems = caseData.contains_rare;
-        if (rareItems.length > 0) {
-          const unboxedItem = {
-            ...rareItems[Math.floor(Math.random() * rareItems.length)],
-          };
+      const isRareSpecialItem = grade === "Rare Special Item";
 
-          // 10% chance of StatTrak. Prefix "★ StatTrak™" to the item name and remove the other ★ from the name
-          if (itemIsStatTrak(caseData, unboxedItem)) {
-            unboxedItem.name =
-              "★ StatTrak™ " + unboxedItem.name.replace("★", "");
-          }
+      // If the grade is a rare special item, return a random item from "contains_rare"
+      const availableItems = isRareSpecialItem
+        ? caseData.contains_rare
+        : caseData.contains.filter(item => item.rarity === grade);
 
-          // Add the unboxed item to the item buffer
-          itemBuffer.current = [
-            ...itemBuffer.current,
-            { caseData, itemData: unboxedItem },
-          ];
-          // Return the item
-          return unboxedItem;
+      // If there are items available, return a random item
+      if (availableItems.length > 0) {
+        const unboxedItem = {
+          ...availableItems[Math.floor(Math.random() * availableItems.length)],
+        };
+
+        // If the item is StatTrak, add the prefix to the name
+        if (itemIsStatTrak(caseData, unboxedItem)) {
+          const statTrakPrefix = isRareSpecialItem
+            ? "★ StatTrak™ "
+            : "StatTrak™ ";
+          unboxedItem.name = statTrakPrefix + unboxedItem.name.replace("★", "");
         }
-      } else {
-        // For other grades, select from the "contains" array
-        const gradeItems = caseData.contains.filter(
-          item => item.rarity === grade,
-        );
 
-        if (gradeItems.length > 0) {
-          const unboxedItem = {
-            ...gradeItems[Math.floor(Math.random() * gradeItems.length)],
-          };
+        // Add the item to the item buffer
+        itemBuffer.current = [
+          ...itemBuffer.current,
+          { caseData, itemData: unboxedItem },
+        ];
 
-          // 10% chance of StatTrak. Prefix "StatTrak™" to the item name
-          if (itemIsStatTrak(caseData, unboxedItem)) {
-            unboxedItem.name = "StatTrak™ " + unboxedItem.name;
-          }
-
-          // Add the unboxed item to the item buffer
-          itemBuffer.current = [
-            ...itemBuffer.current,
-            { caseData, itemData: unboxedItem },
-          ];
-          // Return the item
-          return unboxedItem;
-        }
+        // Return the item
+        return unboxedItem;
       }
     }
   }
