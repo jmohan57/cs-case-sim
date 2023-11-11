@@ -32,7 +32,7 @@ export default async function Home({
 
   return (
     <main id="main" className="relative flex min-h-screen select-none flex-col">
-      <div className="mx-2 mt-2 flex flex-col-reverse justify-between gap-2 md:flex-row">
+      <div className="mx-2 mt-2 flex flex-col-reverse justify-between gap-2 min-[800px]:flex-row">
         <CaseSelect availableCases={caseMetadata} />
 
         <Button
