@@ -82,12 +82,14 @@ export const getItemsFromDB = async (onlyCoverts?: boolean) => {
 };
 
 export const getTotalItemsFromDB = async (onlyCoverts?: boolean) => {
+  // If onlyCoverts is true, use COUNT(*)
+  // Otherwise, use MAX(id) to get the total. This is much faster than COUNT(*)
+  const statement = onlyCoverts
+    ? "SELECT COUNT(*) as total FROM case_sim_items WHERE rarity = 'Covert' OR rarity = 'Extraordinary'"
+    : "SELECT MAX(id) as total FROM case_sim_items";
+
   try {
-    const query = await conn.execute(
-      `SELECT MAX(id) as total FROM case_sim_items ${
-        onlyCoverts ? "WHERE rarity = 'Covert' OR rarity = 'Extraordinary'" : ""
-      }`,
-    );
+    const query = await conn.execute(statement);
     return parseInt((query.rows[0] as { total: string }).total ?? 0);
   } catch (error) {
     console.log("Error getting total items:", error);
