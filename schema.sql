@@ -10,3 +10,5 @@ CREATE TABLE case_sim_items (
     phase VARCHAR(50) DEFAULT NULL,
     unboxed_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE INDEX idx_rarity ON case_sim_items (rarity);
