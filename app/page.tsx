@@ -54,9 +54,16 @@ export default async function Home({
           {selectedCasePrice && (
             <span
               className="font-medium tracking-wider"
-              title={`This case costs approximately $${selectedCasePrice} on Steam.`}
+              title={`This case costs approximately $${selectedCasePrice.toLocaleString(
+                "en",
+                { minimumFractionDigits: 2 },
+              )} on Steam.`}
             >
-              (${selectedCasePrice})
+              ($
+              {selectedCasePrice.toLocaleString("en", {
+                minimumFractionDigits: 2,
+              })}
+              )
             </span>
           )}
         </h4>
