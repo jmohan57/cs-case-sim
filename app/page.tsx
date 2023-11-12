@@ -4,6 +4,7 @@ import AboutButtonWithModal from "@/components/AboutButtonWithModal";
 import Item from "@/components/Item";
 import UnlockButton from "@/components/UnlockButton";
 import Button from "@/components/Button";
+import getCasePrice from "@/utils/getCasePrice";
 import { CaseDataType, GradeType } from "@/types";
 
 export default async function Home({
@@ -30,6 +31,8 @@ export default async function Home({
   const selectedCase =
     casesData.find(x => x.id === selectedCaseParam) ?? casesData[0];
 
+  const selectedCasePrice = getCasePrice(selectedCase.name);
+
   return (
     <main id="main" className="relative flex min-h-screen select-none flex-col">
       <div className="mx-2 mt-2 flex flex-col-reverse justify-between gap-2 min-[800px]:flex-row">
@@ -47,7 +50,15 @@ export default async function Home({
       <div className="mt-3 flex flex-1 flex-col items-center gap-1 text-center">
         <h1 className="text-4xl font-medium text-white">Unlock Container</h1>
         <h4 className="text-xl">
-          Unlock <span className="font-semibold">{selectedCase.name}</span>
+          Unlock <span className="font-semibold">{selectedCase.name}</span>{" "}
+          {selectedCasePrice && (
+            <span
+              className="font-medium tracking-wider"
+              title={`This case costs approximately $${selectedCasePrice} on Steam.`}
+            >
+              (${selectedCasePrice})
+            </span>
+          )}
         </h4>
 
         <img
