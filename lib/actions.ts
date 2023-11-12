@@ -70,7 +70,7 @@ export const getItemsFromDB = async (onlyCoverts?: boolean) => {
   try {
     const query = await conn.execute(
       `SELECT * FROM case_sim_items ${
-        onlyCoverts ? "WHERE rarity = 'Covert' OR rarity = 'Extraordinary'" : ""
+        onlyCoverts ? "WHERE rarity = 'Covert' OR item_name LIKE '%★%'" : ""
       } ORDER BY id DESC LIMIT 100`,
     );
 
