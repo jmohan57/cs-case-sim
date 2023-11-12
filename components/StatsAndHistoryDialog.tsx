@@ -3,13 +3,19 @@
 import Link from "next/link";
 import Button from "./Button";
 import gradeColors from "@/utils/gradeColors";
-import { GradeType, ItemType } from "@/types";
+import { GradeType, ItemTypeLocalStorage } from "@/types";
 
 type Props = {
   historyDialogRef: React.MutableRefObject<HTMLDialogElement | null>;
-  unboxedItems: ItemType[];
-  setUnboxedItems: React.Dispatch<React.SetStateAction<ItemType[]>>;
+  unboxedItems: ItemTypeLocalStorage[];
+  setUnboxedItems: React.Dispatch<React.SetStateAction<ItemTypeLocalStorage[]>>;
 };
+
+const formatDecimal = (number: number, minimumFractionDigits = 0) =>
+  number.toLocaleString("en", {
+    minimumFractionDigits,
+    maximumFractionDigits: 2,
+  });
 
 const formatPercentage = (percentage: number) => {
   if (isNaN(percentage)) return "(0.00%)";
@@ -42,19 +48,32 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
         {/* STATS */}
         <div className="flex flex-col gap-1 p-2">
           <span className="font-semibold underline">Stats</span>
+
           <span>
             Opened:{" "}
             <span className="font-semibold">
               {unboxedItems.length.toLocaleString("en")}
             </span>
           </span>
+
           <span>
             Key spend:{" "}
             <span className="font-semibold">
-              {(unboxedItems.length * 2.35).toFixed(2)}€ ($
-              {(unboxedItems.length * 2.5).toFixed(2)})
+              {formatDecimal(unboxedItems.length * 2.35, 2)}€ ($
+              {formatDecimal(unboxedItems.length * 2.5, 2)})
             </span>
           </span>
+
+          <span>
+            Case spend:{" "}
+            <span className="font-semibold">
+              ~$
+              {Math.round(
+                unboxedItems.reduce((a, b) => a + (b.casePrice ?? 0), 0),
+              ).toLocaleString("en")}
+            </span>
+          </span>
+
           {Object.entries(gradeColors)
             .slice(0, 5)
             .map(([grade, color]) => (

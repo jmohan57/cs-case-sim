@@ -1,6 +1,7 @@
 import { MutableRefObject } from "react";
 import { gradeOddsCase, gradeOddsSouvenir } from "./gradeOdds";
 import { CaseDataType, GradeType, ItemType } from "@/types";
+import getCasePrice from "./getCasePrice";
 
 // Determine if the item should be StatTrak
 // 1. Item is not Extraordinary (Gloves)
@@ -42,10 +43,11 @@ export default (
         ? caseData.contains_rare
         : caseData.contains.filter(item => item.rarity === grade);
 
-      // If there are items available, return a random item
+      // If there are items available, return a random item and add the case price
       if (availableItems.length > 0) {
         const unboxedItem = {
           ...availableItems[Math.floor(Math.random() * availableItems.length)],
+          casePrice: getCasePrice(caseData.name),
         };
 
         // If the item is StatTrak, add the prefix to the name
