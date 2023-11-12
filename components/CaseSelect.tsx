@@ -13,7 +13,7 @@ export default ({
 }) => {
   const router = useRouter();
   const caseParam = useSearchParams().get("case");
-  const [playHover] = useSound("/audio/itemhover.mp3");
+  const [playHover] = useSound("/audio/buttonhover.mp3");
   const [playCaseSound, { stop: stopCaseSound }] = useSound(
     "/audio/caseselect.mp3",
   );
