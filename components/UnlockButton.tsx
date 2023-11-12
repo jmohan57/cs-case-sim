@@ -151,6 +151,7 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
       <Button
         variant="primary"
         disabled={unlockButtonDisabled}
+        playSoundOnClick={false}
         onClick={() => openCase()}
       >
         UNLOCK CONTAINER

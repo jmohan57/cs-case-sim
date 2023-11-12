@@ -94,6 +94,7 @@ export default ({
             <Button
               variant="primary"
               disabled={unlockButtonDisabled}
+              playSoundOnClick={false}
               onClick={() => openCaseFunc(true)}
             >
               RETRY

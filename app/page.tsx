@@ -120,7 +120,11 @@ export default async function Home({
 
             <div className="mx-2 h-16 w-px bg-white/50" />
 
-            <Button variant="secondary" className="cursor-not-allowed">
+            <Button
+              variant="secondary"
+              className="cursor-not-allowed"
+              playSoundOnClick={false}
+            >
               Close
             </Button>
           </div>

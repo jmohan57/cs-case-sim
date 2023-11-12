@@ -53,6 +53,7 @@ export default ({
       <Button
         variant="secondary-darker"
         className="py-0 backdrop-blur-md"
+        playSoundOnClick={false}
         onClick={() => selectCase()}
       >
         <Icons.shuffle />
