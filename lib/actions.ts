@@ -1,6 +1,7 @@
 "use server";
 
 import { connect } from "@planetscale/database";
+import { z } from "zod";
 import { CaseDataType, ItemType, ItemTypeDB } from "@/types";
 
 const conn = connect({
@@ -9,10 +10,40 @@ const conn = connect({
   password: process.env.DATABASE_PASSWORD,
 });
 
+const dataSchema = z.object({
+  caseData: z.object({
+    id: z.string(),
+    name: z.string(),
+    image: z
+      .string()
+      .startsWith("https://steamcdn-a.akamaihd.net/apps/730/icons"),
+  }),
+  itemData: z.object({
+    id: z.string(),
+    name: z.string(),
+    rarity: z.string(),
+    phase: z.string().optional(),
+    image: z
+      .string()
+      .refine(
+        url =>
+          url.startsWith("https://raw.githubusercontent.com/ByMykel") ||
+          url.startsWith("https://steamcdn-a.akamaihd.net/apps/730/icons"),
+      ),
+  }),
+});
+
 export const addItemToDB = async (
   caseData: CaseDataType,
   itemData: ItemType,
 ) => {
+  // Validate data - not tested because function is unused
+  const zodReturn = dataSchema.safeParse({ caseData, itemData });
+  if (!zodReturn.success) {
+    console.log("addItemToDB: Error validating data:", zodReturn.error);
+    return false;
+  }
+
   const { id: caseId, name: caseName, image: caseImage } = caseData;
   const {
     id: itemId,
@@ -39,6 +70,13 @@ export const addItemsToDB = async (
     itemData: ItemType;
   }[],
 ) => {
+  // Validate data
+  const zodReturn = z.array(dataSchema).safeParse(data);
+  if (!zodReturn.success) {
+    console.log("addItemsToDB: Error validating data:", zodReturn.error);
+    return false;
+  }
+
   const amount = data.length;
   const placeholdersString = [...Array(amount)]
     .map(() => "(?, ?, ?, ?, ?, ?, ?, ?)")
