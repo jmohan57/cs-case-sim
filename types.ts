@@ -1,7 +1,11 @@
 export type ItemType = {
   id: string;
   name: string;
-  rarity: string;
+  rarity: {
+    id: string;
+    name: string;
+    color: string;
+  };
   phase?: string | null;
   image: string;
 };
@@ -27,7 +31,11 @@ export type CaseDataType = {
 export type ItemTypeLocalStorage = {
   id: string;
   name: string;
-  rarity: string;
+  rarity: {
+    id: string;
+    name: string;
+    color: string;
+  };
   phase?: string | null;
   image: string;
   casePrice?: number | null;

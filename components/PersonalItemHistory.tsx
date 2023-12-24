@@ -12,14 +12,15 @@ export default ({ onlyCoverts }: { onlyCoverts: boolean }) => {
   useEffect(() => {
     try {
       const unboxedItemsLocalStorage = JSON.parse(
-        localStorage.getItem("unboxedItems") || "[]",
+        localStorage.getItem("unboxedItemsNew") || "[]",
       );
       setUnboxedItems(
         onlyCoverts
           ? unboxedItemsLocalStorage
               .filter(
                 (item: ItemType) =>
-                  item.rarity === "Covert" || item.rarity === "Extraordinary",
+                  item.rarity.name === "Covert" ||
+                  item.rarity.name === "Extraordinary",
               )
               .slice(0, 100)
           : unboxedItemsLocalStorage.slice(0, 100),
@@ -57,7 +58,7 @@ export default ({ onlyCoverts }: { onlyCoverts: boolean }) => {
               grade={
                 item.name.includes("★")
                   ? "Rare Special Item"
-                  : (item.rarity as GradeType)
+                  : (item.rarity.name as GradeType)
               }
               image={item.image}
             />
@@ -77,13 +78,14 @@ export const TotalSpend = ({ onlyCoverts }: { onlyCoverts: boolean }) => {
   useEffect(() => {
     try {
       const unboxedItemsLocalStorage = JSON.parse(
-        localStorage.getItem("unboxedItems") || "[]",
+        localStorage.getItem("unboxedItemsNew") || "[]",
       );
       setUnboxedItemsAmount(
         onlyCoverts
           ? unboxedItemsLocalStorage.filter(
               (item: ItemType) =>
-                item.rarity === "Covert" || item.rarity === "Extraordinary",
+                item.rarity.name === "Covert" ||
+                item.rarity.name === "Extraordinary",
             ).length
           : unboxedItemsLocalStorage.length,
       );

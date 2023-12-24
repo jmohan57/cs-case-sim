@@ -85,11 +85,11 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
                 {grade}:{" "}
                 <span className="font-semibold">
                   {unboxedItems
-                    .filter(x => x.rarity === grade)
+                    .filter(x => x.rarity.name === grade)
                     .length.toLocaleString("en")}{" "}
                   <span>
                     {formatPercentage(
-                      unboxedItems.filter(x => x.rarity === grade).length /
+                      unboxedItems.filter(x => x.rarity.name === grade).length /
                         unboxedItems.length,
                     )}
                   </span>
@@ -105,13 +105,15 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
             Covert:{" "}
             <span className="font-semibold">
               {unboxedItems
-                .filter(x => x.rarity === "Covert" && !x.name.includes("★"))
+                .filter(
+                  x => x.rarity.name === "Covert" && !x.name.includes("★"),
+                )
                 .length.toLocaleString("en")}{" "}
               {/* Percentage */}
               <span>
                 {formatPercentage(
                   unboxedItems.filter(
-                    x => x.rarity === "Covert" && !x.name.includes("★"),
+                    x => x.rarity.name === "Covert" && !x.name.includes("★"),
                   ).length / unboxedItems.length,
                 )}
               </span>
@@ -152,7 +154,7 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
                   style={{
                     borderColor: item.name.includes("★")
                       ? gradeColors["Rare Special Item"]
-                      : gradeColors[item.rarity as GradeType],
+                      : gradeColors[item.rarity.name as GradeType],
                   }}
                 >
                   {item.name} {item?.phase ? ` (${item.phase})` : ""}
@@ -165,11 +167,11 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
           <div>
             <div className="font-semibold underline">Coverts and Golds</div>
             {unboxedItems.filter(
-              x => x.rarity === "Covert" || x.name.includes("★"),
+              x => x.rarity.name === "Covert" || x.name.includes("★"),
             ).length === 0 && <span>No items unboxed yet</span>}
             <div className="flex flex-col gap-1">
               {unboxedItems
-                .filter(x => x.rarity === "Covert" || x.name.includes("★"))
+                .filter(x => x.rarity.name === "Covert" || x.name.includes("★"))
                 .map((item, i) => (
                   <div
                     key={`${item.id}-${i}`}
@@ -177,7 +179,7 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
                     style={{
                       borderColor: item.name.includes("★")
                         ? gradeColors["Rare Special Item"]
-                        : gradeColors[item.rarity as GradeType],
+                        : gradeColors[item.rarity.name as GradeType],
                     }}
                   >
                     {item.name} {item.phase ? ` (${item.phase})` : ""}
@@ -191,7 +193,7 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
               variant="danger"
               onClick={() => {
                 setUnboxedItems([]);
-                localStorage.setItem("unboxedItems", "[]");
+                localStorage.setItem("unboxedItemsNew", "[]");
               }}
             >
               CLEAR HISTORY

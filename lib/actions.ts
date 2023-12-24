@@ -21,7 +21,11 @@ const dataSchema = z.object({
   itemData: z.object({
     id: z.string(),
     name: z.string(),
-    rarity: z.string(),
+    rarity: z.object({
+      // id: z.string(),
+      name: z.string(),
+      // color: z.string(),
+    }),
     phase: z.string().optional(),
     image: z
       .string()
@@ -56,7 +60,16 @@ export const addItemToDB = async (
   try {
     await conn.execute(
       "INSERT INTO case_sim_items (case_id, case_name, case_image, item_id, item_name, rarity, phase, item_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-      [caseId, caseName, caseImage, itemId, itemName, rarity, phase, itemImage],
+      [
+        caseId,
+        caseName,
+        caseImage,
+        itemId,
+        itemName,
+        rarity.name,
+        phase,
+        itemImage,
+      ],
     );
   } catch (error) {
     console.error("Error adding item:", error);
@@ -88,7 +101,7 @@ export const addItemsToDB = async (
     item.caseData.image,
     item.itemData.id,
     item.itemData.name,
-    item.itemData.rarity,
+    item.itemData.rarity.name,
     item.itemData.phase ?? null,
     item.itemData.image,
   ]);

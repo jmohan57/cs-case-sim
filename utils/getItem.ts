@@ -9,7 +9,7 @@ import getCasePrice from "./getCasePrice";
 // 3. 10% chance
 const itemIsStatTrak = (caseData: CaseDataType, item: ItemType): boolean => {
   return (
-    item.rarity !== "Extraordinary" &&
+    item.rarity.name !== "Extraordinary" &&
     caseData.type !== "Souvenir" &&
     Math.random() <= 0.1
   );
@@ -41,7 +41,7 @@ export default (
       // If the grade is a rare special item, return a random item from "contains_rare"
       const availableItems = isRareSpecialItem
         ? caseData.contains_rare
-        : caseData.contains.filter(item => item.rarity === grade);
+        : caseData.contains.filter(item => item.rarity.name === grade);
 
       // If there are items available, return a random item and add the case price
       if (availableItems.length > 0) {

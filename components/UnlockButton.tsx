@@ -63,7 +63,9 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
   // Load unboxed items from localStorage
   useEffect(() => {
     try {
-      setUnboxedItems(JSON.parse(localStorage.getItem("unboxedItems") || "[]"));
+      setUnboxedItems(
+        JSON.parse(localStorage.getItem("unboxedItemsNew") || "[]"),
+      );
     } catch (error) {
       setUnboxedItems([]);
     }
@@ -103,7 +105,7 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
     setUnboxedItem(openedItem);
     setUnboxedItems([openedItem, ...unboxedItems]);
     localStorage.setItem(
-      "unboxedItems",
+      "unboxedItemsNew",
       JSON.stringify([openedItem, ...unboxedItems]),
     );
 
@@ -117,18 +119,19 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
     // Play sound based on item grade
     if (
       ["Consumer Grade", "Industrial Grade", "Mil-Spec Grade"].includes(
-        openedItem.rarity,
+        openedItem.rarity.name,
       )
     )
       playMilspec();
-    if (openedItem.rarity === "Restricted") playResricted();
-    if (openedItem.rarity === "Classified") playClassified();
-    if (openedItem.rarity === "Covert" && !openedItem.name.includes("★"))
+
+    if (openedItem.rarity.name === "Restricted") playResricted();
+    if (openedItem.rarity.name === "Classified") playClassified();
+    if (openedItem.rarity.name === "Covert" && !openedItem.name.includes("★"))
       playCovert();
     if (openedItem.name.includes("★")) playGold();
 
     // Disable the unlock button for 1 second if the item is a Covert or RSI
-    if (openedItem.name.includes("★") || openedItem.rarity === "Covert") {
+    if (openedItem.name.includes("★") || openedItem.rarity.name === "Covert") {
       setUnlockButtonDisabled(true);
       setTimeout(() => {
         setUnlockButtonDisabled(false);

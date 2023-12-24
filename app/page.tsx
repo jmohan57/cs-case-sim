@@ -101,7 +101,7 @@ export default async function Home({
               itemName={item.name.split(" | ")[0]}
               skinName={item.name.split(" | ")[1]}
               image={item.image}
-              grade={item.rarity as GradeType}
+              grade={item.rarity.name as GradeType}
               highlight={item.id === highlightedItemParam}
             />
           ))}
@@ -109,7 +109,7 @@ export default async function Home({
           {selectedCase.contains_rare.length > 0 && (
             <Item
               itemName={
-                selectedCase.contains_rare[0].rarity === "Extraordinary"
+                selectedCase.contains_rare[0].rarity.name === "Extraordinary"
                   ? "★ Gloves ★"
                   : "★ Rare Special Item ★"
               }

@@ -39,7 +39,7 @@ export default ({
           style={{
             borderColor: item?.name.includes("★")
               ? gradeColors["Rare Special Item"]
-              : gradeColors[item?.rarity as GradeType],
+              : gradeColors[item?.rarity.name as GradeType],
           }}
         >
           <span>
@@ -48,7 +48,7 @@ export default ({
               style={{
                 color: item?.name.includes("★")
                   ? gradeColors["Rare Special Item"]
-                  : gradeColors[item?.rarity as GradeType],
+                  : gradeColors[item?.rarity.name as GradeType],
               }}
             >
               <Link
