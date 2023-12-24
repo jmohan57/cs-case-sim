@@ -28,16 +28,7 @@ export type CaseDataType = {
   contains_rare: ItemType[];
 };
 
-export type ItemTypeLocalStorage = {
-  id: string;
-  name: string;
-  rarity: {
-    id: string;
-    name: string;
-    color: string;
-  };
-  phase?: string | null;
-  image: string;
+export type ItemTypeLocalStorage = ItemType & {
   casePrice?: number | null;
 };
 

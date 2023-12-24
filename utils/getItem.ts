@@ -1,6 +1,11 @@
 import { MutableRefObject } from "react";
 import { gradeOddsCase, gradeOddsSouvenir } from "./gradeOdds";
-import { CaseDataType, GradeType, ItemType } from "@/types";
+import {
+  CaseDataType,
+  GradeType,
+  ItemType,
+  ItemTypeLocalStorage,
+} from "@/types";
 import getCasePrice from "./getCasePrice";
 
 // Determine if the item should be StatTrak
@@ -23,7 +28,7 @@ export default (
       itemData: ItemType;
     }[]
   >,
-) => {
+): ItemTypeLocalStorage => {
   // This is pretty hacky
   const gradeOdds =
     caseData.type === "Case" ? gradeOddsCase : gradeOddsSouvenir;
