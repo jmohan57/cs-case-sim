@@ -20,7 +20,9 @@ export default async function Home({
   ];
 
   // Fetch both endpoints
-  const promises = apis.map(api => fetch(api).then(res => res.json()));
+  const promises = apis.map(api =>
+    fetch(api, { next: { revalidate: 3600 } }).then(res => res.json()),
+  );
   const [data1, data2] = await Promise.all(promises);
 
   // Combine the case data arrays
