@@ -1,4 +1,5 @@
 import casePrices from "@/lib/data/casePrices.json";
+// Gathered at 2024-01-03
 
 export default (caseName: string): number | null => {
   // casePrices is gotten from https://prices.csgotrader.app/latest/prices_v6.json
