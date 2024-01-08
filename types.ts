@@ -1,6 +1,8 @@
 export type ItemType = {
   id: string;
   name: string;
+  // Description is not here in normal circumstances
+  description?: string;
   rarity: {
     id: string;
     name: string;

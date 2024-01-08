@@ -60,6 +60,10 @@ export default ({
               </Link>
             </span>
           </span>
+
+          {item?.description && (
+            <div className="whitespace-pre text-xl">{item.description}</div>
+          )}
         </div>
 
         <div className="flex flex-col p-2">
