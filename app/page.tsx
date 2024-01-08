@@ -1,4 +1,4 @@
-import customCases from "@/lib/data/customCases.json";
+import customCasesLocal from "@/lib/data/customCases.json";
 import CaseSelect from "@/components/CaseSelect";
 import AboutButtonWithModal from "@/components/AboutButtonWithModal";
 import Item from "@/components/Item";
@@ -10,23 +10,42 @@ import { CaseDataType, GradeType } from "@/types";
 export default async function Home({
   searchParams,
 }: {
-  searchParams: { case?: string; item?: string };
+  searchParams: { case?: string; item?: string; key?: string };
 }) {
   const { case: selectedCaseParam, item: highlightedItemParam } = searchParams;
 
   const apis = [
-    "https://bymykel.github.io/CSGO-API/api/en/crates/cases.json",
-    "https://bymykel.github.io/CSGO-API/api/en/crates/souvenir.json",
+    {
+      url: "https://bymykel.github.io/CSGO-API/api/en/crates/cases.json",
+      revalidateSeconds: 3600,
+    },
+    {
+      url: "https://bymykel.github.io/CSGO-API/api/en/crates/souvenir.json",
+      revalidateSeconds: 3600,
+    },
+    {
+      url: `https://case-sim-custom-case.ragnarok.workers.dev/cases?key=${searchParams.key}`,
+      revalidateSeconds: 0,
+    },
   ];
 
   // Fetch both endpoints
   const promises = apis.map(api =>
-    fetch(api, { next: { revalidate: 3600 } }).then(res => res.json()),
+    fetch(api.url, {
+      next: { revalidate: api.revalidateSeconds },
+    }).then(res => res.json()),
   );
-  const [data1, data2] = await Promise.all(promises);
+
+  const [cases, souvenirPackages, customCasesFromAPI] =
+    await Promise.all(promises);
 
   // Combine the case data arrays
-  const casesData: CaseDataType[] = [...data1, ...customCases, ...data2];
+  const casesData: CaseDataType[] = [
+    ...cases,
+    ...customCasesFromAPI,
+    ...customCasesLocal,
+    ...souvenirPackages,
+  ];
 
   const caseMetadata = casesData.map(x => ({ id: x.id, name: x.name }));
 

@@ -63,11 +63,13 @@ export default (
           unboxedItem.name = statTrakPrefix + unboxedItem.name.replace("★", "");
         }
 
-        // Add the item to the item buffer
-        itemBuffer.current = [
-          ...itemBuffer.current,
-          { caseData, itemData: unboxedItem },
-        ];
+        // Add the item to the item buffer if it's not a custom case
+        if (!caseData.id.startsWith("crate-custom")) {
+          itemBuffer.current = [
+            ...itemBuffer.current,
+            { caseData, itemData: unboxedItem },
+          ];
+        }
 
         // Return the item
         return unboxedItem;
