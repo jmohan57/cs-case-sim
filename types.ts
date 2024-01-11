@@ -1,8 +1,11 @@
 export type ItemType = {
+  /** Extra properties from custom case API */
+  extra?: {
+    // Description to display in unboxing modal
+    description?: string;
+  };
   id: string;
   name: string;
-  // Description is not here in normal circumstances
-  description?: string;
   rarity: {
     id: string;
     name: string;
@@ -22,6 +25,13 @@ export type GradeType =
   | "Rare Special Item";
 
 export type CaseDataType = {
+  /** Extra properties from custom case API */
+  extra?: {
+    // Case gold chance (0-1)
+    gold_chance?: number;
+    // Whether or not the case should not give StatTraks
+    disable_stattraks?: boolean;
+  };
   id: string;
   type: string;
   name: string;

@@ -9,11 +9,13 @@ import {
 import getCasePrice from "./getCasePrice";
 
 // Determine if the item should be StatTrak
-// 1. Item is not Extraordinary (Gloves)
-// 2. Case is not a Souvenir package
-// 3. 10% chance
+// 1. Case has not disabled StatTraks
+// 2. Item is not Extraordinary (Gloves)
+// 3. Case is not a Souvenir package
+// 4. 10% chance
 const itemIsStatTrak = (caseData: CaseDataType, item: ItemType): boolean => {
   return (
+    caseData.extra?.disable_stattraks !== true &&
     item.rarity.name !== "Extraordinary" &&
     caseData.type !== "Souvenir" &&
     Math.random() <= 0.1
@@ -29,9 +31,11 @@ export default (
     }[]
   >,
 ): ItemTypeLocalStorage => {
-  // This is pretty hacky
+  // This is pretty hacky. If the case is of type "Case" or "Custom_Case", use the grade odds for cases. Otherwise, use the grade odds for souvenir packages.
   const gradeOdds =
-    caseData.type === "Case" ? gradeOddsCase : gradeOddsSouvenir;
+    caseData.type === "Case" || caseData.type === "Custom_Case"
+      ? gradeOddsCase
+      : gradeOddsSouvenir;
 
   const random = Math.random();
   let cumulativeProbability = 0;
@@ -41,7 +45,11 @@ export default (
     cumulativeProbability += gradeOdds[grade as GradeType];
 
     if (random <= cumulativeProbability) {
-      const isRareSpecialItem = grade === "Rare Special Item";
+      // Item is a RSI if the grade is "Rare Special Item" or the case's custom gold chance is met
+      const isRareSpecialItem =
+        grade === "Rare Special Item" ||
+        (typeof caseData.extra?.gold_chance === "number" &&
+          Math.random() <= caseData.extra?.gold_chance);
 
       // If the grade is a rare special item, return a random item from "contains_rare"
       const availableItems = isRareSpecialItem

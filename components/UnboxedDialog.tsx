@@ -61,8 +61,10 @@ export default ({
             </span>
           </span>
 
-          {item?.description && (
-            <div className="whitespace-pre text-xl">{item.description}</div>
+          {item?.extra?.description && (
+            <div className="whitespace-pre text-xl">
+              {item.extra.description}
+            </div>
           )}
         </div>
 
