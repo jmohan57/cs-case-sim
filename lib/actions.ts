@@ -119,13 +119,13 @@ export const addItemsToDB = async (
 
 export const getItemsFromDB = async (onlyCoverts?: boolean) => {
   try {
-    const query = await conn.execute(
+    const { rows } = await conn.execute<ItemTypeDB>(
       `SELECT * FROM case_sim_items ${
         onlyCoverts ? "WHERE rarity = 'Covert' OR item_name LIKE '%★%'" : ""
       } ORDER BY id DESC LIMIT 100`,
     );
 
-    return query.rows as ItemTypeDB[];
+    return rows;
   } catch (error) {
     console.log("Error getting items:", error);
     return false;
@@ -140,8 +140,8 @@ export const getTotalItemsFromDB = async (onlyCoverts?: boolean) => {
     : "SELECT MAX(id) as total FROM case_sim_items";
 
   try {
-    const query = await conn.execute(statement);
-    return parseInt((query.rows[0] as { total: string }).total ?? 0);
+    const { rows } = await conn.execute<{ total: string }>(statement);
+    return parseInt(rows[0].total ?? 0);
   } catch (error) {
     console.log("Error getting total items:", error);
     return false;
