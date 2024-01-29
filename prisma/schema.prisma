@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model case_sim_items {
+  id         Int       @id @default(autoincrement())
+  case_id    String    @db.VarChar(255)
+  case_name  String    @db.VarChar(255)
+  case_image String    @db.VarChar(600)
+  item_id    String    @db.VarChar(255)
+  item_name  String    @db.VarChar(255)
+  item_image String    @db.VarChar(600)
+  rarity     String    @db.VarChar(255)
+  unboxed_at DateTime? @default(now()) @db.DateTime(0)
+  phase      String?   @db.VarChar(50)
+
+  @@index([rarity], map: "idx_rarity")
+}

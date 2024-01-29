@@ -1,3 +1,5 @@
+import { case_sim_items } from "@prisma/client";
+
 export type ItemType = {
   /** Extra properties from custom case API */
   extra?: {
@@ -44,15 +46,4 @@ export type ItemTypeLocalStorage = ItemType & {
   casePrice?: number | null;
 };
 
-export type ItemTypeDB = {
-  id: number;
-  case_id: string;
-  case_name: string;
-  case_image: string;
-  item_id: string;
-  item_name: string;
-  item_image: string;
-  rarity: string;
-  phase?: string | null;
-  unboxed_at: string;
-};
+export type ItemTypeDB = case_sim_items;

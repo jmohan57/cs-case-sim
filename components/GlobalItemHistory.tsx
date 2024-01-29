@@ -27,7 +27,9 @@ export default async ({ onlyCoverts }: { onlyCoverts: boolean }) => {
           return (
             <div
               key={item.id}
-              title={`Unboxed on ${item.unboxed_at} UTC from ${item.case_name}\n\nClick to open case.`}
+              title={`Unboxed on ${item.unboxed_at?.toUTCString()} from ${
+                item.case_name
+              }\n\nClick to open case.`}
             >
               <Link href={`/?case=${item.case_id}&item=${item.item_id}`}>
                 <Item

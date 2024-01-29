@@ -1,14 +1,8 @@
 "use server";
 
-import { connect } from "@planetscale/database";
 import { z } from "zod";
+import { prisma } from "@/prisma";
 import { CaseDataType, ItemType, ItemTypeDB } from "@/types";
-
-const conn = connect({
-  host: process.env.DATABASE_HOST,
-  username: process.env.DATABASE_USERNAME,
-  password: process.env.DATABASE_PASSWORD,
-});
 
 const dataSchema = z.object({
   caseData: z.object({
@@ -40,7 +34,7 @@ const dataSchema = z.object({
 export const addItemToDB = async (
   caseData: CaseDataType,
   itemData: ItemType,
-) => {
+): Promise<boolean> => {
   // Validate data - not tested because function is unused
   const zodReturn = dataSchema.safeParse({ caseData, itemData });
   if (!zodReturn.success) {
@@ -58,19 +52,20 @@ export const addItemToDB = async (
   } = itemData;
 
   try {
-    await conn.execute(
-      "INSERT INTO case_sim_items (case_id, case_name, case_image, item_id, item_name, rarity, phase, item_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-      [
-        caseId,
-        caseName,
-        caseImage,
-        itemId,
-        itemName,
-        rarity.name,
-        phase,
-        itemImage,
-      ],
-    );
+    await prisma.case_sim_items.create({
+      data: {
+        case_id: caseId,
+        case_name: caseName,
+        case_image: caseImage,
+        item_id: itemId,
+        item_name: itemName,
+        rarity: rarity.name,
+        phase: phase,
+        item_image: itemImage,
+      },
+    });
+
+    return true;
   } catch (error) {
     console.error("Error adding item:", error);
     return false;
@@ -82,7 +77,7 @@ export const addItemsToDB = async (
     caseData: { id: string; name: string; image: string };
     itemData: ItemType;
   }[],
-) => {
+): Promise<boolean> => {
   // Validate data
   const zodReturn = z.array(dataSchema).safeParse(data);
   if (!zodReturn.success) {
@@ -90,40 +85,40 @@ export const addItemsToDB = async (
     return false;
   }
 
-  const amount = data.length;
-  const placeholdersString = [...Array(amount)]
-    .map(() => "(?, ?, ?, ?, ?, ?, ?, ?)")
-    .join(", ");
-
-  const values = data.map(item => [
-    item.caseData.id,
-    item.caseData.name,
-    item.caseData.image,
-    item.itemData.id,
-    item.itemData.name,
-    item.itemData.rarity.name,
-    item.itemData.phase ?? null,
-    item.itemData.image,
-  ]);
-
   try {
-    await conn.execute(
-      `INSERT INTO case_sim_items (case_id, case_name, case_image, item_id, item_name, rarity, phase, item_image) VALUES ${placeholdersString}`,
-      values.flat(),
-    );
+    await prisma.case_sim_items.createMany({
+      data: data.map(item => ({
+        case_id: item.caseData.id,
+        case_name: item.caseData.name,
+        case_image: item.caseData.image,
+        item_id: item.itemData.id,
+        item_name: item.itemData.name,
+        rarity: item.itemData.rarity.name,
+        phase: item.itemData.phase ?? null,
+        item_image: item.itemData.image,
+      })),
+    });
+
+    return true;
   } catch (error) {
     console.error("Error adding items:", error);
     return false;
   }
 };
 
-export const getItemsFromDB = async (onlyCoverts?: boolean) => {
+export const getItemsFromDB = async (
+  onlyCoverts?: boolean,
+): Promise<ItemTypeDB[] | false> => {
   try {
-    const { rows } = await conn.execute<ItemTypeDB>(
-      `SELECT * FROM case_sim_items ${
-        onlyCoverts ? "WHERE rarity = 'Covert' OR item_name LIKE '%★%'" : ""
-      } ORDER BY id DESC LIMIT 100`,
-    );
+    const rows = await prisma.case_sim_items.findMany({
+      where: onlyCoverts
+        ? { OR: [{ rarity: "Covert" }, { item_name: { contains: "★" } }] }
+        : {},
+      orderBy: {
+        id: "desc",
+      },
+      take: 100,
+    });
 
     return rows;
   } catch (error) {
@@ -132,16 +127,25 @@ export const getItemsFromDB = async (onlyCoverts?: boolean) => {
   }
 };
 
-export const getTotalItemsFromDB = async (onlyCoverts?: boolean) => {
-  // If onlyCoverts is true, use COUNT(*)
-  // Otherwise, use MAX(id) to get the total. This is much faster than COUNT(*)
-  const statement = onlyCoverts
-    ? "SELECT COUNT(*) as total FROM case_sim_items WHERE rarity = 'Covert' OR rarity = 'Extraordinary'"
-    : "SELECT MAX(id) as total FROM case_sim_items";
-
+export const getTotalItemsFromDB = async (
+  onlyCoverts?: boolean,
+): Promise<number | false> => {
   try {
-    const { rows } = await conn.execute<{ total: string }>(statement);
-    return parseInt(rows[0].total ?? 0);
+    // If onlyCoverts is true, use COUNT(*)
+    // Otherwise, use MAX(id) to get the total. This is much faster than COUNT(*)
+    const totalItems = onlyCoverts
+      ? await prisma.case_sim_items.count({
+          where: { OR: [{ rarity: "Covert" }, { rarity: "Extraordinary" }] },
+        })
+      : await prisma.case_sim_items.aggregate({
+          _max: {
+            id: true,
+          },
+        });
+
+    return typeof totalItems === "number"
+      ? totalItems
+      : totalItems._max.id ?? 0;
   } catch (error) {
     console.log("Error getting total items:", error);
     return false;
