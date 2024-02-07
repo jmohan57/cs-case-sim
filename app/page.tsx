@@ -14,7 +14,7 @@ export default async function Home({
 }) {
   const { case: selectedCaseParam, item: highlightedItemParam } = searchParams;
 
-  const apis = [
+  const apis: { url: string; revalidateSeconds: number }[] = [
     {
       url: "https://bymykel.github.io/CSGO-API/api/en/crates/cases.json",
       revalidateSeconds: 3600,
@@ -23,11 +23,15 @@ export default async function Home({
       url: "https://bymykel.github.io/CSGO-API/api/en/crates/souvenir.json",
       revalidateSeconds: 3600,
     },
-    {
-      url: `https://case-sim-custom-case.ragnarok.workers.dev/cases?key=${searchParams.key}`,
-      revalidateSeconds: 0,
-    },
-  ];
+    ...(searchParams.key
+      ? [
+          {
+            url: `https://case-sim-custom-case.ragnarok.workers.dev/cases?key=${searchParams.key}`,
+            revalidateSeconds: 0,
+          },
+        ]
+      : []),
+  ].filter(Boolean);
 
   // Fetch both endpoints
   const promises = apis.map(api =>
@@ -42,7 +46,7 @@ export default async function Home({
   // Combine the case data arrays
   const casesData: CaseDataType[] = [
     ...cases,
-    ...customCasesFromAPI,
+    ...(searchParams.key ? customCasesFromAPI : []),
     ...customCasesLocal,
     ...souvenirPackages,
   ];
