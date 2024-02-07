@@ -1,5 +1,6 @@
 "use client";
 
+import { useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 // @ts-expect-error
 import useSound from "use-sound";
@@ -12,6 +13,7 @@ export default ({
   availableCases: { id: string; name: string }[];
 }) => {
   const router = useRouter();
+  const [pending, startTransition] = useTransition();
   const caseParam = useSearchParams().get("case");
   const [playHover] = useSound("/audio/buttonhover.mp3");
   const [playClick] = useSound("/audio/selectclick.mp3");
@@ -20,14 +22,16 @@ export default ({
   );
 
   const selectCase = (id?: string) => {
-    stopCaseSound();
-    playCaseSound();
-    router.replace(
-      `/?case=${
-        id ??
-        availableCases[Math.floor(Math.random() * availableCases.length)].id
-      }`,
-    );
+    startTransition(() => {
+      stopCaseSound();
+      playCaseSound();
+      router.replace(
+        `/?case=${
+          id ??
+          availableCases[Math.floor(Math.random() * availableCases.length)].id
+        }`,
+      );
+    });
   };
 
   return (
@@ -56,7 +60,11 @@ export default ({
         playSoundOnClick={false}
         onClick={() => selectCase()}
       >
-        <Icons.shuffle />
+        {pending ? (
+          <Icons.arrowRotate className="animate-spin" />
+        ) : (
+          <Icons.shuffle />
+        )}
       </Button>
     </div>
   );
