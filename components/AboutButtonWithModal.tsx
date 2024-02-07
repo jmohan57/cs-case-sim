@@ -28,7 +28,8 @@ export default () => {
           <div className="flex flex-col gap-3 p-2">
             <p>
               This is the Counter-Strike 2 case opening UI recreated in React
-              and styled with Tailwind. The person who created it can be found{" "}
+              and styled with Tailwind. The person who created the website can
+              be found{" "}
               <Link
                 className="font-semibold hover:underline"
                 href="https://leonlarsson.com"
