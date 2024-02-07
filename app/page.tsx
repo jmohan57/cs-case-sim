@@ -3,18 +3,18 @@ import bgImage from "/public/images/bg.jpg";
 import customCasesLocal from "@/lib/data/customCases.json";
 import CaseSelect from "@/components/CaseSelect";
 import AboutButtonWithModal from "@/components/AboutButtonWithModal";
-import Item from "@/components/Item";
 import UnlockButton from "@/components/UnlockButton";
 import Button from "@/components/Button";
 import getCasePrice from "@/utils/getCasePrice";
 import { CaseDataType, GradeType } from "@/types";
+import ItemDisplayClient from "@/components/ItemDisplayClient";
 
 export default async function Home({
   searchParams,
 }: {
-  searchParams: { case?: string; item?: string; key?: string };
+  searchParams: { case?: string; key?: string };
 }) {
-  const { case: selectedCaseParam, item: highlightedItemParam } = searchParams;
+  const { case: selectedCaseParam } = searchParams;
 
   const apis: { url: string; revalidateSeconds: number }[] = [
     {
@@ -146,31 +146,7 @@ export default async function Home({
           <hr className="my-2 opacity-30" />
         </div>
 
-        <div className="flex max-h-96 flex-wrap justify-center gap-8 overflow-auto px-2 lg:justify-start lg:px-16">
-          {selectedCase.contains.map(item => (
-            <Item
-              key={item.name}
-              itemName={item.name.split(" | ")[0]}
-              skinName={item.name.split(" | ")[1]}
-              image={item.image}
-              grade={item.rarity.name as GradeType}
-              highlight={item.id === highlightedItemParam}
-            />
-          ))}
-
-          {selectedCase.contains_rare.length > 0 && (
-            <Item
-              itemName={
-                selectedCase.contains_rare[0].rarity.name === "Extraordinary"
-                  ? "★ Gloves ★"
-                  : "★ Rare Special Item ★"
-              }
-              image="/images/rsi-2.png"
-              grade="Rare Special Item"
-              isSpecial
-            />
-          )}
-        </div>
+        <ItemDisplayClient selectedCase={selectedCase} />
 
         <hr className="container mx-auto my-5 px-20 opacity-30" />
 

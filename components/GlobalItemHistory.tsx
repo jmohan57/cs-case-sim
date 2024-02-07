@@ -31,7 +31,7 @@ export default async ({ onlyCoverts }: { onlyCoverts: boolean }) => {
                 item.case_name
               }\n\nClick to open case.`}
             >
-              <Link href={`/?case=${item.case_id}&item=${item.item_id}`}>
+              <Link href={`/?case=${item.case_id}`}>
                 <Item
                   itemName={itemName ?? ""}
                   skinName={`${skinName ?? ""} ${

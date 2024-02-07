@@ -1,8 +1,5 @@
 "use client";
 
-import { useState } from "react";
-// @ts-expect-error
-import useSound from "use-sound";
 import { GradeType } from "@/types";
 import gradeColors from "@/utils/gradeColors";
 
@@ -12,7 +9,7 @@ type Props = {
   image?: string;
   grade?: GradeType;
   isSpecial?: boolean;
-  highlight?: boolean;
+  playHover?: () => void;
 };
 
 export default ({
@@ -21,20 +18,11 @@ export default ({
   image,
   grade = "Mil-Spec Grade",
   isSpecial,
-  highlight,
+  playHover,
 }: Props) => {
-  const [isHighlighted, setIsHighlighted] = useState(highlight);
-  const [playHover] = useSound("/audio/itemhover.mp3");
-
-  // Reset highlight after 2 seconds
-  setTimeout(() => {
-    if (isHighlighted) setIsHighlighted(false);
-  }, 2000);
-
   return (
     <div
-      className="group flex w-44 flex-col gap-1 transition-all data-[highlighted=true]:bg-[#ffd700]/40"
-      data-highlighted={isHighlighted}
+      className="group flex w-44 flex-col gap-1 transition-all"
       onMouseEnter={playHover}
     >
       <div
