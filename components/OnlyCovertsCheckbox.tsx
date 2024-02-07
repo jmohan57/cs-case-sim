@@ -12,6 +12,7 @@ export default () => {
     <div className="flex items-center gap-1">
       <input
         className="h-4 w-4 accent-[#048b59] disabled:cursor-not-allowed"
+        style={{ colorScheme: "light" }}
         type="checkbox"
         id="onlyCovertsCheckbox"
         defaultChecked={onlyCoverts}
