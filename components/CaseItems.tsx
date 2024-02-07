@@ -1,20 +1,21 @@
 "use client";
 
-import { CaseDataType, GradeType } from "@/types";
 // @ts-expect-error
 import useSound from "use-sound";
+import { GradeType, ItemType } from "@/types";
 import Item from "./Item";
 
 type Props = {
-  selectedCase: CaseDataType;
+  items: ItemType[];
+  rareItems: ItemType[];
 };
 
-export default ({ selectedCase }: Props) => {
+export default ({ items, rareItems }: Props) => {
   const [playHover] = useSound("/audio/itemhover.mp3");
 
   return (
-    <div className="flex max-h-96 flex-wrap justify-center gap-8 overflow-auto px-2 lg:justify-start lg:px-16">
-      {selectedCase.contains.map(item => (
+    <>
+      {items.map(item => (
         <Item
           key={item.name}
           itemName={item.name.split(" | ")[0]}
@@ -25,10 +26,10 @@ export default ({ selectedCase }: Props) => {
         />
       ))}
 
-      {selectedCase.contains_rare.length > 0 && (
+      {rareItems.length > 0 && (
         <Item
           itemName={
-            selectedCase.contains_rare[0].rarity.name === "Extraordinary"
+            rareItems[0].rarity.name === "Extraordinary"
               ? "★ Gloves ★"
               : "★ Rare Special Item ★"
           }
@@ -38,6 +39,6 @@ export default ({ selectedCase }: Props) => {
           playHover={playHover}
         />
       )}
-    </div>
+    </>
   );
 };

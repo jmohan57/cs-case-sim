@@ -6,8 +6,8 @@ import AboutButtonWithModal from "@/components/AboutButtonWithModal";
 import UnlockButton from "@/components/UnlockButton";
 import Button from "@/components/Button";
 import getCasePrice from "@/utils/getCasePrice";
-import { CaseDataType, GradeType } from "@/types";
-import ItemDisplayClient from "@/components/ItemDisplayClient";
+import { CaseDataType } from "@/types";
+import CaseItems from "@/components/CaseItems";
 
 export default async function Home({
   searchParams,
@@ -146,7 +146,12 @@ export default async function Home({
           <hr className="my-2 opacity-30" />
         </div>
 
-        <ItemDisplayClient selectedCase={selectedCase} />
+        <div className="flex max-h-96 flex-wrap justify-center gap-8 overflow-auto px-2 lg:justify-start lg:px-16">
+          <CaseItems
+            items={selectedCase.contains}
+            rareItems={selectedCase.contains_rare}
+          />
+        </div>
 
         <hr className="container mx-auto my-5 px-20 opacity-30" />
 
