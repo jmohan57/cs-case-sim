@@ -1,5 +1,3 @@
-import Image from "next/image";
-import bgImage from "/public/images/bg.jpg";
 import customCasesLocal from "@/lib/data/customCases.json";
 import CaseSelect from "@/components/CaseSelect";
 import AboutButtonWithModal from "@/components/AboutButtonWithModal";
@@ -62,28 +60,6 @@ export default async function Home({
 
   return (
     <main id="main" className="relative flex min-h-screen select-none flex-col">
-      {/* Background image */}
-      <Image
-        src={bgImage}
-        alt="Background image"
-        width={1920}
-        height={1080}
-        priority
-        placeholder="blur"
-        style={{
-          objectFit: "cover",
-          filter: "brightness(0.8)",
-          backgroundSize: "cover",
-          backgroundAttachment: "fixed",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          position: "fixed",
-          height: "100%",
-          width: "100%",
-          zIndex: -1,
-        }}
-      />
-
       {/* Header row */}
       <div className="mx-2 mt-2 flex flex-col-reverse justify-between gap-2 min-[800px]:flex-row">
         <CaseSelect availableCases={caseMetadata} />

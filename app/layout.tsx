@@ -1,3 +1,4 @@
+import BackgroundImage from "@/components/BackgroundImage";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
@@ -42,6 +43,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} ${stratumFont.className} text-white`}
       >
+        <BackgroundImage />
         {children}
         <Analytics />
       </body>
