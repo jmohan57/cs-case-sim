@@ -10,7 +10,11 @@ const dataSchema = z.object({
     name: z.string(),
     image: z
       .string()
-      .startsWith("https://steamcdn-a.akamaihd.net/apps/730/icons"),
+      .refine(
+        url =>
+          url.startsWith("https://raw.githubusercontent.com/ByMykel") ||
+          url.startsWith("https://steamcdn-a.akamaihd.net/apps/730/icons"),
+      ),
   }),
   itemData: z.object({
     id: z.string(),
