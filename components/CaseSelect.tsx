@@ -21,16 +21,11 @@ export default ({
     "/audio/caseselect.mp3",
   );
 
-  const selectCase = (id?: string) => {
+  const selectCase = (id: string) => {
     startTransition(() => {
       stopCaseSound();
       playCaseSound();
-      router.replace(
-        `/?case=${
-          id ??
-          availableCases[Math.floor(Math.random() * availableCases.length)].id
-        }`,
-      );
+      router.replace(`/?case=${id}`);
     });
   };
 
@@ -58,7 +53,12 @@ export default ({
         variant="secondary-darker"
         className="py-0 backdrop-blur-md"
         playSoundOnClick={false}
-        onClick={() => selectCase()}
+        onClick={() =>
+          selectCase(
+            availableCases[Math.floor(Math.random() * availableCases.length)]
+              .id,
+          )
+        }
       >
         {pending ? (
           <Icons.arrowRotate className="animate-spin" />
