@@ -4,9 +4,17 @@ const nextConfig = {
     domains: [
       "steamcommunity-a.akamaihd.net",
       "raw.githubusercontent.com",
-      "steamcdn-a.akamaihd.net"
-    ]
-  }
+      "steamcdn-a.akamaihd.net",
+    ],
+  },
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
+  experimental: {
+    ppr: true,
+  },
 };
 
 module.exports = nextConfig;
