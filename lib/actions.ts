@@ -24,7 +24,7 @@ const dataSchema = z.object({
       name: z.string(),
       // color: z.string(),
     }),
-    phase: z.string().optional(),
+    phase: z.string().optional().nullable(),
     image: z
       .string()
       .refine(
