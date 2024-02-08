@@ -1,3 +1,4 @@
+import Image from "next/image";
 import customCasesLocal from "@/lib/data/customCases.json";
 import CaseSelect from "@/components/CaseSelect";
 import AboutButtonWithModal from "@/components/AboutButtonWithModal";
@@ -60,6 +61,24 @@ export default async function Home({
 
   return (
     <main id="main" className="relative flex min-h-screen select-none flex-col">
+      {/* Notice message */}
+      {selectedCase.id !== "crate-4904" && (
+        <Button
+          variant="secondary-darker"
+          href="/?case=crate-4904"
+          className="space mx-auto mt-1 w-fit rounded p-1 backdrop-blur-sm"
+        >
+          Try the new Kilowatt Case!
+          <Image
+            src="https://raw.githubusercontent.com/ByMykel/CSGO-API/1675e7262bd51fdba1d74664fd4b4fc06a50bb12/public/images/econ/weapon_cases/crate_community_33.png"
+            alt="Kilowatt Case"
+            className="ml-1 inline"
+            width={256 / 7}
+            height={198 / 7}
+          />
+        </Button>
+      )}
+
       {/* Header row */}
       <div className="mx-2 mt-2 flex flex-col-reverse justify-between gap-2 min-[800px]:flex-row">
         <CaseSelect availableCases={caseMetadata} />
