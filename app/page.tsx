@@ -78,13 +78,12 @@ export default async function Home({ searchParams }: PageProps) {
         <Button
           variant="secondary-darker"
           href="/?case=crate-4904"
-          className="space mx-auto mt-1 w-fit rounded p-1 backdrop-blur-sm"
+          className="mx-2 mt-1 flex w-fit items-center gap-1 py-1 backdrop-blur-md"
         >
-          Try the new Kilowatt Case!
+          Try the new Kilowatt Case
           <Image
             src="https://raw.githubusercontent.com/ByMykel/CSGO-API/1675e7262bd51fdba1d74664fd4b4fc06a50bb12/public/images/econ/weapon_cases/crate_community_33.png"
             alt="Kilowatt Case"
-            className="ml-1 inline"
             width={256 / 7}
             height={198 / 7}
           />
