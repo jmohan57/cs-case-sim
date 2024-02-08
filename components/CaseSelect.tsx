@@ -10,7 +10,7 @@ import Icons from "./icons";
 export default ({
   availableCases,
 }: {
-  availableCases: { id: string; name: string }[];
+  availableCases: { id: string; name: string; image: string }[];
 }) => {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
@@ -37,6 +37,15 @@ export default ({
         onClick={playClick}
         onMouseEnter={playHover}
         onChange={e => selectCase(e.target.value)}
+        style={{
+          backgroundImage: `url(${
+            availableCases.find(x => x.id === caseParam)?.image ??
+            availableCases[0].image
+          })`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "contain",
+          backgroundPositionX: "calc(100% - 1rem)",
+        }}
       >
         {availableCases.map(caseData => (
           <option

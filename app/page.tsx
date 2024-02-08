@@ -64,7 +64,11 @@ export default async function Home({ searchParams }: PageProps) {
     ...souvenirPackages,
   ];
 
-  const caseMetadata = casesData.map(x => ({ id: x.id, name: x.name }));
+  const caseMetadata = casesData.map(x => ({
+    id: x.id,
+    name: x.name,
+    image: x.image,
+  }));
 
   const selectedCase =
     casesData.find(x => x.id === selectedCaseParam) ?? casesData[0];
@@ -78,7 +82,7 @@ export default async function Home({ searchParams }: PageProps) {
         <Button
           variant="secondary-darker"
           href="/?case=crate-4904"
-          className="mx-2 mt-1 flex w-fit items-center gap-1 py-1 backdrop-blur-md"
+          className="mx-2 mt-1 flex w-fit items-center gap-2 py-1 backdrop-blur-md"
         >
           Try the new Kilowatt Case
           <Image
