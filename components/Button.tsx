@@ -47,6 +47,7 @@ export default ({
       className={className.className}
       onMouseEnter={playHover}
       disabled={disabled}
+      autoFocus={children === "RETRY"}
       onClick={() => {
         if (typeof onClick === "function") onClick();
         if (playSoundOnClick) playClick();
