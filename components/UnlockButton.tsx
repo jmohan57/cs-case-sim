@@ -112,12 +112,20 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
       playCovert();
     if (openedItem.name.includes("★")) playGold();
 
-    // Disable the unlock button for 1 second if the item is a Covert or RSI
+    // Disable the unlock button for 2 seconds if the item is a Covert or RSI
     if (openedItem.name.includes("★") || openedItem.rarity.name === "Covert") {
       setUnlockButtonDisabled(true);
       setTimeout(() => {
         setUnlockButtonDisabled(false);
-      }, 1000);
+
+        // Focus the retry button
+        setTimeout(() => {
+          const button = [...document.querySelectorAll("button")].find(
+            x => x.innerText === "RETRY",
+          );
+          button?.focus();
+        }, 1);
+      }, 2000);
     }
 
     if (dontOpenDialog) return;
