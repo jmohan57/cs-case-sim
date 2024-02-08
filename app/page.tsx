@@ -1,5 +1,7 @@
+import { Metadata } from "next";
 import Image from "next/image";
 import customCasesLocal from "@/lib/data/customCases.json";
+import casesMetadata from "@/lib/data/allCasesMetadata.json"; // https://bymykel.github.io/CSGO-API/api/en/crates.json -> json.map(x => ({ id: x.id, name: x.name }))
 import CaseSelect from "@/components/CaseSelect";
 import AboutButtonWithModal from "@/components/AboutButtonWithModal";
 import UnlockButton from "@/components/UnlockButton";
@@ -8,11 +10,21 @@ import getCasePrice from "@/utils/getCasePrice";
 import { CaseDataType } from "@/types";
 import CaseItems from "@/components/CaseItems";
 
-export default async function Home({
-  searchParams,
-}: {
+type PageProps = {
   searchParams: { case?: string; key?: string };
-}) {
+};
+
+export const generateMetadata = ({ searchParams }: PageProps): Metadata => {
+  const caseName = casesMetadata.find(x => x.id === searchParams.case)?.name;
+
+  return {
+    title: caseName
+      ? `${caseName} | Counter-Strike Case Simulator`
+      : "Counter-Strike Case Simulator",
+  };
+};
+
+export default async function Home({ searchParams }: PageProps) {
   const { case: selectedCaseParam } = searchParams;
 
   const apis: { url: string; revalidateSeconds: number }[] = [
