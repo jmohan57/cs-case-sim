@@ -30,12 +30,12 @@ export default ({
 
   return (
     <dialog
-      className="mx-auto w-full max-w-lg border-[1px] border-white/30 bg-[#2d2d2d] text-xl text-white backdrop:bg-black/30 backdrop:backdrop-blur-sm"
+      className="mx-auto w-full max-w-lg border-[1px] border-white/30 bg-[#2d2d2d]/50 text-xl text-white backdrop-blur-xl backdrop:bg-black/30 backdrop:backdrop-blur-sm"
       ref={unboxedDialogRef}
     >
       <div className="flex flex-col">
         <div
-          className="border-b-[12px] bg-[#262626] p-3 text-3xl font-semibold text-neutral-400"
+          className="border-b-[12px] bg-[#262626]/70 p-3 text-3xl font-semibold text-neutral-400"
           style={{
             borderColor: item?.name.includes("★")
               ? gradeColors["Rare Special Item"]
