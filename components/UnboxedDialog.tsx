@@ -74,7 +74,7 @@ export default ({
               <img
                 key={item.id}
                 src={item.image}
-                alt={item.image}
+                alt={`${item.name} image`}
                 width={512}
                 height={384}
                 draggable={false}
