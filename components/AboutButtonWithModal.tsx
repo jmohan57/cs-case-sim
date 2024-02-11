@@ -22,30 +22,13 @@ export default () => {
       >
         <div className="flex flex-col">
           <span className="bg-[#262626]/70 p-3 text-3xl font-semibold text-neutral-400">
-            About this project
+            Counter-Strike Case Simulator
           </span>
 
           <div className="flex flex-col gap-3 p-2">
             <p>
               This is the Counter-Strike 2 case opening UI recreated in React
-              and styled with Tailwind. The person who created the website can
-              be found{" "}
-              <Link
-                className="font-semibold hover:underline"
-                href="https://leonlarsson.com"
-                target="_blank"
-              >
-                here
-              </Link>
-              . The data is fetched from{" "}
-              <Link
-                className="font-semibold hover:underline"
-                href="https://github.com/ByMykel/CSGO-API"
-                target="_blank"
-              >
-                here
-              </Link>
-              .
+              and Next.js.
             </p>
 
             <p>
@@ -58,9 +41,31 @@ export default () => {
             </p>
 
             <p>
+              The creator of this website can be found{" "}
+              <Link
+                className="font-semibold hover:underline"
+                href="https://twitter.com/MozzyFX"
+                target="_blank"
+              >
+                here
+              </Link>
+              .
+              <br />
+              The data is fetched from{" "}
+              <Link
+                className="font-semibold hover:underline"
+                href="https://github.com/ByMykel/CSGO-API"
+                target="_blank"
+              >
+                here
+              </Link>
+              .
+            </p>
+
+            <p>
               <span className="underline">And remember</span>: just because you
-              unbox a cool item here doesn't mean you'll get one in-game. Gamble
-              responsibly, or not at all.
+              unbox a cool item here doesn't mean you'll get one in-game.
+              Perform your hobby responsibly, or not at all.
             </p>
 
             <Button
