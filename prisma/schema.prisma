@@ -19,6 +19,7 @@ model case_sim_items {
   rarity     String    @db.VarChar(255)
   unboxed_at DateTime? @default(now()) @db.DateTime(0)
   phase      String?   @db.VarChar(50)
+  unboxer_id String?   @db.VarChar(36)
 
   @@index([rarity], map: "idx_rarity")
 }

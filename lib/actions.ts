@@ -1,5 +1,6 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { z } from "zod";
 import { prisma } from "@/prisma";
 import { CaseDataType, ItemType, ItemTypeDB } from "@/types";
@@ -46,6 +47,9 @@ export const addItemToDB = async (
     return false;
   }
 
+  // Get unboxerId from cookies
+  const unboxerId = await getOrCreateUnboxerIdCookie();
+
   const { id: caseId, name: caseName, image: caseImage } = caseData;
   const {
     id: itemId,
@@ -66,6 +70,7 @@ export const addItemToDB = async (
         rarity: rarity.name,
         phase: phase,
         item_image: itemImage,
+        unboxer_id: unboxerId,
       },
     });
 
@@ -89,6 +94,9 @@ export const addItemsToDB = async (
     return false;
   }
 
+  // Get unboxerId from cookies
+  const unboxerId = await getOrCreateUnboxerIdCookie();
+
   try {
     await prisma.case_sim_items.createMany({
       data: data.map(item => ({
@@ -100,6 +108,7 @@ export const addItemsToDB = async (
         rarity: item.itemData.rarity.name,
         phase: item.itemData.phase ?? null,
         item_image: item.itemData.image,
+        unboxer_id: unboxerId,
       })),
     });
 
@@ -154,4 +163,30 @@ export const getTotalItemsFromDB = async (
     console.log("Error getting total items:", error);
     return false;
   }
+};
+
+// Gets or creates unboxerId cookie
+// First checks if the unboxerId cookie is a valid UUID
+// If it is, it returns the value
+// If it isn't, it generates a new UUID and sets it as the unboxerId cookie
+// Returns the new unboxerId
+export const getOrCreateUnboxerIdCookie = async (): Promise<string> => {
+  const existingUnboxerId = cookies().get("unboxerId");
+
+  if (existingUnboxerId) {
+    const isValidUUID =
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+        existingUnboxerId.value,
+      );
+    if (isValidUUID) return existingUnboxerId.value;
+  }
+
+  const newUnboxerId = crypto.randomUUID();
+
+  cookies().set("unboxerId", newUnboxerId, {
+    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365),
+    httpOnly: true,
+  });
+
+  return newUnboxerId;
 };
