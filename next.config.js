@@ -1,10 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      "steamcommunity-a.akamaihd.net",
-      "raw.githubusercontent.com",
-      "steamcdn-a.akamaihd.net",
+    remotePatterns: [
+      {
+        hostname: "steamcommunity-a.akamaihd.net",
+      },
+      {
+        hostname: "steamcdn-a.akamaihd.net",
+      },
+      {
+        hostname: "raw.githubusercontent.com",
+      },
     ],
   },
   logging: {
