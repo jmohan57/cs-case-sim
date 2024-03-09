@@ -2,10 +2,7 @@ import BackgroundImage from "@/components/BackgroundImage";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import localFont from "next/font/local";
-
-const inter = Inter({ subsets: ["latin"] });
 
 const stratumFont = localFont({
   src: [
@@ -40,9 +37,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} ${stratumFont.className} text-white`}
-      >
+      <body className={`${stratumFont.className} text-white`}>
         <BackgroundImage />
         {children}
         <Analytics />
