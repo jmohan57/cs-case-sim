@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import customCasesLocal from "@/lib/data/customCases.json";
 import casesMetadata from "@/lib/data/allCasesMetadata.json"; // https://bymykel.github.io/CSGO-API/api/en/crates.json -> json.map(x => ({ id: x.id, name: x.name }))
 import CaseSelect from "@/components/CaseSelect";
@@ -78,7 +77,7 @@ export default async function Home({ searchParams }: PageProps) {
   return (
     <main id="main" className="relative flex min-h-screen select-none flex-col">
       {/* Notice message */}
-      {selectedCase.id !== "crate-4904" && (
+      {/* {selectedCase.id !== "crate-4904" && (
         <Button
           variant="secondary-darker"
           href="/?case=crate-4904"
@@ -92,7 +91,7 @@ export default async function Home({ searchParams }: PageProps) {
             height={198 / 7}
           />
         </Button>
-      )}
+      )} */}
 
       {/* Header row */}
       <div className="mx-2 mt-2 flex flex-col-reverse justify-between gap-2 min-[800px]:flex-row">
