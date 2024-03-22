@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { z } from "zod";
-import { count, desc, eq, max, or } from "drizzle-orm";
+import { count, desc, inArray, max } from "drizzle-orm";
 import { CaseDataType, ItemType, ItemTypeDB } from "@/types";
 import { db } from "./db";
 import { items } from "./db/schema";
@@ -179,7 +179,4 @@ export const getOrCreateUnboxerIdCookie = async (): Promise<string> => {
   return newUnboxerId;
 };
 
-const itemIsCovert = or(
-  eq(items.rarity, "Covert"),
-  eq(items.rarity, "Extraordinary"),
-);
+const itemIsCovert = inArray(items.rarity, ["Covert", "Extraordinary"]);
