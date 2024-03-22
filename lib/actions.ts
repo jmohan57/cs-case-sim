@@ -2,8 +2,10 @@
 
 import { cookies } from "next/headers";
 import { z } from "zod";
-import { prisma } from "@/prisma";
+import { count, desc, eq, max, or } from "drizzle-orm";
 import { CaseDataType, ItemType, ItemTypeDB } from "@/types";
+import { db } from "./db";
+import { items } from "./db/schema";
 
 const dataSchema = z.object({
   caseData: z.object({
@@ -60,18 +62,16 @@ export const addItemToDB = async (
   } = itemData;
 
   try {
-    await prisma.case_sim_items.create({
-      data: {
-        case_id: caseId,
-        case_name: caseName,
-        case_image: caseImage,
-        item_id: itemId,
-        item_name: itemName,
-        rarity: rarity.name,
-        phase: phase,
-        item_image: itemImage,
-        unboxer_id: unboxerId,
-      },
+    await db.insert(items).values({
+      caseId,
+      caseName,
+      caseImage,
+      itemId,
+      itemName,
+      rarity: rarity.name,
+      phase,
+      itemImage,
+      unboxerId,
     });
 
     return true;
@@ -98,19 +98,19 @@ export const addItemsToDB = async (
   const unboxerId = await getOrCreateUnboxerIdCookie();
 
   try {
-    await prisma.case_sim_items.createMany({
-      data: data.map(item => ({
-        case_id: item.caseData.id,
-        case_name: item.caseData.name,
-        case_image: item.caseData.image,
-        item_id: item.itemData.id,
-        item_name: item.itemData.name,
+    await db.insert(items).values(
+      data.map(item => ({
+        caseId: item.caseData.id,
+        caseName: item.caseData.name,
+        caseImage: item.caseData.image,
+        itemId: item.itemData.id,
+        itemName: item.itemData.name,
         rarity: item.itemData.rarity.name,
         phase: item.itemData.phase ?? null,
-        item_image: item.itemData.image,
-        unboxer_id: unboxerId,
+        itemImage: item.itemData.image,
+        unboxerId,
       })),
-    });
+    );
 
     return true;
   } catch (error) {
@@ -123,15 +123,12 @@ export const getItemsFromDB = async (
   onlyCoverts?: boolean,
 ): Promise<ItemTypeDB[] | false> => {
   try {
-    const rows = await prisma.case_sim_items.findMany({
-      where: onlyCoverts
-        ? { OR: [{ rarity: "Covert" }, { item_name: { contains: "★" } }] }
-        : {},
-      orderBy: {
-        id: "desc",
-      },
-      take: 100,
-    });
+    const rows = await db
+      .select()
+      .from(items)
+      .where(onlyCoverts ? itemIsCovert : undefined)
+      .orderBy(desc(items.id))
+      .limit(100);
 
     return rows;
   } catch (error) {
@@ -144,21 +141,12 @@ export const getTotalItemsFromDB = async (
   onlyCoverts?: boolean,
 ): Promise<number | false> => {
   try {
-    // If onlyCoverts is true, use COUNT(*)
-    // Otherwise, use MAX(id) to get the total. This is much faster than COUNT(*)
-    const totalItems = onlyCoverts
-      ? await prisma.case_sim_items.count({
-          where: { OR: [{ rarity: "Covert" }, { rarity: "Extraordinary" }] },
-        })
-      : await prisma.case_sim_items.aggregate({
-          _max: {
-            id: true,
-          },
-        });
+    const totalItems = await db
+      .select({ value: onlyCoverts ? count() : max(items.id) })
+      .from(items)
+      .where(onlyCoverts ? itemIsCovert : undefined);
 
-    return typeof totalItems === "number"
-      ? totalItems
-      : totalItems._max.id ?? 0;
+    return totalItems[0].value ?? 0;
   } catch (error) {
     console.log("Error getting total items:", error);
     return false;
@@ -190,3 +178,8 @@ export const getOrCreateUnboxerIdCookie = async (): Promise<string> => {
 
   return newUnboxerId;
 };
+
+const itemIsCovert = or(
+  eq(items.rarity, "Covert"),
+  eq(items.rarity, "Extraordinary"),
+);

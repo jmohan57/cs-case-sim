@@ -1,4 +1,5 @@
-import { case_sim_items } from "@prisma/client";
+import { InferSelectModel } from "drizzle-orm";
+import { items } from "./lib/db/schema";
 
 export type ItemType = {
   /** Extra properties from custom case API */
@@ -46,4 +47,4 @@ export type ItemTypeLocalStorage = ItemType & {
   casePrice?: number | null;
 };
 
-export type ItemTypeDB = case_sim_items;
+export type ItemTypeDB = InferSelectModel<typeof items>;
