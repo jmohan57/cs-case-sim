@@ -3,7 +3,11 @@
 import { useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default () => {
+type Props = {
+  hidePersonalCheckbox?: boolean;
+};
+
+export default ({ hidePersonalCheckbox }: Props) => {
   const [pending, startTransition] = useTransition();
   const searchParams = new URLSearchParams(useSearchParams());
   const onlyCoverts = searchParams.get("onlyCoverts") === "true";
@@ -39,25 +43,29 @@ export default () => {
         </label>
       </div>
 
-      <div className="flex items-center gap-1">
-        <input
-          className="h-4 w-4 accent-[#048b59] disabled:cursor-not-allowed"
-          style={{ colorScheme: "light" }}
-          type="checkbox"
-          id="onlyPersonalCheckbox"
-          defaultChecked={onlyPersonal}
-          disabled={pending}
-          onChange={e =>
-            setSearchParams("onlyPersonal", e.target.checked.toString())
-          }
-        />
-        <label
-          className={`pt-[2px] text-lg ${pending ? "cursor-not-allowed" : ""}`}
-          htmlFor="onlyPersonalCheckbox"
-        >
-          Show only mine
-        </label>
-      </div>
+      {!hidePersonalCheckbox && (
+        <div className="flex items-center gap-1">
+          <input
+            className="h-4 w-4 accent-[#048b59] disabled:cursor-not-allowed"
+            style={{ colorScheme: "light" }}
+            type="checkbox"
+            id="onlyPersonalCheckbox"
+            defaultChecked={onlyPersonal}
+            disabled={pending}
+            onChange={e =>
+              setSearchParams("onlyPersonal", e.target.checked.toString())
+            }
+          />
+          <label
+            className={`pt-[2px] text-lg ${
+              pending ? "cursor-not-allowed" : ""
+            }`}
+            htmlFor="onlyPersonalCheckbox"
+          >
+            Show only mine
+          </label>
+        </div>
+      )}
     </div>
   );
 };

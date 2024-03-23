@@ -1,5 +1,5 @@
 import Link from "next/link";
-import OnlyCovertsCheckbox from "@/components/SettingsCheckboxes";
+import SettingsCheckboxes from "@/components/SettingsCheckboxes";
 import PersonalItemHistory, {
   TotalSpend,
 } from "@/components/PersonalItemHistory";
@@ -17,9 +17,13 @@ export default ({
     <main id="main" className="select-none">
       <div className="flex min-h-screen flex-col py-2 backdrop-blur-md">
         <span className="text-center text-3xl font-medium">
-          Last 100 {onlyCoverts ? "coverts" : "items"} unboxed by you
+          Last 100 {onlyCoverts ? "coverts" : "items"} unboxed by you.
         </span>
 
+        <span className="text-center">
+          {" "}
+          These are only items saved in your browser.
+        </span>
         <TotalSpend onlyCoverts={onlyCoverts === "true"} />
 
         <Link
@@ -32,7 +36,7 @@ export default ({
         <hr className="mx-auto mt-5 w-full px-20 opacity-30" />
 
         <div className="my-2 flex justify-center">
-          <OnlyCovertsCheckbox />
+          <SettingsCheckboxes hidePersonalCheckbox />
         </div>
 
         <PersonalItemHistory onlyCoverts={onlyCoverts === "true"} />
