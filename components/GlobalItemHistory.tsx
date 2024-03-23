@@ -3,8 +3,14 @@ import { getItemsFromDB } from "@/lib/actions";
 import Item from "./Item";
 import { GradeType } from "@/types";
 
-export default async ({ onlyCoverts }: { onlyCoverts: boolean }) => {
-  const unboxedItems = await getItemsFromDB(onlyCoverts);
+export default async ({
+  onlyCoverts,
+  onlyPersonal,
+}: {
+  onlyCoverts: boolean;
+  onlyPersonal: boolean;
+}) => {
+  const unboxedItems = await getItemsFromDB(onlyCoverts, onlyPersonal);
 
   return (
     <div className="flex flex-wrap justify-center gap-8 px-2 lg:px-16">

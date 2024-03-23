@@ -1,5 +1,5 @@
 import Link from "next/link";
-import OnlyCovertsCheckbox from "@/components/OnlyCovertsCheckbox";
+import OnlyCovertsCheckbox from "@/components/SettingsCheckboxes";
 import PersonalItemHistory, {
   TotalSpend,
 } from "@/components/PersonalItemHistory";

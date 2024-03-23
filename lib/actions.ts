@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { z } from "zod";
-import { count, desc, inArray, max } from "drizzle-orm";
+import { and, count, desc, eq, inArray, max } from "drizzle-orm";
 import { CaseDataType, ItemType, ItemTypeDB } from "@/types";
 import { db } from "./db";
 import { items } from "./db/schema";
@@ -121,12 +121,20 @@ export const addItemsToDB = async (
 
 export const getItemsFromDB = async (
   onlyCoverts?: boolean,
+  onlyPersonal?: boolean,
 ): Promise<ItemTypeDB[] | false> => {
   try {
     const rows = await db
       .select()
       .from(items)
-      .where(onlyCoverts ? itemIsCovert : undefined)
+      .where(
+        and(
+          onlyCoverts ? itemIsCovert : undefined,
+          onlyPersonal
+            ? itemIsPersonal(await getOrCreateUnboxerIdCookie())
+            : undefined,
+        ),
+      )
       .orderBy(desc(items.id))
       .limit(100);
 
@@ -139,12 +147,20 @@ export const getItemsFromDB = async (
 
 export const getTotalItemsFromDB = async (
   onlyCoverts?: boolean,
+  onlyPersonal?: boolean,
 ): Promise<number | false> => {
   try {
     const totalItems = await db
-      .select({ value: onlyCoverts ? count() : max(items.id) })
+      .select({ value: onlyCoverts || onlyPersonal ? count() : max(items.id) })
       .from(items)
-      .where(onlyCoverts ? itemIsCovert : undefined);
+      .where(
+        and(
+          onlyCoverts ? itemIsCovert : undefined,
+          onlyPersonal
+            ? itemIsPersonal(await getOrCreateUnboxerIdCookie())
+            : undefined,
+        ),
+      );
 
     return totalItems[0].value ?? 0;
   } catch (error) {
@@ -180,3 +196,4 @@ export const getOrCreateUnboxerIdCookie = async (): Promise<string> => {
 };
 
 const itemIsCovert = inArray(items.rarity, ["Covert", "Extraordinary"]);
+const itemIsPersonal = (id: string) => eq(items.unboxerId, id);

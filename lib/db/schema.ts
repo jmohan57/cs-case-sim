@@ -32,6 +32,7 @@ export const items = mysqlTable(
   table => {
     return {
       idxRarity: index("idx_rarity").on(table.rarity),
+      idxUnboxerId: index("idx_unboxer_id").on(table.unboxerId),
       caseSimItemsId: primaryKey({
         columns: [table.id],
         name: "case_sim_items_id",
