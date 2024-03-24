@@ -71,10 +71,10 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
 
   // Set up the initial interval
   useEffect(() => {
-    // Send the batch to the DB every 3 seconds
+    // Send the batch to the DB every 5 seconds
     const timer = setInterval(() => {
       sendBatchToDB();
-    }, 3_000);
+    }, 5000);
 
     // Cleanup function
     return () => {
