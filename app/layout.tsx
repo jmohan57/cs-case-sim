@@ -1,6 +1,7 @@
 import BackgroundImage from "@/components/BackgroundImage";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
@@ -55,6 +56,7 @@ export default function RootLayout({
         <BackgroundImage />
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
