@@ -28,6 +28,20 @@ export const metadata: Metadata = {
   title: "Counter-Strike Case Simulator",
   description: "Open all the Counter-Strike cases you want for free!",
   metadataBase: new URL("https://case-sim.com"),
+  keywords: [
+    "counter-strike",
+    "csgo",
+    "cs:go",
+    "cs2",
+    "case",
+    "simulator",
+    "opening",
+    "sim",
+    "case opening",
+  ],
+  openGraph: {
+    url: "https://case-sim.com",
+  },
 };
 
 export default function RootLayout({
