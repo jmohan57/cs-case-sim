@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import casesLocal from "@/lib/data/cases.json";
+import souvenirCasesLocal from "@/lib/data/souvenir.json";
 import customCasesLocal from "@/lib/data/customCases.json";
 import casesMetadata from "@/lib/data/allCasesMetadata.json"; // https://bymykel.github.io/CSGO-API/api/en/crates.json -> json.map(x => ({ id: x.id, name: x.name }))
 import CaseSelect from "@/components/CaseSelect";
@@ -27,14 +29,14 @@ export default async function Home({ searchParams }: PageProps) {
   const { case: selectedCaseParam } = searchParams;
 
   const apis: { url: string; revalidateSeconds: number }[] = [
-    {
-      url: "https://bymykel.github.io/CSGO-API/api/en/crates/cases.json",
-      revalidateSeconds: 3600,
-    },
-    {
-      url: "https://bymykel.github.io/CSGO-API/api/en/crates/souvenir.json",
-      revalidateSeconds: 3600,
-    },
+    // {
+    //   url: "https://bymykel.github.io/CSGO-API/api/en/crates/cases.json",
+    //   revalidateSeconds: 3600,
+    // },
+    // {
+    //   url: "https://bymykel.github.io/CSGO-API/api/en/crates/souvenir.json",
+    //   revalidateSeconds: 3600,
+    // },
     ...(searchParams.key
       ? [
           {
@@ -52,15 +54,17 @@ export default async function Home({ searchParams }: PageProps) {
     }).then(res => res.json()),
   );
 
-  const [cases, souvenirPackages, customCasesFromAPI] =
+  const [/*cases, souvenirPackages, */ customCasesFromAPI] =
     await Promise.all(promises);
 
   // Combine the case data arrays
   const casesData: CaseDataType[] = [
-    ...cases,
+    // ...cases,
+    ...casesLocal,
     ...(searchParams.key ? customCasesFromAPI : []),
     ...customCasesLocal,
-    ...souvenirPackages,
+    ...souvenirCasesLocal,
+    // ...souvenirPackages,
   ];
 
   const caseMetadata = casesData.map(x => ({
