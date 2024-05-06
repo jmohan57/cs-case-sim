@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // For when deployed with Docker (on Railway, etc.)
+  // output: "standalone",
   images: {
     remotePatterns: [
       {
