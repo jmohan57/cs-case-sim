@@ -55,8 +55,8 @@ export default function RootLayout({
       <body className={`${stratumFont.className} text-white`}>
         <BackgroundImage />
         {children}
-        <Analytics />
-        <SpeedInsights />
+        <Analytics scriptSrc="/va/script.js" />
+        <SpeedInsights scriptSrc="/si/script.js" />
       </body>
     </html>
   );
