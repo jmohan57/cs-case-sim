@@ -3,6 +3,8 @@ import Link from "next/link";
 import RefreshButton from "@/components/RefreshButton";
 import SettingsCheckboxes from "@/components/SettingsCheckboxes";
 import GlobalItemHistory from "@/components/GlobalItemHistory";
+import Button from "@/components/Button";
+import Icons from "@/components/icons";
 import { getTotalItemsFromDB } from "@/lib/actions";
 
 export const metadata = {
@@ -16,7 +18,15 @@ export default ({
 }) => {
   return (
     <main id="main" className="select-none">
-      <div className="flex min-h-screen flex-col py-2 backdrop-blur-md">
+      <div className="relative flex min-h-screen flex-col py-2 backdrop-blur-md">
+        <Button
+          variant="secondary-darker"
+          href="/"
+          className="size-fit absolute inset-2 p-1 max-[650px]:hidden"
+        >
+          <Icons.chevronLeft className="size-6" />
+        </Button>
+
         <span className="text-center text-3xl font-medium">
           Last 100 {onlyCoverts ? "coverts" : "items"} unboxed by{" "}
           {onlyPersonal ? "you" : "the community"}
