@@ -30,7 +30,7 @@
     "postcss": "^8",
     "prettier": "^3.1.1",
     "prettier-plugin-tailwindcss": "^0.5.10",
-    "tailwindcss": "^3",
+    "tailwindcss": "^3.4.3",
     "typescript": "^5"
   }
 }
