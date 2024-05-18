@@ -22,7 +22,7 @@ export default ({
         <Button
           variant="secondary-darker"
           href="/"
-          className="size-fit absolute inset-2 p-1 max-[650px]:hidden"
+          className="absolute inset-2 size-fit p-1 max-[650px]:hidden"
         >
           <Icons.chevronLeft className="size-6" />
         </Button>
@@ -58,6 +58,10 @@ export default ({
             onlyPersonal={onlyPersonal === "true"}
           />
         </Suspense>
+
+        <span className="my-5 place-items-end text-center">
+          Older non-covert items are regularly deleted from the database.
+        </span>
       </div>
     </main>
   );
