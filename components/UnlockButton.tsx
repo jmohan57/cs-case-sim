@@ -42,9 +42,6 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
   // Load unboxed items from localStorage
   useEffect(() => {
     try {
-      // TODO: Remove later. Removes old data from localStorage
-      localStorage.removeItem("unboxedItems");
-
       setUnboxedItems(
         JSON.parse(localStorage.getItem("unboxedItemsNew") || "[]"),
       );
