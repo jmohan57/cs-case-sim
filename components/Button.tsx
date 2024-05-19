@@ -8,6 +8,7 @@ type Props = {
   className?: string;
   disabled?: boolean;
   href?: string;
+  openInNewTab?: boolean;
   playSoundOnClick?: boolean;
   onClick?: () => void;
   children: React.ReactNode;
@@ -18,6 +19,7 @@ export default ({
   className: extraClassNames,
   disabled,
   href,
+  openInNewTab,
   playSoundOnClick = true,
   onClick,
   children,
@@ -36,6 +38,7 @@ export default ({
   return href ? (
     <Link
       href={href}
+      target={openInNewTab ? "_blank" : undefined}
       className={className.className}
       onMouseEnter={playHover}
       onClick={playClick}

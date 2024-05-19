@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Button from "./Button";
 import gradeColors from "@/utils/gradeColors";
+import Icons from "./icons";
 import { GradeType, ItemType } from "@/types";
 
 type Props = {
@@ -27,6 +28,11 @@ export default ({
     } in the Counter-Strike Case Simulator!\n\nTry here:`,
   );
   itemShareUrl.searchParams.set("url", "case-sim.com");
+
+  const steamMarketUrl = new URL(
+    "https://steamcommunity.com/market/search?appid=730",
+  );
+  steamMarketUrl.searchParams.set("q", item?.name ?? "");
 
   return (
     <dialog
@@ -82,7 +88,16 @@ export default ({
             </div>
           )}
 
-          <div className="flex justify-end gap-1">
+          <div className="flex flex-wrap justify-end gap-1">
+            <Button
+              variant="secondary"
+              href={steamMarketUrl.href}
+              openInNewTab
+              className="mr-auto flex items-center"
+            >
+              <Icons.steam className="size-7" />
+            </Button>
+
             <Button
               variant="secondary"
               onClick={() => unboxedDialogRef.current?.close()}
