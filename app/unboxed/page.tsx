@@ -86,10 +86,12 @@ const TotalSpend = async ({
 
   return (
     <span className="text-center">
-      <span className="font-medium">{totalUnboxed.toLocaleString("en")}</span>{" "}
+      <span className="font-medium tracking-wide">
+        {totalUnboxed.toLocaleString("en")}
+      </span>{" "}
       {onlyCoverts ? "coverts" : "items"} unboxed.{" "}
       <span
-        className="font-medium"
+        className="font-medium tracking-wide"
         title={`That's $${formatDecimal(totalUnboxed * 2.5)}`}
       >
         {formatDecimal(totalUnboxed * 2.35)}€
