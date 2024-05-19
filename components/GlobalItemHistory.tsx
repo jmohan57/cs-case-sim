@@ -15,7 +15,7 @@ export default async ({
   return (
     <div className="flex flex-wrap justify-center gap-8 px-2 lg:px-16">
       {unboxedItems && unboxedItems.length === 0 && (
-        <span>
+        <span className="text-center">
           No items found. Go open some{" "}
           <Link href="/" className="font-medium hover:underline">
             here
