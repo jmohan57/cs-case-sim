@@ -189,7 +189,7 @@ export default async function Home({ searchParams }: PageProps) {
               className="cursor-not-allowed"
               playSoundOnClick={false}
             >
-              Close
+              CLOSE
             </Button>
           </div>
         </div>

@@ -138,7 +138,7 @@ export default ({ caseData }: { caseData: CaseDataType }) => {
         variant="secondary"
         onClick={() => historyDialogRef.current?.showModal()}
       >
-        History
+        HISTORY
       </Button>
 
       <Button
