@@ -6,6 +6,7 @@ import GlobalItemHistory from "@/components/GlobalItemHistory";
 import Button from "@/components/Button";
 import Icons from "@/components/icons";
 import { getTotalItemsFromDB } from "@/lib/actions";
+import { formatDecimal } from "@/utils/formatters";
 
 export const metadata = {
   title: "Global Unbox History | Counter-Strike Case Simulator",
@@ -87,12 +88,11 @@ const TotalSpend = async ({
     <span className="text-center">
       <span className="font-medium">{totalUnboxed.toLocaleString("en")}</span>{" "}
       {onlyCoverts ? "coverts" : "items"} unboxed.{" "}
-      <span className="font-medium">
-        {(totalUnboxed * 2.35).toLocaleString("en", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}
-        €
+      <span
+        className="font-medium"
+        title={`That's $${formatDecimal(totalUnboxed * 2.5)}`}
+      >
+        {formatDecimal(totalUnboxed * 2.35)}€
       </span>{" "}
       spent on imaginary keys.
       <RefreshButton />

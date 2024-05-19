@@ -3,23 +3,13 @@
 import Link from "next/link";
 import Button from "./Button";
 import gradeColors from "@/utils/gradeColors";
+import { formatDecimal, formatPercentage } from "@/utils/formatters";
 import { GradeType, ItemTypeLocalStorage } from "@/types";
 
 type Props = {
   historyDialogRef: React.MutableRefObject<HTMLDialogElement | null>;
   unboxedItems: ItemTypeLocalStorage[];
   setUnboxedItems: React.Dispatch<React.SetStateAction<ItemTypeLocalStorage[]>>;
-};
-
-const formatDecimal = (number: number, minimumFractionDigits = 0) =>
-  number.toLocaleString("en", {
-    minimumFractionDigits,
-    maximumFractionDigits: 2,
-  });
-
-const formatPercentage = (percentage: number) => {
-  if (isNaN(percentage)) return "(0.00%)";
-  return `(${(percentage * 100).toFixed(2)}%)`;
 };
 
 export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
@@ -59,8 +49,8 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
           <span>
             Key spend:{" "}
             <span className="font-semibold">
-              {formatDecimal(unboxedItems.length * 2.35, 2)}€ ($
-              {formatDecimal(unboxedItems.length * 2.5, 2)})
+              {formatDecimal(unboxedItems.length * 2.35)}€ ($
+              {formatDecimal(unboxedItems.length * 2.5)})
             </span>
           </span>
 
@@ -88,10 +78,12 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
                     .filter(x => x.rarity.name === grade)
                     .length.toLocaleString("en")}{" "}
                   <span>
+                    (
                     {formatPercentage(
                       unboxedItems.filter(x => x.rarity.name === grade).length /
                         unboxedItems.length,
                     )}
+                    )
                   </span>
                 </span>
               </span>
@@ -111,11 +103,13 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
                 .length.toLocaleString("en")}{" "}
               {/* Percentage */}
               <span>
+                (
                 {formatPercentage(
                   unboxedItems.filter(
                     x => x.rarity.name === "Covert" && !x.name.includes("★"),
                   ).length / unboxedItems.length,
                 )}
+                )
               </span>
             </span>
           </span>
@@ -132,10 +126,12 @@ export default ({ historyDialogRef, unboxedItems, setUnboxedItems }: Props) => {
                 .length.toLocaleString("en")}{" "}
               {/* Percentage */}
               <span>
+                (
                 {formatPercentage(
                   unboxedItems.filter(x => x.name.includes("★")).length /
                     unboxedItems.length,
                 )}
+                )
               </span>
             </span>
           </span>
