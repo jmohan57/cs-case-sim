@@ -71,6 +71,11 @@ export default (
           unboxedItem.name = statTrakPrefix + unboxedItem.name.replace("★", "");
         }
 
+        // If souvenir package, add the "Souvenir" prefix
+        if (caseData.type === "Souvenir") {
+          unboxedItem.name = `Souvenir ${unboxedItem.name}`;
+        }
+
         // Add the item to the item buffer if it's not a custom case
         if (!caseData.id.startsWith("crate-custom")) {
           itemBuffer.current = [
