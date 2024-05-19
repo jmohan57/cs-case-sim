@@ -29,7 +29,11 @@ export default ({
 
         <span className="text-center text-3xl font-medium">
           Last 100 {onlyCoverts ? "coverts" : "items"} unboxed by{" "}
-          {onlyPersonal ? "you" : "the community"}
+          {onlyPersonal ? (
+            <span title="As identified by an anonymous cookie.">you</span>
+          ) : (
+            "the community"
+          )}
         </span>
 
         <Suspense fallback={<span className="text-center">Loading...</span>}>
@@ -59,9 +63,11 @@ export default ({
           />
         </Suspense>
 
-        <span className="my-5 place-items-end text-center">
-          Older non-covert items are regularly deleted from the database.
-        </span>
+        {onlyPersonal && !onlyCoverts && (
+          <span className="my-5 place-items-end text-center">
+            Older non-covert items are regularly deleted from the database.
+          </span>
+        )}
       </div>
     </main>
   );
