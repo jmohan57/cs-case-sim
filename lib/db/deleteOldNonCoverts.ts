@@ -7,9 +7,9 @@ const deleteOldNonCovertItems = async (batchSize: number) => {
     return;
   }
 
-  // Query to delete items older than 2 months that are not covert items
+  // Query to delete items older than 1 month that are not covert items
   const query =
-    "DELETE FROM case_sim_items WHERE unboxed_at < DATE_SUB(CURRENT_DATE, INTERVAL 2 MONTH) AND rarity NOT IN ('Covert', 'Extraordinary') LIMIT ?";
+    "DELETE FROM case_sim_items WHERE unboxed_at < DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH) AND rarity NOT IN ('Covert', 'Extraordinary') LIMIT ?";
 
   let totalRowsDeleted = 0;
   const operationStart = performance.now();
@@ -26,8 +26,9 @@ const deleteOldNonCovertItems = async (batchSize: number) => {
 
     console.log(
       `✓ Deleted ${response.rowsAffected.toLocaleString("en")} rows in ${(
-        currentBatchEnd - currentBatchStart
-      ).toFixed()}ms`,
+        (currentBatchEnd - currentBatchStart) /
+        1000
+      ).toFixed()}s`,
     );
 
     // If fewer than the chosen batchSize amount of rows are deleted, there are no more rows to delete
@@ -36,7 +37,7 @@ const deleteOldNonCovertItems = async (batchSize: number) => {
       console.log(
         `✓ Complete. No more rows to delete. Deleted ${totalRowsDeleted.toLocaleString(
           "en",
-        )} rows in ${(operationEnd - operationStart).toFixed()}ms`,
+        )} rows in ${((operationEnd - operationStart) / 1000).toFixed()}s`,
       );
       break;
     }
