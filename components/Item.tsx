@@ -33,7 +33,7 @@ export default ({
       >
         <img
           className={`${isSpecial ? "h-full w-full object-cover" : "p-2"}`}
-          src={image ?? "/images/m4a4_howl.png"}
+          src={image ?? "/m4a4_howl.png"}
           alt={`${itemName} image`}
           draggable={false}
         />
@@ -46,7 +46,7 @@ export default ({
       >
         <img
           className={`${isSpecial ? "h-full w-full object-cover" : "p-2"}`}
-          src={image ?? "/images/m4a4_howl.png"}
+          src={image ?? "/m4a4_howl.png"}
           alt={`${itemName} image`}
           draggable={false}
         />
