@@ -56,6 +56,9 @@ export default ({
         <div className="my-2 flex justify-center">
           <SettingsCheckboxes />
         </div>
+        <div className="my-2 flex justify-center">
+          <SettingsCheckboxes />
+        </div>
 
         <Suspense fallback={<span className="text-center">Loading...</span>}>
           <GlobalItemHistory
