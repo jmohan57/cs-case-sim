@@ -105,7 +105,6 @@ export const TotalSpend = ({ onlyCoverts }: { onlyCoverts: boolean }) => {
         })}
         €
       </span>{" "}
-      spent on imaginary keys.
     </span>
   );
 };
