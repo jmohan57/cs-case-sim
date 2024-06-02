@@ -1,6 +1,3 @@
 // Hallo this is jeffrey
-<<<<<<< venomsnake0777
-
+// hello this is scriptwritter
 // Hallo this is venomsnake
-=======
->>>>>>> main
