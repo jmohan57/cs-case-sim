@@ -44,12 +44,6 @@ export default ({
           borderColor: gradeColors[grade] ?? gradeColors["Mil-Spec Grade"],
         }}
       >
-        <img
-          className={`${isSpecial ? "h-full w-full object-cover" : "p-2"}`}
-          src={image ?? "/m4a4_howl.png"}
-          alt={`${itemName} img`}
-          draggable={false}
-        />
       </div>
 
       <div className="flex flex-col px-px text-sm text-white">
