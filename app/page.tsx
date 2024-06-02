@@ -123,6 +123,7 @@ export default async function Home({ searchParams }: PageProps) {
                 { minimumFractionDigits: 2 },
               )} on Steam.`}
             >
+              
               ($
               {selectedCasePrice.toLocaleString("en", {
                 minimumFractionDigits: 2,
@@ -130,6 +131,10 @@ export default async function Home({ searchParams }: PageProps) {
               )
             </span>
           )}
+
+          {
+            console.log("test")
+          }
         </h4>
 
         <img
