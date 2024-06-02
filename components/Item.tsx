@@ -38,13 +38,6 @@ export default ({
           draggable={false}
         />
       </div>
-      <div
-        className={`flex h-32 w-44 items-center justify-center border-b-[6px] bg-gradient-to-b from-neutral-600 to-neutral-400 shadow-md transition-all group-hover:shadow-lg group-hover:drop-shadow-lg`}
-        style={{
-          borderColor: gradeColors[grade] ?? gradeColors["Mil-Spec Grade"],
-        }}
-      >
-      </div>
 
       <div className="flex flex-col px-px text-sm text-white">
         <span className="font-semibold tracking-wider">{itemName}</span>
