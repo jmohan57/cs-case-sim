@@ -101,7 +101,7 @@ export const TotalSpend = ({ onlyCoverts }: { onlyCoverts: boolean }) => {
         {(unboxedItemsAmount * 2.5).toLocaleString("en", {
           minimumFractionDigits: 2,
         })}
-        €
+        €€
       </span>{" "}
     </span>
   );
