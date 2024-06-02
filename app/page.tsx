@@ -59,12 +59,12 @@ export default async function Home({ searchParams }: PageProps) {
 
   // Combine the case data arrays
   const casesData: CaseDataType[] = [
-    // ...cases,
+    ...cases,
     ...casesLocal,
     ...(searchParams.key ? customCasesFromAPI : []),
     ...customCasesLocal,
     ...souvenirCasesLocal,
-    // ...souvenirPackages,
+    ...souvenirPackages,
   ];
 
   const caseMetadata = casesData.map(x => ({
@@ -123,6 +123,7 @@ export default async function Home({ searchParams }: PageProps) {
                 { minimumFractionDigits: 2 },
               )} on Steam.`}
             >
+              
               ($
               {selectedCasePrice.toLocaleString("en", {
                 minimumFractionDigits: 2,
@@ -130,6 +131,10 @@ export default async function Home({ searchParams }: PageProps) {
               )
             </span>
           )}
+
+          {
+            console.log("test")
+          }
         </h4>
 
         <img
@@ -184,13 +189,6 @@ export default async function Home({ searchParams }: PageProps) {
 
             <div className="mx-2 h-16 w-px bg-white/50" />
 
-            <Button
-              variant="secondary"
-              className="cursor-not-allowed"
-              playSoundOnClick={false}
-            >
-              CLOSE
-            </Button>
           </div>
         </div>
       </div>
