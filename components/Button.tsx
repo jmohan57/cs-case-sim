@@ -25,7 +25,6 @@ export default ({
   children,
 }: Props) => {
   const [playHover] = useSound("/audio/buttonhover.mp3");
-  const [playClick] = useSound("/audio/buttonclick.mp3");
 
   const className = {
     className: `select-none rounded p-3 text-lg font-semibold transition-colors duration-[40ms] disabled:bg-neutral-500 ${extraClassNames} ${
