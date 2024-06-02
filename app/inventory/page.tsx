@@ -19,9 +19,6 @@ export default ({
       <span className="text-center text-3xl font-medium">
           Last 100 {onlyCoverts ? "coverts" : "items"} unboxed by you
         </span>
-        <span className="text-center text-3xl font-medium">
-          Last 100 {onlyCoverts ? "coverts" : "items"} unboxed by you
-        </span>
 
         <span className="text-center">
           {" "}
