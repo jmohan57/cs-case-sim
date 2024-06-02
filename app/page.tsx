@@ -59,7 +59,7 @@ export default async function Home({ searchParams }: PageProps) {
 
   // Combine the case data arrays
   const casesData: CaseDataType[] = [
-    // ...cases,
+    ...cases,
     ...casesLocal,
     ...(searchParams.key ? customCasesFromAPI : []),
     ...customCasesLocal,
