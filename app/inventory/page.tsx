@@ -32,6 +32,12 @@ export default ({
         >
           Open some more!
         </Link>
+        <Link
+          href="/"
+          className="mx-auto w-fit text-center text-lg font-medium hover:underline"
+        >
+          Open some more!
+        </Link>
 
         <hr className="mx-auto mt-5 w-full px-20 opacity-30" />
 
