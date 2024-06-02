@@ -67,6 +67,12 @@ export default ({
           />
         </Suspense>
 
+        {
+          console.log(
+            "error:"
+          )
+        }
+
         {onlyPersonal && !onlyCoverts && (
           <span className="my-5 place-items-end text-center">
             Older non-covert items are regularly deleted from the database.
