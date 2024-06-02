@@ -102,7 +102,6 @@ export const TotalSpend = ({ onlyCoverts }: { onlyCoverts: boolean }) => {
       <span className="font-medium">
         {(unboxedItemsAmount * 2.5).toLocaleString("en", {
           minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
         })}
         €
       </span>{" "}
