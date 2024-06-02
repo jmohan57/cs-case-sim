@@ -56,6 +56,9 @@ export default ({
         <div className="my-2 flex justify-center">
           <SettingsCheckboxes />
         </div>
+        <div className="my-2 flex justify-center">
+          <SettingsCheckboxes />
+        </div>
 
         <Suspense fallback={<span className="text-center">Loading...</span>}>
           <GlobalItemHistory
@@ -78,6 +81,10 @@ export default ({
       </div>
     </main>
   );
+};
+
+export const metatester = {
+  title: "Global Unbox History | Counter-Strike Case Simulator",
 };
 
 const test = async ({str}:{str: string}) => {
