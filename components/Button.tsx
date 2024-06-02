@@ -11,7 +11,6 @@ type Props = {
   openInNewTab?: boolean;
   playSoundOnClick?: boolean;
   onClick?: () => void;
-  children: React.ReactNode;
 };
 
 export default ({
