@@ -64,7 +64,7 @@ export default async function Home({ searchParams }: PageProps) {
     ...(searchParams.key ? customCasesFromAPI : []),
     ...customCasesLocal,
     ...souvenirCasesLocal,
-    // ...souvenirPackages,
+    ...souvenirPackages,
   ];
 
   const caseMetadata = casesData.map(x => ({
