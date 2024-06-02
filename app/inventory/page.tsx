@@ -38,9 +38,6 @@ export default ({
         <div className="my-2 flex justify-center">
           <SettingsCheckboxes hidePersonalCheckbox />
         </div>
-        <div className="my-2 flex justify-center">
-          <SettingsCheckboxes hidePersonalCheckbox />
-        </div>
 
         <PersonalItemHistory onlyCoverts={onlyCoverts === "true"} />
       </div>
