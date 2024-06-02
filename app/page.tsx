@@ -189,13 +189,6 @@ export default async function Home({ searchParams }: PageProps) {
 
             <div className="mx-2 h-16 w-px bg-white/50" />
 
-            <Button
-              variant="secondary"
-              className="cursor-not-allowed"
-              playSoundOnClick={false}
-            >
-              CLOSE
-            </Button>
           </div>
         </div>
       </div>
