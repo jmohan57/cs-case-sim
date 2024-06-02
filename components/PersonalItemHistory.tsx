@@ -96,8 +96,6 @@ export const TotalSpend = ({ onlyCoverts }: { onlyCoverts: boolean }) => {
 
   return (
     <span className="text-center">
-      <span className="font-medium">
-      </span>{" "}
       {onlyCoverts ? "coverts" : "items"} unboxed.{" "}
       <span className="font-medium">
         {(unboxedItemsAmount * 2.5).toLocaleString("en", {
