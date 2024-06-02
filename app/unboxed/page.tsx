@@ -77,6 +77,11 @@ export default ({
   );
 };
 
+export const metatester = {
+  title: "Global Unbox History | Counter-Strike Case Simulator",
+};
+
+
 const TotalSpend = async ({
   onlyCoverts,
   onlyPersonal,
