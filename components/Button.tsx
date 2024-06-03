@@ -51,7 +51,7 @@ export default ({
       disabled={disabled}
       autoFocus={children === "RETRY"}
       onClick={() => {
-        if (typeof onClick === "function") onClick();
+        if (typeof onClick === "object") onClick();
         if (playSoundOnClick) playClick();
       }}
     >
