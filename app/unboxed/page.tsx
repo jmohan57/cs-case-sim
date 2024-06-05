@@ -87,7 +87,6 @@ const TotalSpend = async ({
   onlyPersonal: boolean;
 }) => {
   const totalUnboxed = await getTotalItemsFromDB(onlyCoverts, onlyPersonal);
-  if (totalUnboxed === false) return null;
 
   return (
     <span className="text-center">
