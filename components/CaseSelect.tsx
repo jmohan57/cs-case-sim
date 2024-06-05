@@ -32,7 +32,7 @@ export default ({
   return (
     <div className="flex gap-2">
       <select
-        className="w-full cursor-pointer rounded bg-transparent p-2 text-lg font-semibold tracking-wide backdrop-blur-md transition-colors duration-[40ms] hover:bg-black/50 focus-visible:bg-black/50"
+        className="w-full cursor-pointer rounded bg-transparent p-2 text-lg font-semibold tracking-wide backdrop-blur-md hover:bg-black/50 focus-visible:bg-black/50"
         value={caseParam ?? availableCases[0].id}
         onClick={playClick}
         onMouseEnter={playHover}
@@ -59,8 +59,8 @@ export default ({
       </select>
 
       <Button
-        variant="secondary-darker"
-        className="py-0 backdrop-blur-md"
+        variant="secondary-darker-theme"
+        className="py-0"
         playSoundOnClick={false}
         onClick={() =>
           selectCase(
