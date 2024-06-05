@@ -28,15 +28,6 @@ export default ({
           <Icons.chevronLeft className="size-6" />
         </Button>
 
-        <span className="text-center text-3xl font-medium">
-          Last 100 {onlyCoverts ? "coverts" : "items"} unboxed by{" "}
-          {onlyPersonal ? (
-            <span title="As identified by an anonymous cookie.">you</span>
-          ) : (
-            "the community"
-          )}
-        </span>
-
         <Suspense fallback={<span className="text-center">Loading...</span>}>
           <TotalSpend
             onlyCoverts={onlyCoverts === "true"}
@@ -87,11 +78,6 @@ export const metatester = {
   title: "Global Unbox History | Counter-Strike Case Simulator",
 };
 
-const test = async ({str}:{str: string}) => {
-  {
-    console.log("Log here: ", str)
-  }
-}
 
 const TotalSpend = async ({
   onlyCoverts,
