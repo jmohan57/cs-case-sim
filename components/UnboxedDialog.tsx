@@ -9,31 +9,21 @@ import { GradeType, ItemType } from "@/types";
 type Props = {
   unboxedDialogRef: React.MutableRefObject<HTMLDialogElement | null>;
   historyDialogRef: React.MutableRefObject<HTMLDialogElement | null>;
-  item: ItemType | null;
   unlockButtonDisabled: boolean;
   openCaseFunc: (dontOpenDialog?: boolean) => void;
 };
 export default ({
   unboxedDialogRef,
   historyDialogRef,
-  item,
   unlockButtonDisabled,
   openCaseFunc,
 }: Props) => {
   const itemShareUrl = new URL("https://twitter.com/intent/tweet");
-  itemShareUrl.searchParams.set(
-    "text",
-    `I unboxed a ${item?.name}${
-      item?.phase ? ` (${item.phase})` : ""
-    } in the Counter-Strike Case Simulator!\n\nTry here:`,
-  );
   itemShareUrl.searchParams.set("url", "case-sim.com");
 
   const steamMarketUrl = new URL(
     "https://steamcommunity.com/market/search?appid=730",
   );
-  steamMarketUrl.searchParams.set("q", item?.name ?? "");
-
   return (
     <dialog
       className="mx-auto w-full max-w-lg border-[1px] border-white/30 bg-[#2d2d2d]/50 text-xl text-white backdrop-blur-xl backdrop:backdrop-blur-sm"
@@ -62,25 +52,12 @@ export default ({
                 target="_blank"
                 title="Share this pull on X / Twitter!"
               >
-                {item?.name} {item?.phase ? ` (${item.phase})` : ""}
               </Link>
             </span>
           </span>
         </div>
 
         <div className="flex flex-col p-2">
-          {item && (
-            <div>
-              <img
-                key={item.id}
-                src={item.image}
-                alt={`${item.name} image`}
-                width={512}
-                height={384}
-                draggable={false}
-              />
-            </div>
-          )}
 
           <div className="flex flex-wrap justify-end gap-1">
             <Button
