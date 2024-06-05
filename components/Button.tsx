@@ -11,7 +11,6 @@ type Props = {
   openInNewTab?: boolean;
   playSoundOnClick?: boolean;
   onClick?: () => void;
-  children: React.ReactNode;
 };
 
 export default ({
@@ -25,7 +24,6 @@ export default ({
   children,
 }: Props) => {
   const [playHover] = useSound("/audio/buttonhover.mp3");
-  const [playClick] = useSound("/audio/buttonclick.mp3");
 
   const className = {
     className: `select-none rounded p-3 text-lg font-semibold transition-colors duration-[40ms] disabled:bg-neutral-500 ${extraClassNames} ${
@@ -52,7 +50,7 @@ export default ({
       disabled={disabled}
       autoFocus={children === "RETRY"}
       onClick={() => {
-        if (typeof onClick === "function") onClick();
+        if (typeof onClick === "object") onClick();
         if (playSoundOnClick) playClick();
       }}
     >

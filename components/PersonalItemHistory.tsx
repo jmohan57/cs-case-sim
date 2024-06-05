@@ -22,7 +22,6 @@ export default ({ onlyCoverts }: { onlyCoverts: boolean }) => {
                   item.rarity.name === "Covert" ||
                   item.rarity.name === "Extraordinary",
               )
-              .slice(0, 100)
           : unboxedItemsLocalStorage.slice(0, 100),
       );
     } catch (error) {
