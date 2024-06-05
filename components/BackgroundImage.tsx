@@ -20,6 +20,7 @@ export default () => (
       height: "100%",
       width: "100%",
       zIndex: -5,
+      display: "none"
     }}
   />
 );
