@@ -9,17 +9,17 @@ const stratumFont = localFont({
   src: [
     {
       path: "./Stratum2WebRegular.woff",
-      weight: "400",
+      weight: "600",
       style: "normal",
     },
     {
       path: "./Stratum2WebMedium.woff",
-      weight: "500",
+      weight: "700",
       style: "medium",
     },
     {
       path: "./Stratum2WebBold.woff",
-      weight: "700",
+      weight: "900",
       style: "bold",
     },
   ],
@@ -34,7 +34,6 @@ export const metadata: Metadata = {
     "csgo",
     "cs:go",
     "cs2",
-    "case",
     "simulator",
     "opening",
     "sim",
