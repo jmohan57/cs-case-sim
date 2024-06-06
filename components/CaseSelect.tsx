@@ -16,7 +16,6 @@ export default ({
   const [pending, startTransition] = useTransition();
   const caseParam = useSearchParams().get("case");
   const [playHover] = useSound("/audio/buttonhover.mp3");
-  const [playClick] = useSound("/audio/selectclick.mp3");
   const [playCaseSound, { stop: stopCaseSound }] = useSound(
     "/audio/caseselect.mp3",
   );
@@ -34,7 +33,6 @@ export default ({
       <select
         className="w-full cursor-pointer rounded bg-transparent p-2 text-lg font-semibold tracking-wide backdrop-blur-md hover:bg-black/50 focus-visible:bg-black/50"
         value={caseParam ?? availableCases[0].id}
-        onClick={playClick}
         onMouseEnter={playHover}
         onChange={e => selectCase(e.target.value)}
         style={{
