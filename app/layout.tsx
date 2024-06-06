@@ -18,7 +18,7 @@ const stratumFont = localFont({
       style: "medium",
     },
     {
-      path: "./Stratum2WebBold.woff",
+      path: "./Stratum2WebBolditalic.woff",
       weight: "900",
       style: "bold",
     },
