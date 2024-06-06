@@ -28,15 +28,6 @@ export default ({
           <Icons.chevronLeft className="size-6" />
         </Button>
 
-        <span className="text-center text-3xl font-medium">
-          Last 100 {onlyCoverts ? "coverts" : "items"} unboxed by{" "}
-          {onlyPersonal ? (
-            <span title="As identified by an anonymous cookie.">you</span>
-          ) : (
-            "the community"
-          )}
-        </span>
-
         <Suspense fallback={<span className="text-center">Loading...</span>}>
           <TotalSpend
             onlyCoverts={onlyCoverts === "true"}
@@ -48,17 +39,10 @@ export default ({
           href="/"
           className="mx-auto w-fit text-center text-lg font-medium hover:underline"
         >
-          Open some more!
+          Come here up!
         </Link>
 
         <hr className="mx-auto mt-5 w-full px-20 opacity-30" />
-
-        <div className="my-2 flex justify-center">
-          <SettingsCheckboxes />
-        </div>
-        <div className="my-2 flex justify-center">
-          <SettingsCheckboxes />
-        </div>
 
         <Suspense fallback={<span className="text-center">Loading...</span>}>
           <GlobalItemHistory
@@ -87,11 +71,6 @@ export const metatester = {
   title: "Global Unbox History | Counter-Strike Case Simulator",
 };
 
-const test = async ({str}:{str: string}) => {
-  {
-    console.log("Log here: ", str)
-  }
-}
 
 const TotalSpend = async ({
   onlyCoverts,
@@ -101,7 +80,6 @@ const TotalSpend = async ({
   onlyPersonal: boolean;
 }) => {
   const totalUnboxed = await getTotalItemsFromDB(onlyCoverts, onlyPersonal);
-  if (totalUnboxed === false) return null;
 
   return (
     <span className="text-center">

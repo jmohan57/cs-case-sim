@@ -8,9 +8,10 @@ import Item from "./Item";
 type Props = {
   items: ItemType[];
   rareItems: ItemType[];
+  temporary: ItemType[];
 };
 
-export default ({ items, rareItems }: Props) => {
+export default ({ items, rareItems, temporary }: Props) => {
   const [playHover] = useSound("/audio/itemhover.mp3");
 
   return (
@@ -39,6 +40,9 @@ export default ({ items, rareItems }: Props) => {
           playHover={playHover}
         />
       )}
+      {
+        console.log(temporary)
+      }
     </>
   );
 };
