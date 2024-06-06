@@ -1,9 +1,7 @@
-// Valve (at least in CS) always use 2 decimal places
-
 export const formatDecimal = (
   number: number,
   minimumFractionDigits = 2,
-  maximumFractionDigits = 2,
+  maximumFractionDigits = 8 ,
 ) =>
   (isNaN(number) ? 0 : number).toLocaleString("en", {
     minimumFractionDigits,
@@ -13,7 +11,7 @@ export const formatDecimal = (
 export const formatPercentage = (
   number: number,
   minimumFractionDigits = 2,
-  maximumFractionDigits = 2,
+  maximumFractionDigits = 5,
 ) =>
   (isNaN(number) ? 0 : number).toLocaleString("en", {
     style: "percent",
