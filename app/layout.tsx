@@ -35,7 +35,6 @@ export const metadata: Metadata = {
     "cs:go",
     "cs2",
     "simulator",
-    "sim",
     "case opening",
   ],
   openGraph: {
