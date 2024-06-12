@@ -18,7 +18,7 @@ const stratumFont = localFont({
       style: "medium",
     },
     {
-      path: "./Stratum2WebBold.woff",
+      path: "./Stratum2WebBolditalic.woff",
       weight: "900",
       style: "bold",
     },
@@ -35,7 +35,6 @@ export const metadata: Metadata = {
     "cs:go",
     "cs2",
     "simulator",
-    "opening",
     "sim",
     "case opening",
   ],
@@ -53,7 +52,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${stratumFont.className} text-white`}>
         <BackgroundImage />
-        {children}
         {children}
         <Analytics scriptSrc="/va/script.js" />
         <SpeedInsights scriptSrc="/si/script.js" />
