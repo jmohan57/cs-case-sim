@@ -23,9 +23,8 @@ export default ({ hidePersonalCheckbox }: Props) => {
 
   return (
     <div className="flex flex-wrap justify-center gap-x-2">
-      <div className="flex items-center">
-        <input
-          className="h-4 w-4 accent-[#048b59] disabled:cursor-not-allowed"
+      <div className="flex items-centerse">
+        <inputdisabled:cursor-not-allowed"
           style={{ colorScheme: "light" }}
           type="checkbox"
           id="onlyCovertsCheckbox"
