@@ -42,7 +42,7 @@ export default ({
             <span
               style={{
                 color: item?.name.includes("★")
-                  ? gradeColors["Special Item"]
+                  ? gradeColors["Special"]
                   : gradeColors[item?.rarity.name as GradeType],
               }}
             >
