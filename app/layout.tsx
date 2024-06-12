@@ -35,7 +35,6 @@ export const metadata: Metadata = {
     "cs:go",
     "cs2",
     "simulator",
-    "opening",
     "sim",
     "case opening",
   ],
