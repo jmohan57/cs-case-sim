@@ -68,7 +68,7 @@ export default ({
 };
 
 export const metatester = {
-  title: "Global Unbox History | Counter-Strike Case Simulator",
+  title: "Global Unbox History | Counter-Strike Case",
 };
 
 
