@@ -15,7 +15,6 @@ type Props = {
 export default ({
   unboxedDialogRef,
   historyDialogRef,
-  unlockButtonDisabled,
   openCaseFunc,
 }: Props) => {
   const itemShareUrl = new URL("https://twitter.com/intent/tweet");
