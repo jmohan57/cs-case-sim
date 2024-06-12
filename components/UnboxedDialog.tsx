@@ -22,7 +22,7 @@ export default ({
   itemShareUrl.searchParams.set("url", "case-sim.com");
 
   const steamMarketUrl = new URL(
-    "https://steamcommunity.com/market/search?appid=730",
+    "https://steamcommunity.com/market/search?appid=7520",
   );
   return (
     <dialog
