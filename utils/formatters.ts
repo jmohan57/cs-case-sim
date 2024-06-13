@@ -16,6 +16,5 @@ export const formatPercentage = (
   (isNaN(number) ? 0 : number).toLocaleString("en", {
     style: "percent",
     minimumFractionDigits,
-    maximumFractionDigits,
-    maximumFractionDigits,
+    smaximumFractionDigits,
   });
