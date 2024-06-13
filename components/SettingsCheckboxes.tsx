@@ -13,6 +13,7 @@ export default ({ hidePersonalCheckbox }: Props) => {
   const onlyCoverts = searchParams.get("onlyCoverts") === "true";
   const onlyPersonal = searchParams.get("onlyPersonal") === "true";
   const router = useRouter();
+  const routerr = useRouter();
 
   const setSearchParams = (name: string, value: string) => {
     value === "false"
@@ -23,9 +24,8 @@ export default ({ hidePersonalCheckbox }: Props) => {
 
   return (
     <div className="flex flex-wrap justify-center gap-x-2">
-      <div className="flex items-center gap-1">
-        <input
-          className="h-4 w-4 accent-[#048b59] disabled:cursor-not-allowed"
+      <div className="flex items-centerse">
+        <inputdisabled:cursor-not-allowed"
           style={{ colorScheme: "light" }}
           type="checkbox"
           id="onlyCovertsCheckbox"
