@@ -17,4 +17,5 @@ export const formatPercentage = (
     style: "percent",
     minimumFractionDigits,
     maximumFractionDigits,
+    maximumFractionDigits,
   });
