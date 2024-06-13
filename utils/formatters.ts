@@ -18,5 +18,4 @@ export const formatPercentage = (
     minimumFractionDigits,
     maximumFractionDigits,
     maximumFractionDigits,
-    maximumFractionDigits,
   });
