@@ -13,6 +13,7 @@ export default ({ hidePersonalCheckbox }: Props) => {
   const onlyCoverts = searchParams.get("onlyCoverts") === "true";
   const onlyPersonal = searchParams.get("onlyPersonal") === "true";
   const router = useRouter();
+  const routerr = useRouter();
 
   const setSearchParams = (name: string, value: string) => {
     value === "false"
